@@ -1,8 +1,9 @@
 # NATIA — Fase 0.3: Core ejecutable en memoria
 
-- **Estado:** Lista para implementación (tras [ADR-0003](adr/0003-core-domain-refinement.md))
+- **Estado:** Completada
 - **Fecha:** 2026-07-20
 - **Dependencias:** [DOMAIN-MODEL.md](DOMAIN-MODEL.md), [ARCHITECTURE.md](ARCHITECTURE.md), [ROADMAP.md](ROADMAP.md)
+- **Implementación:** [PHASE-0.3-IMPLEMENTATION-NOTES.md](PHASE-0.3-IMPLEMENTATION-NOTES.md)
 
 ---
 

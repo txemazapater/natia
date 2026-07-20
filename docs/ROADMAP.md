@@ -12,7 +12,7 @@ La primera prioridad ya no es «demostrar chat cuanto antes», sino **demostrar 
 |------|--------|--------|
 | 0.1 | Modelo de dominio | Completada |
 | 0.2 | Revisión crítica y consolidación arquitectónica | Completada (docs) |
-| 0.3 | Core ejecutable en memoria | Siguiente |
+| 0.3 | Core ejecutable en memoria | Completada |
 | 0.4 | Shell nativo | Pendiente |
 | 0.5 | Persistencia operacional y exportación | Pendiente |
 | 0.6 | Primer proveedor de IA | Pendiente |
@@ -93,6 +93,8 @@ Sin GUI, SQLite, MCP, providers reales, Docker, Git, plugins, HTTP real.
 ### Criterios de salida
 
 Todos los tests de aceptación de la Fase 0.3 en verde; ningún test acoplado a infraestructura prohibida.
+
+**Estado:** completada (Win32/Win64, 21 tests). Ver [PHASE-0.3-IMPLEMENTATION-NOTES.md](PHASE-0.3-IMPLEMENTATION-NOTES.md).
 
 ---
 

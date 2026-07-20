@@ -1,0 +1,20 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Delphi project stub: build via tools\build-and-test-win32.bat or open Natia.Core.Tests.dpr in the IDE. -->
+  <PropertyGroup>
+    <ProjectGuid>{A3C0FE03-0003-4A11-9E11-000000000002}</ProjectGuid>
+    <MainSource>Natia.Core.Tests.dpr</MainSource>
+    <Config Condition="'$(Config)'==''">Debug</Config>
+    <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    <ProjectName>Natia.Core.Tests</ProjectName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win32'">
+    <DCC_EXEOutput>..\..\artifacts\win32\</DCC_EXEOutput>
+    <DCC_DCUOutput>..\..\artifacts\win32\dcu\</DCC_DCUOutput>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="$(MainSource)">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+  </ItemGroup>
+  <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+</Project>

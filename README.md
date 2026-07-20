@@ -34,11 +34,22 @@ Se espera que el primer cliente de referencia use **Delphi y VCL** para construi
 
 ## Estado actual
 
-NATIA ha cerrado la **Fase 0.2** (revisión crítica y consolidación arquitectónica).
+NATIA ha completado la **[Fase 0.3 — Core ejecutable en memoria](docs/PHASE-0.3-EXECUTABLE-CORE.md)**.
 
-La siguiente fase es la **[Fase 0.3 — Core ejecutable en memoria](docs/PHASE-0.3-EXECUTABLE-CORE.md)**.
+El Core Object Pascal (Delphi 11.3) compila y se valida con DUnitX en Win32 y Win64, sin GUI, SQLite, red ni proveedores.
 
-Aún no existe implementación de producción del Core. La documentación define el dominio consolidado ([ADR-0003](docs/adr/0003-core-domain-refinement.md)) antes de escribir código.
+La siguiente fase prevista es el **shell nativo** (Fase 0.4), aún no iniciada.
+
+### Compilar y probar el Core
+
+Requisito: Delphi 11.3 (Studio 22.0).
+
+```bat
+tools\build-and-test-win32.bat
+tools\build-and-test-win64.bat
+```
+
+Notas técnicas: [PHASE-0.3-IMPLEMENTATION-NOTES.md](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md).
 
 ## Documentación
 
@@ -50,6 +61,7 @@ Aún no existe implementación de producción del Core. La documentación define
 - [Modelo de dominio del Core](docs/DOMAIN-MODEL.md)
 - [Revisión crítica del modelo](docs/DOMAIN-MODEL-REVIEW.md)
 - [Fase 0.3 — Core ejecutable](docs/PHASE-0.3-EXECUTABLE-CORE.md)
+- [Notas de implementación Fase 0.3](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md)
 - [Registros de decisiones de arquitectura](docs/adr/README.md)
 - [ADR-0001: Arquitectura workspace-first](docs/adr/0001-workspace-first-architecture.md)
 - [ADR-0002: Modelo de dominio (histórico, Superseded)](docs/adr/0002-workspace-domain-model.md)

@@ -1,0 +1,12 @@
+# Ignore build outputs
+artifacts/
+*.dcu
+*.exe
+*.local
+*.identcache
+*.stat
+*.dsk
+*.skincfg
+__history/
+__recovery/
+*.~*
