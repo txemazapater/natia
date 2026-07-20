@@ -2,291 +2,268 @@
 
 ## Filosofía del roadmap
 
-NATIA se desarrollará en pequeñas pruebas arquitectónicas. Cada fase debe dejar el proyecto usable, medible y más fácil de extender.
+NATIA se desarrolla en pruebas arquitectónicas pequeñas. Cada fase deja el proyecto más claro, medible y fácil de extender.
 
-El roadmap evita deliberadamente empezar con agentes autónomos, marketplaces complejos de plugins o un IDE completo. La primera prioridad es demostrar que una aplicación de IA de escritorio nativa puede ser rápida, estable y agradable de usar.
+La primera prioridad ya no es «demostrar chat cuanto antes», sino **demostrar el lenguaje de dominio y un Core desacoplado**. Sin eso, providers y conversaciones congelarían un modelo conversation-first incompatible con [ADR-0001](adr/0001-workspace-first-architecture.md) y [ADR-0003](adr/0003-core-domain-refinement.md).
 
-## Fase 0 — Fundación
+## Estado de las fases
+
+| Fase | Nombre | Estado |
+|------|--------|--------|
+| 0.1 | Modelo de dominio | Completada |
+| 0.2 | Revisión crítica y consolidación arquitectónica | Completada (docs) |
+| 0.3 | Core ejecutable en memoria | Siguiente |
+| 0.4 | Shell nativo | Pendiente |
+| 0.5 | Persistencia operacional y exportación | Pendiente |
+| 0.6 | Primer proveedor de IA | Pendiente |
+| 0.7 | Conversaciones reales en producto | Pendiente |
+| 0.8 | Recursos y conectores reales | Pendiente |
+| 0.9 | MCP y herramientas | Pendiente |
+| 1.0 | Primera versión pública | Pendiente |
+
+Detalle de la siguiente fase: [PHASE-0.3-EXECUTABLE-CORE.md](PHASE-0.3-EXECUTABLE-CORE.md).
+
+---
+
+## Fase 0.1 — Modelo de dominio
 
 ### Objetivo
 
-Convertir la idea en un proyecto con restricciones explícitas y una base de desarrollo reproducible.
+Definir el lenguaje interno del producto antes de escribir código de UI o infraestructura.
 
 ### Entregables
 
-- visión y principios;
+- visión, principios, manifiesto;
 - arquitectura inicial;
-- selección de licencia;
-- guías de contribución;
-- convenciones de codificación;
-- proceso inicial de Registros de Decisiones de Arquitectura;
-- esqueleto del proyecto Delphi;
-- instrucciones de compilación;
-- comprobaciones automatizadas básicas cuando sea práctico;
-- plan de medición de rendimiento.
+- ADR-0001 (Workspace-first);
+- primer modelo de dominio y ADR-0002 (histórico).
 
 ### Criterios de salida
 
-Un nuevo contribuidor puede entender qué es NATIA, compilar la aplicación vacía y saber cómo se registran las decisiones arquitectónicas.
+Existe un vocabulario compartido: Workspace, Runtime, Knowledge, Conversation, recursos, eventos.
 
-## Fase 0.1 — Shell nativo
+**Estado:** completada.
+
+---
+
+## Fase 0.2 — Revisión crítica y consolidación arquitectónica
 
 ### Objetivo
 
-Demostrar la experiencia de escritorio antes de añadir complejidad de IA.
+Intentar romper el modelo, corregir decisiones prematuras y eliminar contradicciones documentales.
 
 ### Entregables
 
-- ejecutable nativo de Windows;
-- ventana principal y esqueleto de navegación;
-- almacenamiento de ajustes;
-- registro estructurado;
-- gestión del ciclo de vida de la aplicación;
+- [DOMAIN-MODEL-REVIEW.md](DOMAIN-MODEL-REVIEW.md);
+- [ADR-0003](adr/0003-core-domain-refinement.md) (Accepted; reemplaza operativamente ADR-0002);
+- DOMAIN-MODEL, ARCHITECTURE y ROADMAP alineados;
+- alcance formal de la Fase 0.3.
+
+### Criterios de salida
+
+> Dos desarrolladores distintos podrían implementar el Core en memoria y producir modelos compatibles sin una reunión para interpretar la arquitectura.
+
+**Estado:** completada con la aceptación de ADR-0003 y la documentación consolidada.
+
+---
+
+## Fase 0.3 — Core ejecutable en memoria
+
+### Objetivo
+
+Construir un Core ejecutable y verificable **completamente en memoria** que demuestre el lenguaje de dominio consolidado.
+
+### Entregables
+
+Ver [PHASE-0.3-EXECUTABLE-CORE.md](PHASE-0.3-EXECUTABLE-CORE.md).
+
+Resumen:
+
+- domain / application / contracts;
+- repositorios y conectores in-memory;
+- Workspace, Runtime (N, RuntimeId), bindings, Conversation, Knowledge (Fact/Decision/Scratch);
+- Fact Events + envelope; Session/Signal fuera del journal;
+- `IWorkspaceExporter` sin filesystem;
+- suite de pruebas de aceptación.
+
+### Restricciones
+
+Sin GUI, SQLite, MCP, providers reales, Docker, Git, plugins, HTTP real.
+
+### Criterios de salida
+
+Todos los tests de aceptación de la Fase 0.3 en verde; ningún test acoplado a infraestructura prohibida.
+
+---
+
+## Fase 0.4 — Shell nativo
+
+### Objetivo
+
+Demostrar la experiencia de escritorio nativa sin contaminar el Core.
+
+### Entregables
+
+- ejecutable nativo Windows (Delphi/VCL);
+- ventana principal y navegación mínima;
+- almacenamiento de ajustes de aplicación (no del dominio del Workspace);
+- logging estructurado;
+- ciclo de vida de aplicación;
 - vista de diagnósticos;
-- mediciones de arranque y recursos en reposo;
-- instalación limpia y ejecución portable de desarrollo.
+- mediciones de arranque y reposo.
+
+El shell consume el Core (o un fachada) sin reimplementar reglas de dominio.
 
 ### Criterios de salida
 
-La aplicación arranca rápido, se cierra de forma predecible y permanece en reposo sin actividad innecesaria de CPU.
+Arranque rápido, cierre predecible, idle sin CPU innecesaria. El dominio sigue testeable sin GUI.
 
-## Fase 0.2 — Primer proveedor
+---
 
-### Objetivo
-
-Conectar NATIA a un endpoint genérico compatible con OpenAI.
-
-### Entregables
-
-- configuración de proveedor;
-- referencia segura a clave API;
-- prueba de conexión;
-- listado de modelos;
-- petición de chat básica;
-- salida en streaming;
-- errores normalizados;
-- cancelación inmediata;
-- diagnósticos de petición y respuesta con redacción de secretos.
-
-### Objetivos iniciales
-
-- Ollama;
-- LM Studio;
-- endpoints autoalojados compatibles con OpenAI;
-- opcionalmente OpenAI mismo para pruebas de interoperabilidad.
-
-### Criterios de salida
-
-Un usuario puede configurar un endpoint, seleccionar un modelo, enviar un prompt, ver la respuesta en streaming y cancelarla sin congelar la interfaz.
-
-## Fase 0.3 — Conversaciones y persistencia
+## Fase 0.5 — Persistencia operacional y exportación
 
 ### Objetivo
 
-Hacer NATIA útil como cliente diario fiable.
+Sustituir la memoria por la fuente operativa de verdad y demostrar exportación documental.
 
 ### Entregables
 
-- persistencia SQLite;
-- creación y renombrado de conversaciones;
-- historial de mensajes;
-- metadatos de proveedor/modelo por conversación;
-- estrategia de renderizado Markdown;
-- copia y exportación;
+- implementación del store operacional (candidato: SQLite);
+- journal de Fact Events;
 - recuperación tras apagado anormal;
-- ubicación de datos configurable.
+- ubicación de datos configurable;
+- `IWorkspaceExporter` hacia JSON/Markdown/JSONL en disco;
+- backup/restore documentado;
+- **sin** dual-write permanente.
 
 ### Criterios de salida
 
-Las conversaciones sobreviven al reinicio, pueden exportarse y no dependen de una cuenta remota.
+Un Workspace sobrevive al reinicio; export/import redondo sin pérdida de hechos esenciales; secretos nunca en el store en claro.
 
-## Fase 0.4 — Supervisión de tareas
+---
+
+## Fase 0.6 — Primer proveedor de IA
 
 ### Objetivo
 
-Establecer el modelo de ejecución para el trabajo en segundo plano.
+Conectar NATIA a un endpoint compatible con OpenAI sin acoplar el Workspace al vendor.
 
 ### Entregables
 
-- registro de tareas;
-- estados de tarea y eventos de progreso;
-- tokens de cancelación;
-- timeouts;
-- lanzamiento y supervisión de procesos worker;
-- heartbeat o informe de salud;
-- reinicio de worker tras fallo;
-- vista de actividad de tareas.
+- registro de Providers a nivel de aplicación;
+- referencia segura a API key (`SecretReference`);
+- prueba de conexión, listado de modelos;
+- chat básico + streaming + cancelación;
+- errores normalizados;
+- diagnósticos con redacción de secretos.
+
+### Objetivos iniciales de interoperabilidad
+
+Ollama, LM Studio, endpoints autoalojados; opcionalmente OpenAI.
 
 ### Criterios de salida
 
-Un worker bloqueado o caído deliberadamente no congela ni termina NATIA y puede recuperarse de forma visible.
+Configurar endpoint, elegir modelo, enviar prompt, ver stream y cancelar sin congelar la UI.
 
-## Fase 0.5 — Primera herramienta
+---
+
+## Fase 0.7 — Conversaciones reales en producto
 
 ### Objetivo
 
-Demostrar interacción segura modelo-herramienta.
+Hacer útiles las conversaciones del dominio en el producto diario (UI + persistencia ya existentes).
 
 ### Entregables
 
-- manifiesto y esquema de herramienta;
-- registro de herramientas;
-- herramienta de referencia de solo lectura;
-- flujo de aprobación del usuario;
-- ejecución en un proceso aislado;
-- entrada, salida y tiempo de ejecución acotados;
-- registro de auditoría;
-- resultado de herramienta devuelto al modelo.
-
-### Herramienta de referencia sugerida
-
-Un lector de filesystem restringido a una carpeta aprobada por el usuario.
+- creación/renombrado en shell;
+- historial de mensajes con carga perezosa;
+- metadatos provider/model por conversación;
+- renderizado Markdown;
+- copia y export de conversación;
+- promoción a Knowledge desde la UI.
 
 ### Criterios de salida
 
-El modelo puede solicitar una herramienta declarada, el usuario puede inspeccionarla y aprobarla, y la ejecución permanece aislada y auditable.
+Conversaciones usables a diario, exportables, sin cuenta remota obligatoria. El journal **no** crece un Fact Event por mensaje.
 
-## Fase 0.6 — Workspaces
+---
+
+## Fase 0.8 — Recursos y conectores reales
 
 ### Objetivo
 
-Ir más allá de chats aislados hacia contextos de trabajo persistentes.
+Sustituir conectores in-memory por Adapters reales bajo activation perezosa.
 
 ### Entregables
 
-- creación de workspace;
-- instrucciones del workspace;
-- carpetas permitidas;
-- modelo/proveedor preferido;
-- herramientas habilitadas;
-- definición de workspace no secreta exportable;
-- conversaciones e historial por workspace.
+- `FileLocation` real (ámbitos de carpeta);
+- `GenericEndpoint` / HTTP básico según necesidad;
+- `EnsureConnected` con fallos reales → Degraded/Failed;
+- ampliación controlada de kinds solo con evidencia;
+- auditoría mínima de conexiones (Session Events).
 
 ### Criterios de salida
 
-Un usuario puede mantener entornos distintos para desarrollo, administración de sistemas, documentación u otra actividad recurrente.
+Abrir Workspace no arranca el mundo; conectar un recurso es explícito; fallos no tiran el proceso UI.
 
-## Fase 0.7 — Integración MCP
+---
+
+## Fase 0.9 — MCP y herramientas
 
 ### Objetivo
 
-Permitir que NATIA consuma ecosistemas de herramientas abiertos existentes sin convertir MCP en la arquitectura interna.
+Consumir ecosistemas de herramientas abiertos sin hacer de MCP la arquitectura interna.
 
 ### Entregables
 
-- configuración de servidor MCP;
+- binding/configuración de servidor MCP;
 - transporte stdio;
-- supervisión del ciclo de vida del servidor;
-- descubrimiento de herramientas;
-- presentación de capacidades;
-- mapeo de permisos;
-- registros y gestión de fallos;
-- transporte remoto opcional tras estabilizar el modelo local.
+- supervisión de ciclo de vida;
+- descubrimiento de tools (catálogo de Connection, no bindings estáticos por tool);
+- permisos y aprobación;
+- una herramienta de referencia aislada.
 
 ### Criterios de salida
 
-Al menos un servidor MCP externo puede iniciarse, inspeccionarse y usarse sin comprometer el proceso principal.
+Al menos un MCP externo usable sin comprometer el proceso principal.
 
-## Fase 0.8 — Bucle de agente
-
-### Objetivo
-
-Introducir ejecución controlada en múltiples pasos.
-
-### Entregables
-
-- estado explícito de sesión de agente;
-- límites máximos de iteración;
-- presupuestos de tokens y tiempo;
-- bucle de llamadas a herramientas;
-- política de aprobación humana;
-- semántica de parar, pausar y reanudar;
-- resumen de razonamiento o traza de acciones visible sin exponer internals ocultos del modelo;
-- informe final de ejecución.
-
-### Criterios de salida
-
-Un agente puede completar una tarea acotada de varios pasos mientras el usuario conserva el control y puede entender cada acción externa.
-
-## Fase 0.9 — SDK de extensiones
-
-### Objetivo
-
-Hacer NATIA extensible sin hacer frágil el proceso principal.
-
-### Entregables
-
-- especificación del manifiesto de extensión;
-- protocolo de extensión versionado;
-- ejemplo de extensión de proveedor;
-- ejemplo de extensión de herramienta;
-- contrato de ciclo de vida de procesos;
-- declaraciones de capacidades y permisos;
-- documentación para desarrolladores;
-- política de compatibilidad.
-
-### Criterios de salida
-
-Un tercero puede construir y ejecutar una extensión pequeña sin modificar el árbol de código fuente de NATIA ni cargar código arbitrario en el proceso de UI.
+---
 
 ## Fase 1.0 — Primera versión pública
 
 ### Objetivo
 
-Entregar un banco de trabajo de IA nativo estable, adecuado para uso diario real.
+Banco de trabajo de IA nativo estable para uso diario.
 
 ### Cualidades requeridas
 
-- arranque rápido y medible;
-- flujo de conversación estable;
-- soporte de proveedores locales y remotos;
-- persistencia recuperable;
-- herramientas y workers supervisados;
-- workspaces;
-- soporte MCP;
-- agentes controlados básicos;
-- ruta de extensión documentada;
-- instalador y paquete portable;
-- documentación de migración y respaldo;
-- documentación de seguridad y privacidad.
+- arranque medible;
+- Workspace-first usable;
+- store + export;
+- provider local y remoto;
+- conversaciones y knowledge;
+- tools/MCP supervisados;
+- agentes controlados básicos (si la evidencia lo justifica antes);
+- documentación de seguridad, backup y migración;
+- instalador / portable.
+
+---
 
 ## Direcciones post-1.0
 
-Trabajo futuro posible, sujeto a evidencia y demanda de la comunidad:
-
-- contextos más ricos de documentos e imágenes;
-- índices semánticos locales y RAG;
-- flujos de trabajo de terminal y desarrollo;
-- integración con Git;
-- tareas programadas y en segundo plano;
-- workers NATIA remotos;
-- ediciones especializadas o paquetes de workspace;
-- experimentos con Lazarus o clientes alternativos;
-- mejoras de accesibilidad;
-- política empresarial y despliegue;
-- descubrimiento de extensiones y paquetes firmados;
-- colaboración y sincronización opcional.
+Sujeto a evidencia: RAG local, terminal/Git profundos, workers remotos / SAPIENS, colaboración, sync, packs de Workspace, clientes alternativos (Lazarus), marketplace solo tras protocolo de extensión estable.
 
 ## Funcionalidades deliberadamente aplazadas
 
-Lo siguiente no es prioridad inicial:
-
-- entrenar o afinar modelos;
-- un runtime de modelos propio;
-- operación autónoma irrestricta;
-- funcionalidad de IDE embebida basada en navegador;
-- requisito de cuenta en la nube propietaria;
-- marketplace de extensiones antes de que el protocolo de extensión sea estable;
-- paridad completa de UI multiplataforma;
-- reemplazar estándares establecidos sin una necesidad demostrada.
+Entrenamiento de modelos, runtime de modelos propio, autonomía irrestricta, IDE embebido en navegador, cuenta cloud propietaria obligatoria, paridad UI multiplataforma completa, estándares nuevos sin necesidad demostrada.
 
 ## Definición de progreso
 
 Una fase no está completa porque exista código. Está completa cuando:
 
-- la funcionalidad se comporta de forma predecible;
-- los modos de fallo son visibles;
-- el uso de recursos está medido;
+- el comportamiento es predecible;
+- los fallos son visibles;
+- el uso de recursos está medido cuando aplica;
 - la documentación coincide con la realidad;
-- los datos del usuario pueden recuperarse;
-- la arquitectura permanece más simple que antes.
+- los datos del usuario pueden recuperarse (desde 0.5);
+- la arquitectura permanece más simple que la tentación de sobreingeniería.

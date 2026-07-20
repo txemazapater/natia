@@ -1,9 +1,10 @@
 # NATIA — Revisión crítica del modelo de dominio (Fase 0.2)
 
-- **Estado:** Propuesto
+- **Estado:** Histórico (Fase 0.2 cerrada)
 - **Fecha:** 2026-07-20
-- **Alcance:** Revisión de [DOMAIN-MODEL.md](DOMAIN-MODEL.md) y [ADR-0002](adr/0002-workspace-domain-model.md). Sin implementación.
-- **Postura:** ADR-0002 permanece **Proposed**. Este documento intenta demostrar dónde es incorrecto, incompleto o prematuro.
+- **Alcance:** Revisión de DOMAIN-MODEL y ADR-0002. Sin implementación.
+- **Seguimiento:** Las correcciones vinculantes están en [ADR-0003](adr/0003-core-domain-refinement.md). El modelo vigente es [DOMAIN-MODEL.md](DOMAIN-MODEL.md).
+- **Postura original:** ADR-0002 permanecía Proposed; este documento intentó demostrar dónde era incorrecto, incompleto o prematuro.
 
 ---
 
@@ -15,7 +16,9 @@ Sin embargo, **ADR-0002 no debe aceptarse tal cual**.
 
 El modelo mezcla decisiones sólidas con sobreespecificación prematura, deja sin resolver varios casos que el propio manifiesto promete, e invierte la decisión de persistencia de forma peligrosa para la integridad.
 
-**Conclusión:** el modelo es suficientemente sólido para comenzar un Core ejecutable **en memoria**, siempre que se apliquen primero las correcciones de la sección «Deben resolverse antes de implementar». Sin esas correcciones, la Fase 0.3 congelaría errores caros.
+**Conclusión (en el momento de la revisión):** el modelo es suficientemente sólido para comenzar un Core ejecutable **en memoria**, siempre que se apliquen primero las correcciones de la sección «Deben resolverse antes de implementar».
+
+**Resolución:** esas correcciones quedaron formalizadas en [ADR-0003](adr/0003-core-domain-refinement.md) (Accepted). ADR-0002 está **Superseded**. La Fase 0.3 está definida en [PHASE-0.3-EXECUTABLE-CORE.md](PHASE-0.3-EXECUTABLE-CORE.md).
 
 ---
 

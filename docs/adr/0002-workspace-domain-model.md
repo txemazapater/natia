@@ -1,7 +1,10 @@
 # ADR-0002: Modelo de dominio del Workspace
 
-- Estado: Propuesto
+- Estado: Superseded
 - Fecha: 2026-07-20
+- Reemplazado por: [ADR-0003](0003-core-domain-refinement.md)
+
+> **Nota histórica.** Este ADR documenta el primer intento de formalizar el dominio Workspace-first. Su tesis central permanece válida. Las decisiones operativas corregidas por la [revisión crítica](../DOMAIN-MODEL-REVIEW.md) viven ahora en ADR-0003. El cuerpo siguiente se conserva como registro histórico; **no es la especificación vigente**.
 
 ## Contexto
 

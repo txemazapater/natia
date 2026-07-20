@@ -11,6 +11,14 @@ Debe crearse un ADR cuando una decisión:
 - cree una obligación de compatibilidad a largo plazo;
 - sería difícil de entender más tarde solo a partir del código.
 
+## Índice
+
+| ADR | Título | Estado |
+|-----|--------|--------|
+| [0001](0001-workspace-first-architecture.md) | Arquitectura workspace-first | Accepted |
+| [0002](0002-workspace-domain-model.md) | Modelo de dominio del Workspace | Superseded por 0003 |
+| [0003](0003-core-domain-refinement.md) | Refinamiento del dominio y perímetro mínimo del Core | Accepted |
+
 ## Nomenclatura
 
 Usar un número secuencial y un título conciso:
@@ -27,6 +35,8 @@ Usar un número secuencial y un título conciso:
 - Superseded (Reemplazado)
 - Rejected (Rechazado)
 - Deprecated (Obsoleto)
+
+Cuando un ADR es reemplazado, se marca **Superseded** y se enlaza al ADR nuevo. No se reescribe la historia del ADR antiguo.
 
 ## Plantilla
 

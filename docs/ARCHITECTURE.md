@@ -2,321 +2,195 @@
 
 ## Estado
 
-Este documento describe la dirección arquitectónica inicial. Es intencionalmente consciente de la tecnología, pero aún no es una especificación de implementación. Las decisiones que se vuelvan vinculantes deben registrarse después como Registros de Decisiones de Arquitectura en `docs/adr/`.
+Este documento describe la dirección arquitectónica vigente tras [ADR-0001](adr/0001-workspace-first-architecture.md) y [ADR-0003](adr/0003-core-domain-refinement.md).
+
+No es aún una especificación de implementación completa. Las decisiones vinculantes viven en `docs/adr/`. El modelo de dominio detallado está en [DOMAIN-MODEL.md](DOMAIN-MODEL.md). El alcance inmediato del Core está en [PHASE-0.3-EXECUTABLE-CORE.md](PHASE-0.3-EXECUTABLE-CORE.md).
 
 ## Objetivos arquitectónicos
 
 NATIA debe proporcionar:
 
 - un shell de escritorio nativo e inmediatamente responsivo;
-- acceso no bloqueante a modelos de IA locales y remotos;
-- supervisión explícita del trabajo en segundo plano;
+- un Core desacoplado de UI, store concreto, proveedores y herramientas;
+- acceso no bloqueante a modelos locales y remotos (fases posteriores);
+- supervisión explícita del trabajo en segundo plano (fases posteriores);
 - aislamiento de extensiones y operaciones de riesgo;
 - independencia de proveedores;
-- persistencia local transparente y recuperable;
-- un camino estable desde una primera versión pequeña hasta un banco de trabajo de agentes completo.
+- una única fuente operativa de verdad, transaccional y recuperable, con exportación documental obligatoria;
+- un camino estable desde el Core en memoria hasta un banco de trabajo completo.
 
 ## Forma propuesta del sistema
 
 ```text
 +------------------------------------------------------------+
-| NATIA Desktop                                              |
-|                                                            |
-|  UI nativa                                                 |
-|  - workspaces                                              |
-|  - conversaciones                                          |
-|  - selección de modelo y proveedor                         |
-|  - actividad, aprobaciones y diagnósticos                  |
+| NATIA Desktop (Shell)                                      |
+|  UI nativa — workspaces, conversaciones, diagnósticos      |
 +-------------------------------+----------------------------+
                                 |
-                                | comandos/eventos internos tipados
+                                | comandos / eventos tipados
                                 v
 +------------------------------------------------------------+
 | NATIA Core                                                 |
-|                                                            |
-|  session manager       registro de proveedores             |
-|  coordinador de agentes política de permisos               |
-|  supervisor de tareas  persistencia                        |
-|  bus de eventos        diagnósticos                        |
+|  domain · application · contracts                          |
+|  Workspace, Runtime, Conversation, Knowledge, Fact Events  |
 +----------+------------------+-------------------+-----------+
            |                  |                   |
            v                  v                   v
 +----------------+  +------------------+  +-------------------+
-| Model workers  |  | Tool workers     |  | Extension hosts   |
-|                |  |                  |  |                   |
-| OpenAI API     |  | filesystem       |  | servidores MCP    |
-| Ollama         |  | shell/proceso    |  | plugins externos  |
-| LM Studio      |  | Git              |  | apps especializadas|
-| autoalojado    |  | HTTP/base de datos| |                   |
+| Infraestructura|  | Providers        |  | Workers / hosts   |
+| store operativo|  | (adapters IA)    |  | tools, MCP, …     |
+| export         |  |                  |  |                   |
 +----------------+  +------------------+  +-------------------+
 ```
 
-## 1. Shell de escritorio
+## 1. Desktop shell
 
-El shell de escritorio posee el ciclo de vida visible de la aplicación y la experiencia de usuario nativa.
+El shell posee el ciclo de vida visible y la experiencia nativa.
 
 Responsabilidades:
 
 - arranque y apagado de la aplicación;
 - ventanas, navegación y controles nativos;
-- comportamiento de teclado y accesibilidad;
-- presentación de conversaciones y salida en streaming;
-- selección de workspace;
+- presentación de conversaciones y streaming;
+- selección de Workspace;
 - aprobaciones del usuario;
-- estado de tareas y workers;
+- estado de tareas y workers (cuando existan);
 - diagnósticos orientados al usuario.
 
-El shell no debe ejecutar inferencia del modelo, indexación ni herramientas sin límite en su hilo de UI.
+El shell **no** ejecuta inferencia, indexación ni herramientas en el hilo de UI.
 
 ### Plataforma inicial
 
-El primer cliente de referencia debe orientarse a Windows usando Delphi y VCL. Esta es una decisión de producto deliberada: el primer objetivo es construir una excelente aplicación nativa de Windows en lugar de un shell multiplataforma comprometido.
-
-La compatibilidad multiplataforma debe perseguirse a nivel de protocolo y bibliotecas del núcleo antes de prometer múltiples clientes gráficos.
+Cliente de referencia: Windows, Delphi y VCL. Compatibilidad multiplataforma primero en protocolos y Core, no en UI.
 
 ## 2. Core
 
-El núcleo coordina el estado de la aplicación sin depender directamente de controles visuales.
+El Core coordina el dominio y los casos de uso **sin** depender de controles visuales ni de infraestructura concreta.
 
-Responsabilidades candidatas:
+### Qué contiene el Core
 
-- registro de proveedores y modelos;
-- ciclo de vida de conversaciones y workspaces;
-- construcción de peticiones;
-- normalización de eventos en streaming;
-- coordinación del bucle de agente;
-- cancelación de tareas y política de timeouts;
-- evaluación de permisos de herramientas;
-- supervisión de workers;
-- orquestación de persistencia;
-- registro estructurado.
+```text
+domain/
+application/
+contracts/
+```
 
-El núcleo debe usar interfaces y estructuras de datos simples que puedan probarse sin iniciar la GUI.
+Responsabilidades del perímetro actual ([ADR-0003](adr/0003-core-domain-refinement.md)):
 
-## 3. Proveedores
+- ciclo de vida de Workspace y WorkspaceRuntime;
+- bindings embebidos y EnsureConnected vía contratos;
+- Conversation y Message;
+- KnowledgeEntry (Fact, Decision, Scratch);
+- Fact Events y Event Envelope;
+- puertos de repositorio, journal, connector y exporter.
 
-Un proveedor es un adaptador entre NATIA y un servicio de modelos.
+### Qué no contiene el Core
 
-Un contrato mínimo de proveedor debería cubrir eventualmente:
+- SQLite ni cualquier store concreto;
+- filesystem;
+- UI (VCL/FMX);
+- proveedores de IA concretos;
+- MCP;
+- Docker;
+- Git;
+- secretos resueltos;
+- procesos externos;
+- carpetas prematuras: `projections/`, `services/` genérico, `workers/`, `authority/`, `identity/` ricos.
 
-- prueba de conexión;
-- descubrimiento de modelos;
-- descripción de capacidades;
-- creación de chat o respuesta;
-- streaming de tokens/eventos;
-- cancelación;
-- embeddings cuando estén soportados;
-- intercambio de llamadas a herramientas;
-- informe normalizado de errores.
+El Core debe probarse por completo con repositorios y conectores **en memoria**.
 
-Proveedores de ejemplo:
+Los conceptos «session manager», «agent coordinator», «task supervisor» de borradores anteriores se reinterpretan como casos de uso o módulos futuros **fuera** del perímetro 0.3, nunca como un objeto dios «Workspace Engine». Las responsabilidades de continuidad descritas en ADR-0001 se realizan como **application use cases** sobre el dominio, no como un motor monolítico dentro del agregado Workspace.
 
-- endpoint genérico compatible con OpenAI;
-- OpenAI;
-- Ollama;
-- LM Studio;
-- SAPIENS u otra pasarela autoalojada;
-- adaptadores específicos de proveedor añadidos después.
+## 3. Providers
 
-NATIA no debe reducir todos los proveedores al mínimo común denominador. Debe coexistir una línea base compartida con capacidades opcionales descubribles.
+Un **Provider** es un Adapter registrado a nivel de **aplicación** para modelos de IA.
+
+El Workspace solo almacena preferencias opacas (`providerId`, `modelId`). Endpoints, secretos y configuración machine-specific viven fuera del Workspace.
+
+Contrato futuro (no Fase 0.3): prueba de conexión, descubrimiento de modelos, chat/streaming, cancelación, tool-calls, errores normalizados.
 
 ## 4. Tareas, hilos y procesos
 
-NATIA debe distinguir claramente tres conceptos.
+Distinción vigente para fases posteriores al Core en memoria:
 
-### Tareas de UI
-
-Operaciones pequeñas que actualizan el estado de presentación. Permanecen en el hilo principal y deben completarse rápido.
-
-### Tareas en segundo plano
-
-Operaciones acotadas adecuadas para hilos worker, como parsear una respuesta, leer configuración o transformar datos.
-
-### Procesos worker
-
-Operaciones de larga duración, no confiables, intensivas en memoria o propensas a fallos, incluyendo:
-
-- ejecución de herramientas;
-- indexación de repositorios;
-- procesamiento de documentos;
-- sesiones de shell;
-- extensiones de terceros;
-- servidores MCP;
-- puentes especializados a modelos locales.
-
-El proceso principal actúa como supervisor. Los workers deben exponer señales de salud, ciclo de vida y cancelación. Un worker fallido debe poder reiniciarse sin reiniciar la aplicación.
+- **Tareas de UI** — hilo principal, cortas.
+- **Tareas en segundo plano** — hilos worker acotados.
+- **Procesos worker** — herramientas, MCP, indexación, extensiones; supervisados y reiniciables.
 
 ## 5. Comunicación entre procesos
 
-Aún no se ha seleccionado un mecanismo IPC final.
+IPC aún no seleccionado (named pipes, TCP local, stdio, HTTP/WebSocket, MCP cuando encaje).
 
-Candidatos para la implementación de referencia en Windows:
+El protocolo interno deberá soportar: request ids, eventos asíncronos, streaming, cancelación, heartbeats, errores estructurados, negociación de versión, tamaños acotados.
 
-- named pipes;
-- sockets TCP locales;
-- entrada/salida estándar para herramientas ejecutables simples;
-- HTTP o WebSocket para servicios alojados de forma independiente;
-- MCP cuando su semántica encaje con la integración.
-
-El protocolo interno elegido debe soportar:
-
-- identificadores de petición;
-- eventos asíncronos;
-- streaming;
-- cancelación;
-- heartbeats;
-- errores estructurados;
-- negociación de versión;
-- tamaños de mensaje acotados.
-
-No se requiere automáticamente un protocolo binario. La simplicidad y la inspectabilidad son importantes durante las primeras fases.
+En el Core, los **Signal Events** son el lenguaje de streaming/UI; no entran en el journal de dominio.
 
 ## 6. Herramientas y agentes
 
-Una herramienta es una capacidad declarada con un esquema, requisitos de permisos y una implementación de ejecución.
+Herramienta = capacidad declarada con esquema y permisos. Agente = coordinador de modelo + herramientas + política.
 
-Un agente es un coordinador que puede combinar interacción con el modelo, herramientas, estado y política para perseguir una tarea.
-
-Estos conceptos deben permanecer separados. Una herramienta debe poder invocarse sin requerir un bucle de agente completamente autónomo, y un agente no debe recibir acceso irrestricto al sistema solo porque un modelo lo haya solicitado.
-
-Cada herramienta debe declarar al menos:
-
-- identificador y versión;
-- propósito legible por humanos;
-- esquema de entrada y salida;
-- clasificación lectura/escritura/destructiva;
-- permisos requeridos;
-- política de timeout;
-- host de ejecución;
-- representación de auditoría.
+Separados. Fuera del perímetro de la Fase 0.3.
 
 ## 7. Extensiones
 
-El límite preferido de extensión es fuera de proceso.
-
-Una extensión puede proporcionar:
-
-- herramientas;
-- adaptadores de proveedores;
-- importadores y exportadores;
-- fuentes de contexto;
-- workers especializados;
-- contribuciones de UI mediante una superficie de extensión restringida.
-
-Los plugins nativos en DLL cargados en el proceso principal no deben ser el mecanismo por defecto porque comparten memoria, privilegios y estado de fallo con la aplicación.
-
-Un paquete de extensión futuro puede incluir:
-
-```text
-extension/
-  manifest.json
-  bin/
-  schemas/
-  resources/
-  README.md
-```
-
-El formato de paquete y descubrimiento permanece sin decidir.
+Preferencia: fuera de proceso. Fuera de Fase 0.3.
 
 ## 8. Persistencia
 
-SQLite es el candidato principal para el estado local estructurado.
+Principio ([ADR-0003](adr/0003-core-domain-refinement.md)):
 
-Datos potencialmente almacenados:
+> Una única fuente operativa de verdad, transaccional y recuperable.
 
-- proveedores y configuración no secreta;
-- caché de metadatos de modelos;
-- workspaces;
-- conversaciones y mensajes;
-- registros de ejecución de herramientas;
-- estado de tareas;
-- registro de extensiones;
-- ajustes de aplicación.
+- Candidato operacional futuro: **SQLite**.
+- Exportación obligatoria: JSON / Markdown / JSONL bajo demanda.
+- **Sin dual-write** permanente archivos ↔ base.
+- Journal de **Fact Events** en el store operacional (o outbox ligado a él).
+- Secretos: credential store del SO / DPAPI; solo `SecretReference` en el dominio.
 
-Los secretos no deben almacenarse en texto plano en la base de datos. En Windows, debe considerarse el administrador de credenciales o almacenamiento respaldado por DPAPI.
-
-Los datos importantes del usuario deben ser exportables en formatos documentados como JSON, Markdown o JSON Lines.
+La Fase 0.3 usa únicamente repositorios en memoria. La Fase 0.5 introducirá el store operacional y el export real.
 
 ## 9. Workspaces
 
-Un workspace agrupa el contexto requerido para un tipo de trabajo.
+El Workspace es la entidad primaria del producto ([ADR-0001](adr/0001-workspace-first-architecture.md)).
 
-Puede contener:
+Posee o referencia: identidad, instrucciones, bindings, preferencias de modelo, knowledge, conversaciones (particionadas), Fact Events.
 
-- instrucciones;
-- proveedores y modelos preferidos;
-- carpetas permitidas;
-- herramientas habilitadas;
-- configuración de extensiones;
-- servidores MCP;
-- historial de conversaciones;
-- política de aprobación;
-- variables de entorno o referencias a secretos.
-
-Los workspaces deben ser portables cuando sea posible, mientras que las rutas específicas de la máquina y los secretos permanezcan claramente separados.
+La ejecución concreta es un **WorkspaceRuntime** (1:N, con `RuntimeId`). Activation perezosa: abrir ≠ conectar todos los recursos. Detalle: [DOMAIN-MODEL.md](DOMAIN-MODEL.md).
 
 ## 10. Modelo de seguridad
 
-NATIA asume que la salida del modelo es entrada no confiable.
+La salida del modelo es entrada no confiable. Líneas de defensa futuras: mínimo privilegio, ámbitos explícitos, aprobaciones, redacción de secretos, auditoría, límites de tiempo/salida.
 
-El diseño de seguridad debe incluir:
+Primera línea: autoridad explícita e inspectable. No se implementa el motor completo en Fase 0.3.
 
-- ejecución con mínimo privilegio;
-- ámbitos explícitos de carpetas y recursos;
-- puertas de aprobación para acciones destructivas;
-- separación entre capacidades de lectura y escritura;
-- redacción de secretos;
-- registros de auditoría;
-- tiempo de ejecución y salida acotados;
-- controles de terminación de procesos;
-- indicación clara de transmisión de datos remotos.
-
-Un sandbox futuro puede mejorar el aislamiento, pero la primera línea de defensa es un modelo de autoridad pequeño, explícito e inspectable.
-
-## 11. Propuesta de estructura de código fuente
+## 11. Estructura de código fuente (provisional)
 
 ```text
 /
   README.md
   LICENSE
-  CONTRIBUTING.md
   docs/
-    VISION.md
-    PRINCIPLES.md
-    ARCHITECTURE.md
-    ROADMAP.md
-    adr/
   src/
     core/
-    protocols/
-    providers/
-    persistence/
-    platform/
-      windows/
-    ui/
-      vcl/
-    workers/
+      domain/
+      application/
+      contracts/
+    infrastructure/     # store, export real — después de 0.3
+    providers/          # después
+    platform/windows/
+    ui/vcl/             # shell — Fase 0.4
+    workers/            # después
   tests/
-  tools/
+    core/               # Fase 0.3: suite en memoria
 ```
 
-Este layout es provisional. El núcleo portable debe evitar dependencias visuales y aislar el código específico de plataforma.
+## 12. Pruebas arquitectónicas por fase
 
-## 12. Primera prueba arquitectónica
+| Fase | Demostración |
+|------|----------------|
+| 0.3 | Core en memoria; dominio consolidado; tests de aceptación |
+| 0.4 | Shell nativo sin acoplar dominio a VCL |
+| 0.5 | Store operacional + export |
+| 0.6+ | Provider, conversaciones reales, conectores, MCP |
 
-El primer ejecutable debe demostrar la arquitectura más que el número de funcionalidades.
-
-Debe demostrar:
-
-1. arranque nativo;
-2. configuración de proveedor;
-3. descubrimiento de modelos;
-4. salida de conversación en streaming;
-5. cancelación inmediata;
-6. comportamiento de UI no bloqueante;
-7. persistencia local;
-8. una herramienta externa aislada;
-9. fallo y recuperación de worker;
-10. uso de recursos medible.
-
-Si estos cimientos son correctos, se pueden añadir agentes, proveedores y herramientas adicionales sin convertir NATIA en un monolito.
+La primera prueba ejecutable del **dominio** es la Fase 0.3, no el conteo de features de UI.

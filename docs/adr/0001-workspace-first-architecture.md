@@ -58,18 +58,20 @@ La conversación seguirá siendo una interfaz de primera clase, pero será una s
 
 ## Dirección arquitectónica
 
-Un Workspace Engine dedicado coordinará:
+Las capacidades de continuidad del Workspace se realizan como **casos de uso de aplicación** sobre el dominio, no como un motor monolítico dentro del agregado persistente. Ver [ADR-0003](0003-core-domain-refinement.md) y [DOMAIN-MODEL.md](../DOMAIN-MODEL.md).
 
-- ciclo de vida y readiness del Workspace;
+Coordinación típica (repartida en application + infraestructura):
+
+- ciclo de vida y readiness del Workspace / Runtime;
 - consolidación de contexto y memoria;
-- registro de recursos y servicios;
-- contexto de identidad y permisos;
+- registro de recursos (bindings) y Connections en Runtime;
+- contexto de identidad y permisos (fases posteriores);
 - ingestión de actividad y detección de cambios;
 - síntesis del estado del proyecto;
 - conciencia del roadmap y las decisiones;
-- exportación, respaldo y portabilidad.
+- exportación, backup y portabilidad.
 
-Los subsistemas de proveedores, conversación, agentes y herramientas operarán dentro de un contexto explícito de Workspace.
+Los subsistemas de proveedores, conversación, agentes y herramientas operan dentro de un contexto explícito de Workspace / Runtime.
 
 ## Alternativas rechazadas
 

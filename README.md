@@ -34,21 +34,26 @@ Se espera que el primer cliente de referencia use **Delphi y VCL** para construi
 
 ## Estado actual
 
-NATIA está en la **Fase 0: Fundación**.
+NATIA ha cerrado la **Fase 0.2** (revisión crítica y consolidación arquitectónica).
 
-Aún no existe una implementación de producción. El repositorio define actualmente el manifiesto, la visión, las restricciones de ingeniería, la arquitectura inicial y el roadmap por fases antes de introducir código.
+La siguiente fase es la **[Fase 0.3 — Core ejecutable en memoria](docs/PHASE-0.3-EXECUTABLE-CORE.md)**.
+
+Aún no existe implementación de producción del Core. La documentación define el dominio consolidado ([ADR-0003](docs/adr/0003-core-domain-refinement.md)) antes de escribir código.
 
 ## Documentación
 
 - [Manifiesto de NATIA](MANIFESTO.md)
 - [Visión](docs/VISION.md)
 - [Principios de ingeniería](docs/PRINCIPLES.md)
-- [Arquitectura inicial](docs/ARCHITECTURE.md)
+- [Arquitectura](docs/ARCHITECTURE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Modelo de dominio del Core](docs/DOMAIN-MODEL.md)
+- [Revisión crítica del modelo](docs/DOMAIN-MODEL-REVIEW.md)
+- [Fase 0.3 — Core ejecutable](docs/PHASE-0.3-EXECUTABLE-CORE.md)
 - [Registros de decisiones de arquitectura](docs/adr/README.md)
 - [ADR-0001: Arquitectura workspace-first](docs/adr/0001-workspace-first-architecture.md)
-- [ADR-0002: Modelo de dominio del Workspace](docs/adr/0002-workspace-domain-model.md)
+- [ADR-0002: Modelo de dominio (histórico, Superseded)](docs/adr/0002-workspace-domain-model.md)
+- [ADR-0003: Refinamiento del dominio (vigente)](docs/adr/0003-core-domain-refinement.md)
 
 ## Principios fundamentales
 
