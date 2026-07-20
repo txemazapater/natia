@@ -1,292 +1,292 @@
 # NATIA — Roadmap
 
-## Roadmap philosophy
+## Filosofía del roadmap
 
-NATIA will be developed in small architectural proofs. Each phase must leave the project usable, measurable and easier to extend.
+NATIA se desarrollará en pequeñas pruebas arquitectónicas. Cada fase debe dejar el proyecto usable, medible y más fácil de extender.
 
-The roadmap deliberately avoids starting with autonomous agents, complex plugin marketplaces or a full IDE. The first priority is to prove that a native AI desktop application can be fast, stable and pleasant to use.
+El roadmap evita deliberadamente empezar con agentes autónomos, marketplaces complejos de plugins o un IDE completo. La primera prioridad es demostrar que una aplicación de IA de escritorio nativa puede ser rápida, estable y agradable de usar.
 
-## Phase 0 — Foundation
+## Fase 0 — Fundación
 
-### Objective
+### Objetivo
 
-Turn the idea into a project with explicit constraints and a reproducible development baseline.
+Convertir la idea en un proyecto con restricciones explícitas y una base de desarrollo reproducible.
 
-### Deliverables
+### Entregables
 
-- vision and principles;
-- initial architecture;
-- license selection;
-- contribution guidelines;
-- coding conventions;
-- initial Architecture Decision Record process;
-- Delphi project skeleton;
-- build instructions;
-- basic automated checks where practical;
-- performance measurement plan.
+- visión y principios;
+- arquitectura inicial;
+- selección de licencia;
+- guías de contribución;
+- convenciones de codificación;
+- proceso inicial de Registros de Decisiones de Arquitectura;
+- esqueleto del proyecto Delphi;
+- instrucciones de compilación;
+- comprobaciones automatizadas básicas cuando sea práctico;
+- plan de medición de rendimiento.
 
-### Exit criteria
+### Criterios de salida
 
-A new contributor can understand what NATIA is, build the empty application and know how architectural decisions are recorded.
+Un nuevo contribuidor puede entender qué es NATIA, compilar la aplicación vacía y saber cómo se registran las decisiones arquitectónicas.
 
-## Phase 0.1 — Native shell
+## Fase 0.1 — Shell nativo
 
-### Objective
+### Objetivo
 
-Prove the desktop experience before adding AI complexity.
+Demostrar la experiencia de escritorio antes de añadir complejidad de IA.
 
-### Deliverables
+### Entregables
 
-- native Windows executable;
-- main window and navigation skeleton;
-- settings storage;
-- structured logging;
-- application lifecycle management;
-- diagnostics view;
-- startup and idle resource measurements;
-- clean installation and portable development execution.
+- ejecutable nativo de Windows;
+- ventana principal y esqueleto de navegación;
+- almacenamiento de ajustes;
+- registro estructurado;
+- gestión del ciclo de vida de la aplicación;
+- vista de diagnósticos;
+- mediciones de arranque y recursos en reposo;
+- instalación limpia y ejecución portable de desarrollo.
 
-### Exit criteria
+### Criterios de salida
 
-The application starts quickly, closes predictably and remains idle without unnecessary CPU activity.
+La aplicación arranca rápido, se cierra de forma predecible y permanece en reposo sin actividad innecesaria de CPU.
 
-## Phase 0.2 — First provider
+## Fase 0.2 — Primer proveedor
 
-### Objective
+### Objetivo
 
-Connect NATIA to a generic OpenAI-compatible endpoint.
+Conectar NATIA a un endpoint genérico compatible con OpenAI.
 
-### Deliverables
+### Entregables
 
-- provider configuration;
-- secure API-key reference;
-- connection test;
-- model listing;
-- basic chat request;
-- streamed output;
-- normalized errors;
-- immediate cancellation;
-- request and response diagnostics with secret redaction.
+- configuración de proveedor;
+- referencia segura a clave API;
+- prueba de conexión;
+- listado de modelos;
+- petición de chat básica;
+- salida en streaming;
+- errores normalizados;
+- cancelación inmediata;
+- diagnósticos de petición y respuesta con redacción de secretos.
 
-### Initial targets
+### Objetivos iniciales
 
 - Ollama;
 - LM Studio;
-- OpenAI-compatible self-hosted endpoints;
-- optionally OpenAI itself for interoperability testing.
+- endpoints autoalojados compatibles con OpenAI;
+- opcionalmente OpenAI mismo para pruebas de interoperabilidad.
 
-### Exit criteria
+### Criterios de salida
 
-A user can configure an endpoint, select a model, send a prompt, watch the response stream and cancel it without freezing the interface.
+Un usuario puede configurar un endpoint, seleccionar un modelo, enviar un prompt, ver la respuesta en streaming y cancelarla sin congelar la interfaz.
 
-## Phase 0.3 — Conversations and persistence
+## Fase 0.3 — Conversaciones y persistencia
 
-### Objective
+### Objetivo
 
-Make NATIA useful as a dependable daily client.
+Hacer NATIA útil como cliente diario fiable.
 
-### Deliverables
+### Entregables
 
-- SQLite persistence;
-- conversation creation and renaming;
-- message history;
-- provider/model metadata per conversation;
-- Markdown rendering strategy;
-- copy and export;
-- recovery after abnormal shutdown;
-- configurable data location.
+- persistencia SQLite;
+- creación y renombrado de conversaciones;
+- historial de mensajes;
+- metadatos de proveedor/modelo por conversación;
+- estrategia de renderizado Markdown;
+- copia y exportación;
+- recuperación tras apagado anormal;
+- ubicación de datos configurable.
 
-### Exit criteria
+### Criterios de salida
 
-Conversations survive restart, can be exported and do not depend on a remote account.
+Las conversaciones sobreviven al reinicio, pueden exportarse y no dependen de una cuenta remota.
 
-## Phase 0.4 — Task supervision
+## Fase 0.4 — Supervisión de tareas
 
-### Objective
+### Objetivo
 
-Establish the execution model for background work.
+Establecer el modelo de ejecución para el trabajo en segundo plano.
 
-### Deliverables
+### Entregables
 
-- task registry;
-- task states and progress events;
-- cancellation tokens;
+- registro de tareas;
+- estados de tarea y eventos de progreso;
+- tokens de cancelación;
 - timeouts;
-- worker-process launch and supervision;
-- heartbeat or health reporting;
-- worker restart after failure;
-- task activity view.
+- lanzamiento y supervisión de procesos worker;
+- heartbeat o informe de salud;
+- reinicio de worker tras fallo;
+- vista de actividad de tareas.
 
-### Exit criteria
+### Criterios de salida
 
-A deliberately crashed or stalled worker does not freeze or terminate NATIA and can be recovered visibly.
+Un worker bloqueado o caído deliberadamente no congela ni termina NATIA y puede recuperarse de forma visible.
 
-## Phase 0.5 — First tool
+## Fase 0.5 — Primera herramienta
 
-### Objective
+### Objetivo
 
-Prove safe model-to-tool interaction.
+Demostrar interacción segura modelo-herramienta.
 
-### Deliverables
+### Entregables
 
-- tool manifest and schema;
-- tool registry;
-- read-only reference tool;
-- user approval flow;
-- execution in an isolated process;
-- bounded input, output and execution time;
-- audit record;
-- tool result returned to the model.
+- manifiesto y esquema de herramienta;
+- registro de herramientas;
+- herramienta de referencia de solo lectura;
+- flujo de aprobación del usuario;
+- ejecución en un proceso aislado;
+- entrada, salida y tiempo de ejecución acotados;
+- registro de auditoría;
+- resultado de herramienta devuelto al modelo.
 
-### Suggested reference tool
+### Herramienta de referencia sugerida
 
-A constrained filesystem reader limited to a user-approved folder.
+Un lector de filesystem restringido a una carpeta aprobada por el usuario.
 
-### Exit criteria
+### Criterios de salida
 
-The model can request a declared tool, the user can inspect and approve it, and the execution remains isolated and auditable.
+El modelo puede solicitar una herramienta declarada, el usuario puede inspeccionarla y aprobarla, y la ejecución permanece aislada y auditable.
 
-## Phase 0.6 — Workspaces
+## Fase 0.6 — Workspaces
 
-### Objective
+### Objetivo
 
-Move beyond isolated chats into persistent working contexts.
+Ir más allá de chats aislados hacia contextos de trabajo persistentes.
 
-### Deliverables
+### Entregables
 
-- workspace creation;
-- workspace instructions;
-- allowed folders;
-- preferred model/provider;
-- enabled tools;
-- exportable non-secret workspace definition;
-- per-workspace conversations and history.
+- creación de workspace;
+- instrucciones del workspace;
+- carpetas permitidas;
+- modelo/proveedor preferido;
+- herramientas habilitadas;
+- definición de workspace no secreta exportable;
+- conversaciones e historial por workspace.
 
-### Exit criteria
+### Criterios de salida
 
-A user can maintain distinct environments for development, system administration, documentation or another recurring activity.
+Un usuario puede mantener entornos distintos para desarrollo, administración de sistemas, documentación u otra actividad recurrente.
 
-## Phase 0.7 — MCP integration
+## Fase 0.7 — Integración MCP
 
-### Objective
+### Objetivo
 
-Allow NATIA to consume existing open tool ecosystems without making MCP the internal architecture.
+Permitir que NATIA consuma ecosistemas de herramientas abiertos existentes sin convertir MCP en la arquitectura interna.
 
-### Deliverables
+### Entregables
 
-- MCP server configuration;
-- stdio transport;
-- server lifecycle supervision;
-- tool discovery;
-- capability presentation;
-- permission mapping;
-- logs and failure handling;
-- optional remote transport after the local model is stable.
+- configuración de servidor MCP;
+- transporte stdio;
+- supervisión del ciclo de vida del servidor;
+- descubrimiento de herramientas;
+- presentación de capacidades;
+- mapeo de permisos;
+- registros y gestión de fallos;
+- transporte remoto opcional tras estabilizar el modelo local.
 
-### Exit criteria
+### Criterios de salida
 
-At least one external MCP server can be started, inspected and used without compromising the main process.
+Al menos un servidor MCP externo puede iniciarse, inspeccionarse y usarse sin comprometer el proceso principal.
 
-## Phase 0.8 — Agent loop
+## Fase 0.8 — Bucle de agente
 
-### Objective
+### Objetivo
 
-Introduce controlled multi-step execution.
+Introducir ejecución controlada en múltiples pasos.
 
-### Deliverables
+### Entregables
 
-- explicit agent session state;
-- maximum iteration limits;
-- token and time budgets;
-- tool-call loop;
-- human approval policy;
-- stop, pause and resume semantics;
-- visible reasoning summary or action trace without exposing hidden model internals;
-- final execution report.
+- estado explícito de sesión de agente;
+- límites máximos de iteración;
+- presupuestos de tokens y tiempo;
+- bucle de llamadas a herramientas;
+- política de aprobación humana;
+- semántica de parar, pausar y reanudar;
+- resumen de razonamiento o traza de acciones visible sin exponer internals ocultos del modelo;
+- informe final de ejecución.
 
-### Exit criteria
+### Criterios de salida
 
-An agent can complete a bounded multi-step task while the user retains control and can understand every external action.
+Un agente puede completar una tarea acotada de varios pasos mientras el usuario conserva el control y puede entender cada acción externa.
 
-## Phase 0.9 — Extension SDK
+## Fase 0.9 — SDK de extensiones
 
-### Objective
+### Objetivo
 
-Make NATIA extensible without making the main process fragile.
+Hacer NATIA extensible sin hacer frágil el proceso principal.
 
-### Deliverables
+### Entregables
 
-- extension manifest specification;
-- versioned extension protocol;
-- provider extension example;
-- tool extension example;
-- process lifecycle contract;
-- capability and permission declarations;
-- developer documentation;
-- compatibility policy.
+- especificación del manifiesto de extensión;
+- protocolo de extensión versionado;
+- ejemplo de extensión de proveedor;
+- ejemplo de extensión de herramienta;
+- contrato de ciclo de vida de procesos;
+- declaraciones de capacidades y permisos;
+- documentación para desarrolladores;
+- política de compatibilidad.
 
-### Exit criteria
+### Criterios de salida
 
-A third party can build and run a small extension without modifying the NATIA source tree or loading arbitrary code into the UI process.
+Un tercero puede construir y ejecutar una extensión pequeña sin modificar el árbol de código fuente de NATIA ni cargar código arbitrario en el proceso de UI.
 
-## Phase 1.0 — First public release
+## Fase 1.0 — Primera versión pública
 
-### Objective
+### Objetivo
 
-Deliver a stable native AI workbench suitable for real daily use.
+Entregar un banco de trabajo de IA nativo estable, adecuado para uso diario real.
 
-### Required qualities
+### Cualidades requeridas
 
-- fast and measurable startup;
-- stable conversation workflow;
-- local and remote provider support;
-- recoverable persistence;
-- supervised tools and workers;
+- arranque rápido y medible;
+- flujo de conversación estable;
+- soporte de proveedores locales y remotos;
+- persistencia recuperable;
+- herramientas y workers supervisados;
 - workspaces;
-- MCP support;
-- basic controlled agents;
-- documented extension path;
-- installer and portable package;
-- migration and backup documentation;
-- security and privacy documentation.
+- soporte MCP;
+- agentes controlados básicos;
+- ruta de extensión documentada;
+- instalador y paquete portable;
+- documentación de migración y respaldo;
+- documentación de seguridad y privacidad.
 
-## Post-1.0 directions
+## Direcciones post-1.0
 
-Possible future work, subject to evidence and community demand:
+Trabajo futuro posible, sujeto a evidencia y demanda de la comunidad:
 
-- richer document and image contexts;
-- local semantic indexes and RAG;
-- terminal and development workflows;
-- Git integration;
-- scheduled and background tasks;
-- remote NATIA workers;
-- specialised editions or workspace packs;
-- Lazarus or alternative client experiments;
-- accessibility improvements;
-- enterprise policy and deployment;
-- extension discovery and signed packages;
-- collaboration and optional synchronization.
+- contextos más ricos de documentos e imágenes;
+- índices semánticos locales y RAG;
+- flujos de trabajo de terminal y desarrollo;
+- integración con Git;
+- tareas programadas y en segundo plano;
+- workers NATIA remotos;
+- ediciones especializadas o paquetes de workspace;
+- experimentos con Lazarus o clientes alternativos;
+- mejoras de accesibilidad;
+- política empresarial y despliegue;
+- descubrimiento de extensiones y paquetes firmados;
+- colaboración y sincronización opcional.
 
-## Features intentionally deferred
+## Funcionalidades deliberadamente aplazadas
 
-The following are not initial priorities:
+Lo siguiente no es prioridad inicial:
 
-- training or fine-tuning models;
-- a custom model runtime;
-- unrestricted autonomous operation;
-- embedded browser-based IDE functionality;
-- a proprietary cloud account requirement;
-- an extension marketplace before the extension protocol is stable;
-- complete cross-platform UI parity;
-- replacing established standards without a demonstrated need.
+- entrenar o afinar modelos;
+- un runtime de modelos propio;
+- operación autónoma irrestricta;
+- funcionalidad de IDE embebida basada en navegador;
+- requisito de cuenta en la nube propietaria;
+- marketplace de extensiones antes de que el protocolo de extensión sea estable;
+- paridad completa de UI multiplataforma;
+- reemplazar estándares establecidos sin una necesidad demostrada.
 
-## Definition of progress
+## Definición de progreso
 
-A phase is not complete because code exists. It is complete when:
+Una fase no está completa porque exista código. Está completa cuando:
 
-- the feature behaves predictably;
-- failure modes are visible;
-- resource use is measured;
-- documentation matches reality;
-- user data can be recovered;
-- the architecture remains simpler than before.
+- la funcionalidad se comporta de forma predecible;
+- los modos de fallo son visibles;
+- el uso de recursos está medido;
+- la documentación coincide con la realidad;
+- los datos del usuario pueden recuperarse;
+- la arquitectura permanece más simple que antes.

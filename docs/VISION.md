@@ -1,117 +1,117 @@
-# NATIA — Vision
+# NATIA — Visión
 
-## Purpose
+## Propósito
 
-NATIA is an open-source native desktop environment for working with artificial intelligence models, agents and tools.
+NATIA es un entorno de escritorio nativo de código abierto para trabajar con modelos de inteligencia artificial, agentes y herramientas.
 
-It exists because most current desktop AI clients are not truly desktop applications. They are web applications packaged for the desktop, usually carrying a browser runtime, a JavaScript runtime and several abstraction layers before the user can interact with the operating system.
+Existe porque la mayoría de los clientes de IA de escritorio actuales no son verdaderas aplicaciones de escritorio. Son aplicaciones web empaquetadas para el escritorio, que suelen arrastrar un runtime de navegador, un runtime de JavaScript y varias capas de abstracción antes de que el usuario pueda interactuar con el sistema operativo.
 
-NATIA takes the opposite approach:
+NATIA toma el enfoque opuesto:
 
-> Start from the operating system, then integrate AI.
+> Partir del sistema operativo e integrar la IA después.
 
-The goal is not to create another chat window. The goal is to build a fast, durable and extensible native application that can remain open all day, manage long-running tasks, coordinate multiple processes and interact safely with the local machine.
+El objetivo no es crear otra ventana de chat. El objetivo es construir una aplicación nativa rápida, duradera y extensible que pueda permanecer abierta todo el día, gestionar tareas de larga duración, coordinar múltiples procesos e interactuar de forma segura con la máquina local.
 
-## The problem
+## El problema
 
-Modern AI desktop clients frequently suffer from the same limitations:
+Los clientes de IA de escritorio modernos sufren con frecuencia las mismas limitaciones:
 
-- slow startup;
-- high idle memory consumption;
-- duplicated browser runtimes;
-- weak operating-system integration;
-- fragile background execution;
-- limited process isolation;
-- provider lock-in;
-- monolithic extension models;
-- interfaces designed around chat rather than work.
+- arranque lento;
+- alto consumo de memoria en reposo;
+- runtimes de navegador duplicados;
+- integración débil con el sistema operativo;
+- ejecución en segundo plano frágil;
+- aislamiento de procesos limitado;
+- dependencia de un proveedor;
+- modelos de extensión monolíticos;
+- interfaces diseñadas en torno al chat en lugar del trabajo.
 
-These compromises may be reasonable for rapid product development, but they should not define the final shape of desktop AI software.
+Estas concesiones pueden ser razonables para un desarrollo de producto rápido, pero no deberían definir la forma final del software de IA de escritorio.
 
-## The proposal
+## La propuesta
 
-NATIA will be a native AI workbench with:
+NATIA será un banco de trabajo de IA nativo con:
 
-- immediate startup and low idle resource usage;
-- a responsive native user interface;
-- explicit multiprocess execution;
-- streaming model responses without blocking the interface;
-- support for local, remote and self-hosted models;
-- first-class compatibility with OpenAI-style APIs;
-- tools and agents that are replaceable and inspectable;
-- safe access to operating-system capabilities;
-- persistent workspaces and conversations;
-- an extension model that does not compromise the core process;
-- complete source availability and community-oriented development.
+- arranque inmediato y bajo consumo de recursos en reposo;
+- interfaz de usuario nativa y responsiva;
+- ejecución multiproceso explícita;
+- respuestas del modelo en streaming sin bloquear la interfaz;
+- soporte para modelos locales, remotos y autoalojados;
+- compatibilidad de primera clase con APIs estilo OpenAI;
+- herramientas y agentes reemplazables e inspectables;
+- acceso seguro a las capacidades del sistema operativo;
+- workspaces y conversaciones persistentes;
+- un modelo de extensiones que no comprometa el proceso principal;
+- código fuente completo disponible y desarrollo orientado a la comunidad.
 
-## What NATIA is
+## Qué es NATIA
 
-NATIA is intended to become:
+NATIA está pensado para convertirse en:
 
-- a desktop client for multiple AI providers;
-- a host for local and remote agents;
-- a workbench for tools, prompts, contexts and workflows;
-- a supervisor for background AI tasks;
-- a reference implementation of efficient native AI software;
-- a reusable foundation for specialised desktop assistants.
+- un cliente de escritorio para múltiples proveedores de IA;
+- un host para agentes locales y remotos;
+- un banco de trabajo para herramientas, prompts, contextos y flujos de trabajo;
+- un supervisor de tareas de IA en segundo plano;
+- una implementación de referencia de software de IA nativo eficiente;
+- una base reutilizable para asistentes de escritorio especializados.
 
-## What NATIA is not
+## Qué no es NATIA
 
-NATIA is not intended to be:
+NATIA no está pensado para ser:
 
-- another browser wrapper;
-- an Electron replacement built with the same architectural assumptions;
-- a single-provider client;
-- a model training platform;
-- an autonomous system with unrestricted access to the computer;
-- a collection of hidden prompts presented as a product;
-- a new proprietary protocol created only to lock users into the application.
+- otro envoltorio de navegador;
+- un reemplazo de Electron construido con las mismas suposiciones arquitectónicas;
+- un cliente de un solo proveedor;
+- una plataforma de entrenamiento de modelos;
+- un sistema autónomo con acceso irrestricto al ordenador;
+- una colección de prompts ocultos presentada como producto;
+- un protocolo propietario nuevo creado solo para encerrar a los usuarios en la aplicación.
 
-## Native means more than compiled
+## Nativo significa más que compilado
 
-For NATIA, native software means:
+Para NATIA, el software nativo significa:
 
-- using the operating system deliberately;
-- treating processes, threads, files, sockets and services as first-class resources;
-- integrating with the desktop without embedding an entire browser;
-- respecting platform conventions;
-- remaining responsive under load;
-- failing in isolated components rather than freezing as a whole;
-- providing predictable installation, execution and removal.
+- usar el sistema operativo de forma deliberada;
+- tratar procesos, hilos, archivos, sockets y servicios como recursos de primera clase;
+- integrarse con el escritorio sin embeber un navegador completo;
+- respetar las convenciones de la plataforma;
+- permanecer responsivo bajo carga;
+- fallar en componentes aislados en lugar de congelarse por completo;
+- proporcionar instalación, ejecución y eliminación predecibles.
 
-A compiled binary is not enough. Native behaviour is the real objective.
+Un binario compilado no basta. El comportamiento nativo es el objetivo real.
 
-## Open by design
+## Abierto por diseño
 
-NATIA must remain useful without depending on a single company, cloud or model family.
+NATIA debe seguir siendo útil sin depender de una sola empresa, nube o familia de modelos.
 
-The project will favour:
+El proyecto favorecerá:
 
-- open protocols;
-- documented interfaces;
-- replaceable providers;
-- exportable user data;
-- human-readable configuration where practical;
-- transparent execution logs;
-- permissive extension mechanisms;
-- compatibility with open models and self-hosted infrastructure.
+- protocolos abiertos;
+- interfaces documentadas;
+- proveedores reemplazables;
+- datos de usuario exportables;
+- configuración legible por humanos cuando sea práctico;
+- registros de ejecución transparentes;
+- mecanismos de extensión permisivos;
+- compatibilidad con modelos abiertos e infraestructura autoalojada.
 
-OpenAI-compatible APIs are treated as an interoperability convention, not as a dependency on OpenAI.
+Las APIs compatibles con OpenAI se tratan como una convención de interoperabilidad, no como una dependencia de OpenAI.
 
-## Long-term ambition
+## Ambición a largo plazo
 
-NATIA should demonstrate that modern AI desktop software can be:
+NATIA debería demostrar que el software de IA de escritorio moderno puede ser:
 
-- lighter;
-- faster;
-- safer;
-- more transparent;
-- more extensible;
-- more respectful of the operating system;
-- and more pleasant to use than the current generation of packaged web clients.
+- más ligero;
+- más rápido;
+- más seguro;
+- más transparente;
+- más extensible;
+- más respetuoso con el sistema operativo;
+- y más agradable de usar que la generación actual de clientes web empaquetados.
 
-The project succeeds when users stop thinking of NATIA as an AI chat client and begin treating it as a normal, dependable desktop tool.
+El proyecto tendrá éxito cuando los usuarios dejen de pensar en NATIA como un cliente de chat de IA y empiecen a tratarlo como una herramienta de escritorio normal y fiable.
 
 ---
 
-> Native AI deserves native software.
+> La IA nativa merece software nativo.

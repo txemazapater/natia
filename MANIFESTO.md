@@ -1,156 +1,156 @@
-# The NATIA Manifesto
+# Manifiesto de NATIA
 
-## Software deserves craftsmanship again
+## El software merece artesanía de nuevo
 
-Artificial intelligence is changing the way we interact with computers.
+La inteligencia artificial está cambiando la forma en que interactuamos con los ordenadores.
 
-Unfortunately, many of today's AI applications are not.
+Desgraciadamente, muchas de las aplicaciones de IA actuales no lo están haciendo bien.
 
-Most are web pages wrapped in desktop shells. Most depend on remote services. Most assume that computing happens somewhere else.
+La mayoría son páginas web envueltas en cascarones de escritorio. La mayoría dependen de servicios remotos. La mayoría asumen que la computación ocurre en otro lugar.
 
-We believe desktop software deserves better.
+Creemos que el software de escritorio merece algo mejor.
 
-NATIA exists because an AI workspace should feel like a real application: fast, responsive, efficient, predictable and fully integrated with the operating system.
+NATIA existe porque un workspace de IA debe sentirse como una aplicación real: rápida, responsiva, eficiente, predecible e integrada por completo con el sistema operativo.
 
-Not because nostalgia matters.
+No porque importe la nostalgia.
 
-Because engineering does.
+Sino porque importa la ingeniería.
 
-## Native first
+## Nativo primero
 
-Native software is not an aesthetic choice.
+El software nativo no es una elección estética.
 
-It starts quickly. It consumes fewer resources. It integrates naturally with the operating system. It respects the user's machine.
+Arranca rápido. Consume menos recursos. Se integra de forma natural con el sistema operativo. Respeta la máquina del usuario.
 
-NATIA embraces native development because performance, reliability and simplicity are features.
+NATIA abraza el desarrollo nativo porque el rendimiento, la fiabilidad y la simplicidad son características del producto.
 
-## The Workspace is the product
+## El Workspace es el producto
 
-NATIA is not a chat application.
+NATIA no es una aplicación de chat.
 
-NATIA is not merely an AI client.
+NATIA no es simplemente un cliente de IA.
 
-NATIA is a persistent Workspace where people, knowledge, tools, services and artificial intelligence converge.
+NATIA es un Workspace persistente donde convergen personas, conocimiento, herramientas, servicios e inteligencia artificial.
 
-Conversations are one way of interacting with a Workspace. They are not the Workspace itself.
+Las conversaciones son una forma de interactuar con un Workspace. No son el Workspace en sí.
 
-A Workspace knows its repositories, documentation, architectural decisions, roadmap, tools, services, permissions, conversations and operational state.
+Un Workspace conoce sus repositorios, documentación, decisiones arquitectónicas, roadmap, herramientas, servicios, permisos, conversaciones y estado operativo.
 
-The user should not have to reconstruct the project before continuing it.
+El usuario no debería tener que reconstruir el proyecto antes de continuarlo.
 
-## Preserve the continuity of thought
+## Preservar la continuidad del pensamiento
 
-The greatest cost in long-lived projects is not writing code. It is recovering context.
+El mayor coste en proyectos de larga duración no es escribir código. Es recuperar el contexto.
 
-Decisions become fragmented across conversations, commits, issues, meetings, documents and people's memories. Teams repeat discussions, reopen discarded paths and lose the reasoning behind important choices.
+Las decisiones se fragmentan entre conversaciones, commits, issues, reuniones, documentos y la memoria de las personas. Los equipos repiten discusiones, reabren caminos descartados y pierden el razonamiento detrás de elecciones importantes.
 
-NATIA exists to preserve the continuity of thought across people, time and projects.
+NATIA existe para preservar la continuidad del pensamiento entre personas, tiempo y proyectos.
 
-Knowledge belongs to the Workspace, not to a particular conversation, model or participant.
+El conocimiento pertenece al Workspace, no a una conversación, un modelo o un participante concretos.
 
-## A Workspace is started, not merely opened
+## Un Workspace se arranca, no solo se abre
 
-Starting a Workspace means restoring a working environment:
+Arrancar un Workspace significa restaurar un entorno de trabajo:
 
-- project context;
-- repositories and current changes;
-- conversations and historical decisions;
-- providers and models;
-- MCP servers and tools;
-- local and remote services;
-- credentials and authority boundaries;
-- roadmap, milestones, risks and pending work.
+- contexto del proyecto;
+- repositorios y cambios actuales;
+- conversaciones y decisiones históricas;
+- proveedores y modelos;
+- servidores MCP y herramientas;
+- servicios locales y remotos;
+- credenciales y límites de autoridad;
+- roadmap, hitos, riesgos y trabajo pendiente.
 
-A Workspace should be able to say where the project stands, what changed and what the most valuable next step is.
+Un Workspace debería poder decir en qué punto está el proyecto, qué ha cambiado y cuál es el siguiente paso más valioso.
 
-## AI should be interoperable
+## La IA debe ser interoperable
 
-Artificial intelligence is evolving too quickly for any single vendor to define its future.
+La inteligencia artificial evoluciona demasiado rápido para que un único proveedor defina su futuro.
 
-NATIA does not belong to one model, one cloud or one company.
+NATIA no pertenece a un modelo, una nube o una empresa.
 
-If a provider speaks a useful standard protocol, NATIA should be able to use it.
+Si un proveedor habla un protocolo estándar útil, NATIA debería poder usarlo.
 
-Cloud models, local models, self-hosted servers and future protocols should coexist.
+Modelos en la nube, modelos locales, servidores autoalojados y protocolos futuros deben coexistir.
 
-Users choose. The application does not choose for them.
+Eligen los usuarios. La aplicación no elige por ellos.
 
-## Local when possible, connected when useful
+## Local cuando sea posible, conectado cuando sea útil
 
-Your conversations belong to you.
+Tus conversaciones te pertenecen.
 
-Your tools belong to you.
+Tus herramientas te pertenecen.
 
-Your knowledge belongs to you.
+Tu conocimiento te pertenece.
 
-NATIA should work locally whenever possible and connect to remote services whenever beneficial. Privacy is not a premium feature. It is a default architectural concern.
+NATIA debería funcionar localmente siempre que sea posible y conectarse a servicios remotos cuando sea beneficioso. La privacidad no es una función premium. Es una preocupación arquitectónica por defecto.
 
-## Tools before magic
+## Herramientas antes que magia
 
-AI becomes useful when it can perform real work.
+La IA se vuelve útil cuando puede realizar trabajo real.
 
-Read files. Query databases. Execute scripts. Interact with Git. Operate services. Automate workflows. Integrate with local applications and remote systems.
+Leer archivos. Consultar bases de datos. Ejecutar scripts. Interactuar con Git. Operar servicios. Automatizar flujos de trabajo. Integrarse con aplicaciones locales y sistemas remotos.
 
-Reasoning matters. Action transforms reasoning into results.
+El razonamiento importa. La acción transforma el razonamiento en resultados.
 
-That action must remain visible, attributable and governed by explicit permissions.
+Esa acción debe permanecer visible, atribuible y gobernada por permisos explícitos.
 
-## Authority must be explicit
+## La autoridad debe ser explícita
 
-A capable Workspace may need access to local administrative functions, service credentials or delegated identities.
+Un Workspace capaz puede necesitar acceso a funciones administrativas locales, credenciales de servicio o identidades delegadas.
 
-Convenience must never depend on invisible privilege.
+La comodidad nunca debe depender de privilegios invisibles.
 
-NATIA must make clear which identity is active, which authority is being used, what a tool may access and when human approval is required.
+NATIA debe dejar claro qué identidad está activa, qué autoridad se está usando, a qué puede acceder una herramienta y cuándo se requiere aprobación humana.
 
-## Extensibility is architecture
+## La extensibilidad es arquitectura
 
-Plugins are not an afterthought. Neither are MCP servers, external tools or provider adapters.
+Los plugins no son un añadido tardío. Tampoco lo son los servidores MCP, las herramientas externas o los adaptadores de proveedores.
 
-NATIA is designed as a platform where capabilities can be added without surrendering control of the core application.
+NATIA está diseñado como una plataforma donde las capacidades pueden añadirse sin ceder el control de la aplicación principal.
 
-Growth should come from composition, not from turning the desktop process into a monolith.
+El crecimiento debe venir de la composición, no de convertir el proceso de escritorio en un monolito.
 
-## Open by design
+## Abierto por diseño
 
-The project is open. Its ideas are open. Its protocols should be open. Its architecture should remain understandable.
+El proyecto es abierto. Sus ideas son abiertas. Sus protocolos deben ser abiertos. Su arquitectura debe permanecer comprensible.
 
-NATIA is distributed under the MIT License so that people may study it, use it, modify it and reuse the parts that are valuable to them.
+NATIA se distribuye bajo la MIT License para que las personas puedan estudiarlo, usarlo, modificarlo y reutilizar las partes que les resulten valiosas.
 
-The primary Windows implementation may use Delphi, but proprietary development tools must not become an excuse for proprietary architecture. Reusable code, protocols, schemas and documentation should remain as portable and accessible as reasonably possible.
+La implementación principal de Windows puede usar Delphi, pero las herramientas de desarrollo propietarias no deben convertirse en excusa para una arquitectura propietaria. El código reutilizable, los protocolos, los esquemas y la documentación deben permanecer tan portables y accesibles como sea razonablemente posible.
 
-Whenever possible, decisions should favour interoperability over lock-in, standards over proprietary interfaces and clarity over cleverness.
+Siempre que sea posible, las decisiones deben favorecer la interoperabilidad frente al lock-in, los estándares frente a interfaces propietarias y la claridad frente a la ingeniosidad.
 
-## Community is part of the architecture
+## La comunidad es parte de la arquitectura
 
-The best ideas rarely come from one developer or one team.
+Las mejores ideas rara vez vienen de un solo desarrollador o un solo equipo.
 
-NATIA welcomes experimentation, alternative providers, new tools, different clients, additional operating systems and better ideas.
+NATIA da la bienvenida a la experimentación, proveedores alternativos, nuevas herramientas, clientes distintos, sistemas operativos adicionales y mejores ideas.
 
-A contribution should not require permission to exist.
+Una contribución no debería requerir permiso para existir.
 
-## Build something that lasts
+## Construir algo que perdure
 
-Models change. Providers change. APIs change. Companies change. Teams change.
+Los modelos cambian. Los proveedores cambian. Las APIs cambian. Las empresas cambian. Los equipos cambian.
 
-A project's memory and operational continuity should survive all of them.
+La memoria de un proyecto y su continuidad operativa deberían sobrevivir a todos ellos.
 
-NATIA is not being built only for today's models. It is being built for long-lived work.
+NATIA no se está construyendo solo para los modelos de hoy. Se está construyendo para el trabajo de larga duración.
 
-## One final principle
+## Un principio final
 
-Artificial intelligence deserves software designed with the same care once reserved for operating systems, development environments and professional desktop applications.
+La inteligencia artificial merece software diseñado con el mismo cuidado que antaño se reservaba a los sistemas operativos, los entornos de desarrollo y las aplicaciones de escritorio profesionales.
 
-Fast.
+Rápido.
 
-Native.
+Nativo.
 
-Open.
+Abierto.
 
-Persistent.
+Persistente.
 
 Extensible.
 
-Built to endure.
+Construido para perdurar.
 
-**That is NATIA.**
+**Eso es NATIA.**

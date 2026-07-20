@@ -1,90 +1,90 @@
-# ADR-0001: Workspace-first architecture
+# ADR-0001: Arquitectura workspace-first
 
-- Status: Accepted
-- Date: 2026-07-20
+- Estado: Aceptado
+- Fecha: 2026-07-20
 
-## Context
+## Contexto
 
-NATIA was initially described as a native desktop AI workbench centred on providers, conversations, tools and agents.
+NATIA se describió inicialmente como un banco de trabajo de IA de escritorio nativo centrado en proveedores, conversaciones, herramientas y agentes.
 
-That framing is insufficient for long-lived projects and teams. Conversations are temporary views over a much larger body of project state. Repositories, documentation, architectural decisions, roadmaps, tools, services, credentials, permissions, execution history and human discussions must remain coherent across sessions, people and AI models.
+Ese encuadre es insuficiente para proyectos y equipos de larga duración. Las conversaciones son vistas temporales sobre un cuerpo mucho mayor de estado del proyecto. Repositorios, documentación, decisiones arquitectónicas, roadmaps, herramientas, servicios, credenciales, permisos, historial de ejecución y discusiones humanas deben permanecer coherentes entre sesiones, personas y modelos de IA.
 
-The practical problem is continuity. Users currently spend significant effort reconstructing where a project stands, why decisions were made, which services are required and what changed since their previous session. The problem grows rapidly as more projects and more contributors are added.
+El problema práctico es la continuidad. Los usuarios dedican un esfuerzo significativo a reconstruir en qué punto está un proyecto, por qué se tomaron decisiones, qué servicios se requieren y qué ha cambiado desde su sesión anterior. El problema crece rápidamente a medida que se añaden más proyectos y más contribuidores.
 
-## Decision
+## Decisión
 
-NATIA will use a Workspace-first architecture.
+NATIA usará una arquitectura workspace-first.
 
-The Workspace, not the conversation, is the primary product entity and the central unit of persistence, orchestration and user experience.
+El Workspace, no la conversación, es la entidad principal del producto y la unidad central de persistencia, orquestación y experiencia de usuario.
 
-A Workspace will own or reference:
+Un Workspace poseerá o referenciará:
 
-- project identity and instructions;
-- one or more repositories;
-- documentation and Architecture Decision Records;
-- roadmap, milestones, tasks, risks and blockers;
-- conversations and summaries;
-- historical changes and activity;
-- AI providers and model preferences;
-- tools, extensions and MCP servers;
-- local and remote service connections;
-- environment configuration and secret references;
-- active identity, delegated identities and authority policy;
-- health and readiness state.
+- identidad e instrucciones del proyecto;
+- uno o más repositorios;
+- documentación y Registros de Decisiones de Arquitectura;
+- roadmap, hitos, tareas, riesgos y bloqueos;
+- conversaciones y resúmenes;
+- cambios históricos y actividad;
+- proveedores de IA y preferencias de modelos;
+- herramientas, extensiones y servidores MCP;
+- conexiones a servicios locales y remotos;
+- configuración de entorno y referencias a secretos;
+- identidad activa, identidades delegadas y política de autoridad;
+- estado de salud y readiness.
 
-Opening a Workspace will be treated as starting an operational environment. NATIA will restore relevant state, verify required capabilities and present the current project position before the user has to reconstruct it manually.
+Abrir un Workspace se tratará como arrancar un entorno operativo. NATIA restaurará el estado relevante, verificará las capacidades requeridas y presentará la posición actual del proyecto antes de que el usuario tenga que reconstruirla manualmente.
 
-Conversation will remain a first-class interface, but it will be one Workspace surface among others.
+La conversación seguirá siendo una interfaz de primera clase, pero será una superficie del Workspace entre otras.
 
-## Consequences
+## Consecuencias
 
-### Positive
+### Positivas
 
-- Project knowledge survives individual conversations, models and contributors.
-- NATIA can explain where a project stands and what changed.
-- Tools and services become explicit Workspace dependencies instead of transient chat capabilities.
-- Permissions and active identities can be represented and audited consistently.
-- Teams can share project continuity rather than only files.
-- Roadmap awareness and historical reasoning become core capabilities.
+- El conocimiento del proyecto sobrevive a conversaciones, modelos y contribuidores individuales.
+- NATIA puede explicar en qué punto está un proyecto y qué ha cambiado.
+- Las herramientas y servicios se convierten en dependencias explícitas del Workspace en lugar de capacidades transitorias del chat.
+- Los permisos y las identidades activas pueden representarse y auditarse de forma coherente.
+- Los equipos pueden compartir continuidad del proyecto y no solo archivos.
+- La conciencia del roadmap y el razonamiento histórico se convierten en capacidades centrales.
 
-### Costs and risks
+### Costes y riesgos
 
-- Workspace state requires a carefully versioned data model.
-- Synchronisation between local state, repositories and remote services will be complex.
-- NATIA must distinguish facts from inferred project status.
-- Historical information may become noisy without consolidation and retention policies.
-- Credentials, delegated authority and administrative execution require strict security boundaries.
-- The first usable version must resist becoming an oversized project-management platform.
+- El estado del Workspace requiere un modelo de datos cuidadosamente versionado.
+- La sincronización entre estado local, repositorios y servicios remotos será compleja.
+- NATIA debe distinguir hechos de estado inferido del proyecto.
+- La información histórica puede volverse ruidosa sin políticas de consolidación y retención.
+- Credenciales, autoridad delegada y ejecución administrativa requieren límites de seguridad estrictos.
+- La primera versión usable debe resistir convertirse en una plataforma de gestión de proyectos sobredimensionada.
 
-## Architectural direction
+## Dirección arquitectónica
 
-A dedicated Workspace Engine will coordinate:
+Un Workspace Engine dedicado coordinará:
 
-- Workspace lifecycle and readiness;
-- context and memory consolidation;
-- resource and service registry;
-- identity and permission context;
-- activity ingestion and change detection;
-- project-state synthesis;
-- roadmap and decision awareness;
-- export, backup and portability.
+- ciclo de vida y readiness del Workspace;
+- consolidación de contexto y memoria;
+- registro de recursos y servicios;
+- contexto de identidad y permisos;
+- ingestión de actividad y detección de cambios;
+- síntesis del estado del proyecto;
+- conciencia del roadmap y las decisiones;
+- exportación, respaldo y portabilidad.
 
-Provider, conversation, agent and tool subsystems will operate within an explicit Workspace context.
+Los subsistemas de proveedores, conversación, agentes y herramientas operarán dentro de un contexto explícito de Workspace.
 
-## Rejected alternatives
+## Alternativas rechazadas
 
-### Conversation-first application
+### Aplicación conversation-first
 
-Rejected because conversations do not adequately represent project state and encourage repeated context reconstruction.
+Rechazada porque las conversaciones no representan adecuadamente el estado del proyecto y fomentan la reconstrucción repetida del contexto.
 
-### Repository-only workspace
+### Workspace basado solo en repositorio
 
-Rejected because important project knowledge also exists in services, conversations, decisions, credentials, runtime state and external systems.
+Rechazada porque el conocimiento importante del proyecto también existe en servicios, conversaciones, decisiones, credenciales, estado de runtime y sistemas externos.
 
-### Generic project-management centre
+### Centro genérico de gestión de proyectos
 
-Rejected because NATIA's purpose is operational continuity and intelligent work orchestration, not replacing every issue tracker or planning platform.
+Rechazado porque el propósito de NATIA es la continuidad operativa y la orquestación inteligente del trabajo, no reemplazar cada issue tracker o plataforma de planificación.
 
-## Guiding statement
+## Declaración orientativa
 
-> NATIA exists to preserve the continuity of thought across people, time and projects.
+> NATIA existe para preservar la continuidad del pensamiento entre personas, tiempo y proyectos.

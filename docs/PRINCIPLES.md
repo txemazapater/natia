@@ -1,122 +1,122 @@
-# NATIA — Engineering Principles
+# NATIA — Principios de ingeniería
 
-These principles are architectural constraints, not marketing language. When two implementation options are possible, the option that better preserves these principles should normally win.
+Estos principios son restricciones arquitectónicas, no lenguaje de marketing. Cuando existan dos opciones de implementación, normalmente debe ganar la opción que mejor preserve estos principios.
 
-## 1. Native first
+## 1. Nativo primero
 
-NATIA is a desktop application, not a web application distributed as a desktop executable.
+NATIA es una aplicación de escritorio, no una aplicación web distribuida como ejecutable de escritorio.
 
-The primary implementation must use native operating-system capabilities and native controls where they provide a meaningful benefit. Embedded web content may be used for isolated presentation needs, but it must not become the application runtime.
+La implementación principal debe usar las capacidades nativas del sistema operativo y controles nativos cuando aporten un beneficio significativo. Se puede usar contenido web embebido para necesidades de presentación aisladas, pero no debe convertirse en el runtime de la aplicación.
 
-## 2. Fast by default
+## 2. Rápido por defecto
 
-Startup time, interaction latency and idle resource usage are product features.
+El tiempo de arranque, la latencia de interacción y el consumo de recursos en reposo son características del producto.
 
-NATIA should avoid unnecessary initialization, background scanning and eager loading. Expensive components should be loaded only when required and should be measurable.
+NATIA debe evitar inicializaciones innecesarias, escaneos en segundo plano y carga anticipada. Los componentes costosos deben cargarse solo cuando se necesiten y deben ser medibles.
 
-## 3. The interface must never wait for the model
+## 3. La interfaz nunca debe esperar al modelo
 
-Model inference, network access, filesystem operations, indexing and tool execution must not block the user-interface thread.
+La inferencia del modelo, el acceso a red, las operaciones de filesystem, la indexación y la ejecución de herramientas no deben bloquear el hilo de la interfaz de usuario.
 
-Every long-running operation must support, where technically possible:
+Toda operación de larga duración debe soportar, cuando sea técnicamente posible:
 
-- progress reporting;
-- cancellation;
-- timeout handling;
-- structured failure reporting;
-- safe cleanup.
+- informe de progreso;
+- cancelación;
+- gestión de timeouts;
+- informe estructurado de fallos;
+- limpieza segura.
 
-## 4. Prefer process isolation over shared failure
+## 4. Preferir el aislamiento por procesos frente al fallo compartido
 
-Untrusted, experimental or failure-prone components should run outside the main process.
+Los componentes no confiables, experimentales o propensos a fallos deben ejecutarse fuera del proceso principal.
 
-A broken plugin, stalled tool or exhausted model connection must not freeze or terminate the desktop shell. Workers should be supervised, restartable and replaceable.
+Un plugin roto, una herramienta bloqueada o una conexión de modelo agotada no deben congelar ni terminar el shell de escritorio. Los workers deben ser supervisados, reiniciables y reemplazables.
 
-## 5. Providers are interchangeable
+## 5. Los proveedores son intercambiables
 
-NATIA must not assume that one provider, endpoint or model family is permanent.
+NATIA no debe asumir que un proveedor, endpoint o familia de modelos es permanente.
 
-Provider integrations should be implemented behind stable internal contracts. OpenAI-compatible APIs are a primary interoperability target, while provider-specific capabilities may be exposed through optional extensions.
+Las integraciones de proveedores deben implementarse detrás de contratos internos estables. Las APIs compatibles con OpenAI son un objetivo principal de interoperabilidad, mientras que las capacidades específicas de cada proveedor pueden exponerse mediante extensiones opcionales.
 
-## 6. Local-first, not local-only
+## 6. Local-first, no solo local
 
-NATIA should work naturally with local models, self-hosted services and private infrastructure. Cloud providers remain valid options, but they must not be required for the core application to function.
+NATIA debe funcionar de forma natural con modelos locales, servicios autoalojados e infraestructura privada. Los proveedores en la nube siguen siendo opciones válidas, pero no deben ser necesarios para que la aplicación principal funcione.
 
-User configuration, history and workspace metadata should remain locally available unless the user explicitly chooses otherwise.
+La configuración del usuario, el historial y los metadatos del workspace deben permanecer disponibles localmente salvo que el usuario elija explícitamente lo contrario.
 
-## 7. Explicit authority
+## 7. Autoridad explícita
 
-Agents and tools must operate with clearly defined permissions.
+Los agentes y las herramientas deben operar con permisos claramente definidos.
 
-NATIA should make visible:
+NATIA debe hacer visible:
 
-- which tool is being invoked;
-- what resource it will access;
-- what data will leave the machine;
-- whether an operation is read-only or destructive;
-- whether human approval is required.
+- qué herramienta se está invocando;
+- a qué recurso accederá;
+- qué datos saldrán de la máquina;
+- si una operación es de solo lectura o destructiva;
+- si se requiere aprobación humana.
 
-Convenience must not depend on invisible privilege.
+La comodidad no debe depender de privilegios invisibles.
 
-## 8. Extensions must not own the core
+## 8. Las extensiones no deben poseer el núcleo
 
-The extension model should be broad but controlled. Extensions should communicate through documented protocols and should normally run out of process.
+El modelo de extensiones debe ser amplio pero controlado. Las extensiones deben comunicarse mediante protocolos documentados y normalmente deben ejecutarse fuera de proceso.
 
-The core application must remain usable without third-party extensions, and an extension must be removable without corrupting the workspace.
+La aplicación principal debe seguir siendo usable sin extensiones de terceros, y una extensión debe poder eliminarse sin corromper el workspace.
 
-## 9. Configuration should be understandable
+## 9. La configuración debe ser comprensible
 
-Configuration must be simple enough to inspect, export, back up and repair.
+La configuración debe ser lo bastante simple para inspeccionarla, exportarla, respaldarla y repararla.
 
-Secrets should use operating-system credential facilities where available. Non-secret configuration should favour documented and portable formats.
+Los secretos deben usar las facilidades de credenciales del sistema operativo cuando estén disponibles. La configuración no secreta debe favorecer formatos documentados y portables.
 
-## 10. Observability is part of correctness
+## 10. La observabilidad es parte de la corrección
 
-NATIA must provide structured logs for model calls, tool execution, worker lifecycle and failures.
+NATIA debe proporcionar registros estructurados para llamadas al modelo, ejecución de herramientas, ciclo de vida de workers y fallos.
 
-The user should be able to understand what happened without attaching a debugger. Sensitive information must be redacted by default.
+El usuario debe poder entender qué ocurrió sin adjuntar un depurador. La información sensible debe redactarse por defecto.
 
-## 11. Data belongs to the user
+## 11. Los datos pertenecen al usuario
 
-Conversations, prompts, workspaces and execution history must be exportable in documented formats.
+Las conversaciones, prompts, workspaces e historial de ejecución deben ser exportables en formatos documentados.
 
-NATIA should avoid opaque databases as the only representation of valuable user information. Internal storage may be optimized, but export and recovery must remain possible.
+NATIA debe evitar bases de datos opacas como única representación de información valiosa del usuario. El almacenamiento interno puede optimizarse, pero la exportación y la recuperación deben seguir siendo posibles.
 
-## 12. Open source must be practical
+## 12. El código abierto debe ser práctico
 
-Source availability alone is not enough. The project should be buildable, understandable and extendable by people outside its original team.
+La disponibilidad del código fuente por sí sola no basta. El proyecto debe ser compilable, comprensible y extensible por personas fuera del equipo original.
 
-The architecture should keep the reusable core as portable as reasonably possible. Delphi may provide the primary Windows experience, while compatibility with Free Pascal should be preserved in non-visual and protocol-oriented components when the cost is acceptable.
+La arquitectura debe mantener el núcleo reutilizable tan portable como sea razonablemente posible. Delphi puede proporcionar la experiencia principal de Windows, mientras que la compatibilidad con Free Pascal debe preservarse en componentes no visuales y orientados a protocolos cuando el coste sea aceptable.
 
-## 13. Measure before optimizing, but measure from the beginning
+## 13. Medir antes de optimizar, pero medir desde el principio
 
-Performance targets must be supported by repeatable measurements:
+Los objetivos de rendimiento deben estar respaldados por mediciones repetibles:
 
-- cold and warm startup time;
-- idle memory usage;
-- active memory usage;
-- CPU usage at rest;
-- UI response latency;
-- worker startup and shutdown time;
-- installation size.
+- tiempo de arranque en frío y en caliente;
+- uso de memoria en reposo;
+- uso de memoria activo;
+- uso de CPU en reposo;
+- latencia de respuesta de la UI;
+- tiempo de arranque y apagado de workers;
+- tamaño de instalación.
 
-NATIA should compare itself not only with its previous versions but with the desktop clients it intends to improve upon.
+NATIA debe compararse no solo con sus versiones anteriores, sino con los clientes de escritorio que pretende mejorar.
 
-## 14. No accidental platform
+## 14. Sin plataforma accidental
 
-NATIA may grow into an ecosystem, but every abstraction must solve a demonstrated problem.
+NATIA puede crecer hasta convertirse en un ecosistema, pero toda abstracción debe resolver un problema demostrado.
 
-The project should not invent a new protocol, plugin system, package manager or scripting language when an open and adequate standard already exists.
+El proyecto no debe inventar un protocolo, sistema de plugins, gestor de paquetes o lenguaje de scripting nuevo cuando ya exista un estándar abierto y adecuado.
 
-## 15. Desktop software should feel immediate
+## 15. El software de escritorio debe sentirse inmediato
 
-The final test is experiential:
+La prueba final es experiencial:
 
-- the window opens quickly;
-- typing is never delayed;
-- cancellation is immediate;
-- progress is visible;
-- errors are comprehensible;
-- closing the application behaves predictably.
+- la ventana se abre rápido;
+- escribir nunca se retrasa;
+- la cancelación es inmediata;
+- el progreso es visible;
+- los errores son comprensibles;
+- cerrar la aplicación se comporta de forma predecible.
 
-NATIA should feel like a well-made desktop tool before it feels like an AI product.
+NATIA debe sentirse como una herramienta de escritorio bien hecha antes de sentirse como un producto de IA.

@@ -1,58 +1,58 @@
-# Architecture Decision Records
+# Registros de Decisiones de Arquitectura
 
-NATIA uses Architecture Decision Records (ADRs) to preserve the reasoning behind important technical choices.
+NATIA usa Registros de Decisiones de Arquitectura (ADRs) para preservar el razonamiento detrás de elecciones técnicas importantes.
 
-An ADR should be created when a decision:
+Debe crearse un ADR cuando una decisión:
 
-- affects several components;
-- introduces or rejects a major dependency;
-- establishes a protocol or public contract;
-- changes the security or process-isolation model;
-- creates a long-term compatibility obligation;
-- would be difficult to understand later from the code alone.
+- afecte a varios componentes;
+- introduzca o rechace una dependencia importante;
+- establezca un protocolo o contrato público;
+- cambie el modelo de seguridad o aislamiento de procesos;
+- cree una obligación de compatibilidad a largo plazo;
+- sería difícil de entender más tarde solo a partir del código.
 
-## Naming
+## Nomenclatura
 
-Use a sequential number and a concise title:
+Usar un número secuencial y un título conciso:
 
 ```text
 0001-use-delphi-vcl-for-the-reference-windows-client.md
 0002-use-sqlite-for-local-structured-state.md
 ```
 
-## Status values
+## Valores de estado
 
-- Proposed
-- Accepted
-- Superseded
-- Rejected
-- Deprecated
+- Proposed (Propuesto)
+- Accepted (Aceptado)
+- Superseded (Reemplazado)
+- Rejected (Rechazado)
+- Deprecated (Obsoleto)
 
-## Template
+## Plantilla
 
 ```markdown
-# ADR-NNNN: Decision title
+# ADR-NNNN: Título de la decisión
 
 - Status: Proposed
 - Date: YYYY-MM-DD
 
 ## Context
 
-What problem or constraint requires a decision?
+¿Qué problema o restricción requiere una decisión?
 
 ## Decision
 
-What has been decided?
+¿Qué se ha decidido?
 
 ## Consequences
 
-What becomes easier, harder or permanently constrained?
+¿Qué se vuelve más fácil, más difícil o queda permanentemente restringido?
 
 ## Alternatives considered
 
-Which realistic alternatives were evaluated and why were they not selected?
+¿Qué alternativas realistas se evaluaron y por qué no se seleccionaron?
 ```
 
-## Principle
+## Principio
 
-ADRs document decisions, not discussions. They should be concise, explicit and updated when a decision is superseded.
+Los ADR documentan decisiones, no discusiones. Deben ser concisos, explícitos y actualizarse cuando una decisión sea reemplazada.

@@ -1,211 +1,211 @@
-# NATIA — Initial Architecture
+# NATIA — Arquitectura inicial
 
-## Status
+## Estado
 
-This document describes the initial architectural direction. It is intentionally technology-aware but not yet an implementation specification. Decisions that become binding should later be recorded as Architecture Decision Records in `docs/adr/`.
+Este documento describe la dirección arquitectónica inicial. Es intencionalmente consciente de la tecnología, pero aún no es una especificación de implementación. Las decisiones que se vuelvan vinculantes deben registrarse después como Registros de Decisiones de Arquitectura en `docs/adr/`.
 
-## Architectural objectives
+## Objetivos arquitectónicos
 
-NATIA must provide:
+NATIA debe proporcionar:
 
-- a native and immediately responsive desktop shell;
-- non-blocking access to local and remote AI models;
-- explicit supervision of background work;
-- isolation of extensions and risky operations;
-- provider independence;
-- transparent and recoverable local persistence;
-- a stable path from a small first release to a complete agent workbench.
+- un shell de escritorio nativo e inmediatamente responsivo;
+- acceso no bloqueante a modelos de IA locales y remotos;
+- supervisión explícita del trabajo en segundo plano;
+- aislamiento de extensiones y operaciones de riesgo;
+- independencia de proveedores;
+- persistencia local transparente y recuperable;
+- un camino estable desde una primera versión pequeña hasta un banco de trabajo de agentes completo.
 
-## Proposed system shape
+## Forma propuesta del sistema
 
 ```text
 +------------------------------------------------------------+
 | NATIA Desktop                                              |
 |                                                            |
-|  Native UI                                                 |
+|  UI nativa                                                 |
 |  - workspaces                                              |
-|  - conversations                                           |
-|  - model and provider selection                            |
-|  - activity, approvals and diagnostics                     |
+|  - conversaciones                                          |
+|  - selección de modelo y proveedor                         |
+|  - actividad, aprobaciones y diagnósticos                  |
 +-------------------------------+----------------------------+
                                 |
-                                | typed internal commands/events
+                                | comandos/eventos internos tipados
                                 v
 +------------------------------------------------------------+
 | NATIA Core                                                 |
 |                                                            |
-|  session manager       provider registry                   |
-|  agent coordinator     permission policy                   |
-|  task supervisor       persistence                         |
-|  event bus             diagnostics                         |
+|  session manager       registro de proveedores             |
+|  coordinador de agentes política de permisos               |
+|  supervisor de tareas  persistencia                        |
+|  bus de eventos        diagnósticos                        |
 +----------+------------------+-------------------+-----------+
            |                  |                   |
            v                  v                   v
 +----------------+  +------------------+  +-------------------+
 | Model workers  |  | Tool workers     |  | Extension hosts   |
 |                |  |                  |  |                   |
-| OpenAI API     |  | filesystem       |  | MCP servers       |
-| Ollama         |  | shell/process    |  | external plugins  |
-| LM Studio      |  | Git              |  | specialised apps  |
-| self-hosted    |  | HTTP/database    |  |                   |
+| OpenAI API     |  | filesystem       |  | servidores MCP    |
+| Ollama         |  | shell/proceso    |  | plugins externos  |
+| LM Studio      |  | Git              |  | apps especializadas|
+| autoalojado    |  | HTTP/base de datos| |                   |
 +----------------+  +------------------+  +-------------------+
 ```
 
-## 1. Desktop shell
+## 1. Shell de escritorio
 
-The desktop shell owns the visible application lifecycle and native user experience.
+El shell de escritorio posee el ciclo de vida visible de la aplicación y la experiencia de usuario nativa.
 
-Responsibilities:
+Responsabilidades:
 
-- application startup and shutdown;
-- windows, navigation and native controls;
-- keyboard and accessibility behaviour;
-- presentation of conversations and streaming output;
-- workspace selection;
-- user approvals;
-- task and worker status;
-- user-facing diagnostics.
+- arranque y apagado de la aplicación;
+- ventanas, navegación y controles nativos;
+- comportamiento de teclado y accesibilidad;
+- presentación de conversaciones y salida en streaming;
+- selección de workspace;
+- aprobaciones del usuario;
+- estado de tareas y workers;
+- diagnósticos orientados al usuario.
 
-The shell must not execute model inference, indexing or unbounded tools on its UI thread.
+El shell no debe ejecutar inferencia del modelo, indexación ni herramientas sin límite en su hilo de UI.
 
-### Initial platform
+### Plataforma inicial
 
-The first reference client should target Windows using Delphi and VCL. This is a deliberate product decision: the first objective is to build an excellent native Windows application rather than a compromised cross-platform shell.
+El primer cliente de referencia debe orientarse a Windows usando Delphi y VCL. Esta es una decisión de producto deliberada: el primer objetivo es construir una excelente aplicación nativa de Windows en lugar de un shell multiplataforma comprometido.
 
-Cross-platform compatibility should be pursued at the protocol and core-library levels before promising multiple graphical clients.
+La compatibilidad multiplataforma debe perseguirse a nivel de protocolo y bibliotecas del núcleo antes de prometer múltiples clientes gráficos.
 
 ## 2. Core
 
-The core coordinates application state without depending directly on visual controls.
+El núcleo coordina el estado de la aplicación sin depender directamente de controles visuales.
 
-Candidate responsibilities:
+Responsabilidades candidatas:
 
-- provider and model registry;
-- conversation and workspace lifecycle;
-- request construction;
-- streaming event normalization;
-- agent loop coordination;
-- task cancellation and timeout policy;
-- tool permission evaluation;
-- worker supervision;
-- persistence orchestration;
-- structured logging.
+- registro de proveedores y modelos;
+- ciclo de vida de conversaciones y workspaces;
+- construcción de peticiones;
+- normalización de eventos en streaming;
+- coordinación del bucle de agente;
+- cancelación de tareas y política de timeouts;
+- evaluación de permisos de herramientas;
+- supervisión de workers;
+- orquestación de persistencia;
+- registro estructurado.
 
-The core should use interfaces and plain data structures that can be tested without starting the GUI.
+El núcleo debe usar interfaces y estructuras de datos simples que puedan probarse sin iniciar la GUI.
 
-## 3. Providers
+## 3. Proveedores
 
-A provider is an adapter between NATIA and a model service.
+Un proveedor es un adaptador entre NATIA y un servicio de modelos.
 
-A minimal provider contract should eventually cover:
+Un contrato mínimo de proveedor debería cubrir eventualmente:
 
-- connection testing;
-- model discovery;
-- capability description;
-- chat or response creation;
-- token/event streaming;
-- cancellation;
-- embeddings where supported;
-- tool-call exchange;
-- normalized error reporting.
+- prueba de conexión;
+- descubrimiento de modelos;
+- descripción de capacidades;
+- creación de chat o respuesta;
+- streaming de tokens/eventos;
+- cancelación;
+- embeddings cuando estén soportados;
+- intercambio de llamadas a herramientas;
+- informe normalizado de errores.
 
-Example providers:
+Proveedores de ejemplo:
 
-- generic OpenAI-compatible endpoint;
+- endpoint genérico compatible con OpenAI;
 - OpenAI;
 - Ollama;
 - LM Studio;
-- SAPIENS or another self-hosted gateway;
-- provider-specific adapters added later.
+- SAPIENS u otra pasarela autoalojada;
+- adaptadores específicos de proveedor añadidos después.
 
-NATIA should not reduce all providers to the lowest common denominator. A shared baseline should coexist with discoverable optional capabilities.
+NATIA no debe reducir todos los proveedores al mínimo común denominador. Debe coexistir una línea base compartida con capacidades opcionales descubribles.
 
-## 4. Tasks, threads and processes
+## 4. Tareas, hilos y procesos
 
-NATIA should distinguish three concepts clearly.
+NATIA debe distinguir claramente tres conceptos.
 
-### UI tasks
+### Tareas de UI
 
-Small operations that update presentation state. They remain on the main thread and must complete quickly.
+Operaciones pequeñas que actualizan el estado de presentación. Permanecen en el hilo principal y deben completarse rápido.
 
-### Background tasks
+### Tareas en segundo plano
 
-Bounded operations suitable for worker threads, such as parsing a response, reading configuration or transforming data.
+Operaciones acotadas adecuadas para hilos worker, como parsear una respuesta, leer configuración o transformar datos.
 
-### Worker processes
+### Procesos worker
 
-Long-running, untrusted, memory-intensive or failure-prone operations, including:
+Operaciones de larga duración, no confiables, intensivas en memoria o propensas a fallos, incluyendo:
 
-- tool execution;
-- repository indexing;
-- document processing;
-- shell sessions;
-- third-party extensions;
-- MCP servers;
-- specialised local model bridges.
+- ejecución de herramientas;
+- indexación de repositorios;
+- procesamiento de documentos;
+- sesiones de shell;
+- extensiones de terceros;
+- servidores MCP;
+- puentes especializados a modelos locales.
 
-The main process acts as supervisor. Workers should expose health, lifecycle and cancellation signals. A failed worker must be restartable without restarting the application.
+El proceso principal actúa como supervisor. Los workers deben exponer señales de salud, ciclo de vida y cancelación. Un worker fallido debe poder reiniciarse sin reiniciar la aplicación.
 
-## 5. Interprocess communication
+## 5. Comunicación entre procesos
 
-No final IPC mechanism has been selected.
+Aún no se ha seleccionado un mecanismo IPC final.
 
-Candidates for the Windows reference implementation include:
+Candidatos para la implementación de referencia en Windows:
 
 - named pipes;
-- local TCP sockets;
-- standard input/output for simple executable tools;
-- HTTP or WebSocket for independently hosted services;
-- MCP where its semantics match the integration.
+- sockets TCP locales;
+- entrada/salida estándar para herramientas ejecutables simples;
+- HTTP o WebSocket para servicios alojados de forma independiente;
+- MCP cuando su semántica encaje con la integración.
 
-The chosen internal protocol should support:
+El protocolo interno elegido debe soportar:
 
-- request identifiers;
-- asynchronous events;
+- identificadores de petición;
+- eventos asíncronos;
 - streaming;
-- cancellation;
+- cancelación;
 - heartbeats;
-- structured errors;
-- version negotiation;
-- bounded message sizes.
+- errores estructurados;
+- negociación de versión;
+- tamaños de mensaje acotados.
 
-A binary protocol is not automatically required. Simplicity and inspectability are important during the first phases.
+No se requiere automáticamente un protocolo binario. La simplicidad y la inspectabilidad son importantes durante las primeras fases.
 
-## 6. Tools and agents
+## 6. Herramientas y agentes
 
-A tool is a declared capability with a schema, permission requirements and an execution implementation.
+Una herramienta es una capacidad declarada con un esquema, requisitos de permisos y una implementación de ejecución.
 
-An agent is a coordinator that can combine model interaction, tools, state and policy to pursue a task.
+Un agente es un coordinador que puede combinar interacción con el modelo, herramientas, estado y política para perseguir una tarea.
 
-These concepts must remain separate. A tool should be callable without requiring a fully autonomous agent loop, and an agent should not receive unrestricted system access merely because a model requested it.
+Estos conceptos deben permanecer separados. Una herramienta debe poder invocarse sin requerir un bucle de agente completamente autónomo, y un agente no debe recibir acceso irrestricto al sistema solo porque un modelo lo haya solicitado.
 
-Each tool should declare at least:
+Cada herramienta debe declarar al menos:
 
-- identifier and version;
-- human-readable purpose;
-- input and output schema;
-- read/write/destructive classification;
-- required permissions;
-- timeout policy;
-- execution host;
-- audit representation.
+- identificador y versión;
+- propósito legible por humanos;
+- esquema de entrada y salida;
+- clasificación lectura/escritura/destructiva;
+- permisos requeridos;
+- política de timeout;
+- host de ejecución;
+- representación de auditoría.
 
-## 7. Extensions
+## 7. Extensiones
 
-The preferred extension boundary is out of process.
+El límite preferido de extensión es fuera de proceso.
 
-An extension may provide:
+Una extensión puede proporcionar:
 
-- tools;
-- provider adapters;
-- importers and exporters;
-- context sources;
-- specialised workers;
-- UI contributions through a constrained extension surface.
+- herramientas;
+- adaptadores de proveedores;
+- importadores y exportadores;
+- fuentes de contexto;
+- workers especializados;
+- contribuciones de UI mediante una superficie de extensión restringida.
 
-Native DLL plugins loaded into the main process should not be the default mechanism because they share memory, privileges and failure state with the application.
+Los plugins nativos en DLL cargados en el proceso principal no deben ser el mecanismo por defecto porque comparten memoria, privilegios y estado de fallo con la aplicación.
 
-A future extension package may include:
+Un paquete de extensión futuro puede incluir:
 
 ```text
 extension/
@@ -216,64 +216,64 @@ extension/
   README.md
 ```
 
-The package and discovery format remain undecided.
+El formato de paquete y descubrimiento permanece sin decidir.
 
-## 8. Persistence
+## 8. Persistencia
 
-SQLite is the leading candidate for structured local state.
+SQLite es el candidato principal para el estado local estructurado.
 
-Potential stored data:
+Datos potencialmente almacenados:
 
-- providers and non-secret configuration;
-- model metadata cache;
+- proveedores y configuración no secreta;
+- caché de metadatos de modelos;
 - workspaces;
-- conversations and messages;
-- tool execution records;
-- task state;
-- extension registry;
-- application settings.
+- conversaciones y mensajes;
+- registros de ejecución de herramientas;
+- estado de tareas;
+- registro de extensiones;
+- ajustes de aplicación.
 
-Secrets must not be stored as plaintext in the database. On Windows, the credential manager or DPAPI-backed storage should be considered.
+Los secretos no deben almacenarse en texto plano en la base de datos. En Windows, debe considerarse el administrador de credenciales o almacenamiento respaldado por DPAPI.
 
-Important user data must be exportable in documented formats such as JSON, Markdown or JSON Lines.
+Los datos importantes del usuario deben ser exportables en formatos documentados como JSON, Markdown o JSON Lines.
 
 ## 9. Workspaces
 
-A workspace groups the context required for a type of work.
+Un workspace agrupa el contexto requerido para un tipo de trabajo.
 
-It may contain:
+Puede contener:
 
-- instructions;
-- preferred providers and models;
-- allowed folders;
-- enabled tools;
-- extension configuration;
-- MCP servers;
-- conversation history;
-- approval policy;
-- environment variables or secret references.
+- instrucciones;
+- proveedores y modelos preferidos;
+- carpetas permitidas;
+- herramientas habilitadas;
+- configuración de extensiones;
+- servidores MCP;
+- historial de conversaciones;
+- política de aprobación;
+- variables de entorno o referencias a secretos.
 
-Workspaces should be portable where possible, while machine-specific paths and secrets remain clearly separated.
+Los workspaces deben ser portables cuando sea posible, mientras que las rutas específicas de la máquina y los secretos permanezcan claramente separados.
 
-## 10. Security model
+## 10. Modelo de seguridad
 
-NATIA assumes model output is untrusted input.
+NATIA asume que la salida del modelo es entrada no confiable.
 
-The security design should include:
+El diseño de seguridad debe incluir:
 
-- least-privilege execution;
-- explicit folder and resource scopes;
-- approval gates for destructive actions;
-- separation between read and write capabilities;
-- secret redaction;
-- audit logs;
-- bounded execution time and output;
-- process termination controls;
-- clear indication of remote data transmission.
+- ejecución con mínimo privilegio;
+- ámbitos explícitos de carpetas y recursos;
+- puertas de aprobación para acciones destructivas;
+- separación entre capacidades de lectura y escritura;
+- redacción de secretos;
+- registros de auditoría;
+- tiempo de ejecución y salida acotados;
+- controles de terminación de procesos;
+- indicación clara de transmisión de datos remotos.
 
-A future sandbox may improve isolation, but the first line of defence is a small, explicit and inspectable authority model.
+Un sandbox futuro puede mejorar el aislamiento, pero la primera línea de defensa es un modelo de autoridad pequeño, explícito e inspectable.
 
-## 11. Source layout proposal
+## 11. Propuesta de estructura de código fuente
 
 ```text
 /
@@ -300,23 +300,23 @@ A future sandbox may improve isolation, but the first line of defence is a small
   tools/
 ```
 
-This layout is provisional. The portable core should avoid visual dependencies and isolate platform-specific code.
+Este layout es provisional. El núcleo portable debe evitar dependencias visuales y aislar el código específico de plataforma.
 
-## 12. First architectural proof
+## 12. Primera prueba arquitectónica
 
-The first executable should prove the architecture rather than the feature count.
+El primer ejecutable debe demostrar la arquitectura más que el número de funcionalidades.
 
-It should demonstrate:
+Debe demostrar:
 
-1. native startup;
-2. provider configuration;
-3. model discovery;
-4. streamed conversation output;
-5. immediate cancellation;
-6. non-blocking UI behaviour;
-7. local persistence;
-8. one isolated external tool;
-9. worker failure and recovery;
-10. measurable resource usage.
+1. arranque nativo;
+2. configuración de proveedor;
+3. descubrimiento de modelos;
+4. salida de conversación en streaming;
+5. cancelación inmediata;
+6. comportamiento de UI no bloqueante;
+7. persistencia local;
+8. una herramienta externa aislada;
+9. fallo y recuperación de worker;
+10. uso de recursos medible.
 
-If these foundations are correct, additional agents, providers and tools can be added without turning NATIA into a monolith.
+Si estos cimientos son correctos, se pueden añadir agentes, proveedores y herramientas adicionales sin convertir NATIA en un monolito.

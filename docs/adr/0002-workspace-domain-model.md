@@ -1,9 +1,9 @@
-# ADR-0002: Workspace domain model
+# ADR-0002: Modelo de dominio del Workspace
 
-- Status: Proposed
-- Date: 2026-07-20
+- Estado: Propuesto
+- Fecha: 2026-07-20
 
-## Context
+## Contexto
 
 [ADR-0001](0001-workspace-first-architecture.md) establece que el Workspace es la entidad primaria de NATIA, pero no define el modelo de dominio concreto: agregados, ciclo de vida, persistencia ni límites entre conocimiento, conversación y estado operativo.
 
@@ -11,7 +11,7 @@ El [ROADMAP](../ROADMAP.md) actual introduce Workspaces en la Fase 0.6, después
 
 Se requiere un diseño de dominio antes de escribir código del Core.
 
-## Decision
+## Decisión
 
 ### 1. Dos entidades de ciclo de vida: Workspace y WorkspaceRuntime
 
@@ -52,45 +52,45 @@ Registro append-only de eventos de dominio para auditoría y proyecciones. Estad
 
 El esqueleto de dominio y persistencia del Workspace debe preceder a la primera conversación persistida. La UI nativa puede avanzar en paralelo, pero el modelo de datos no debe asumir `Conversation` como raíz.
 
-## Consequences
+## Consecuencias
 
-### Positive
+### Positivas
 
 - El Core tiene un lenguaje estable para crecer diez años sin reescritura fundamental.
 - Conversaciones, proveedores y herramientas se integran como dependencias del Workspace.
 - Exportabilidad y local-first quedan modelados desde el origen.
 - Tests del dominio sin GUI, SQLite, MCP ni proveedores.
 
-### Costs and risks
+### Costes y riesgos
 
 - Más diseño upfront antes de la primera demo «útil» de chat.
 - Disciplina requerida para no promover conversaciones a conocimiento automáticamente.
 - Dos conceptos de estado exigen documentación clara para contribuidores.
 - El journal de eventos necesitará política de retención.
 
-## Alternatives considered
+## Alternativas consideradas
 
-### Conversation as aggregate root
+### Conversation como raíz del agregado
 
-Rejected. Encaja con clientes de chat pero fuerza reconstrucción de contexto y refactorización cuando el Workspace crece.
+Rechazada. Encaja con clientes de chat pero fuerza reconstrucción de contexto y refactorización cuando el Workspace crece.
 
-### Single monolithic Workspace aggregate
+### Agregado monolítico único de Workspace
 
-Rejected. No escala con volumen de mensajes y eventos; viola principios de rendimiento.
+Rechazado. No escala con volumen de mensajes y eventos; viola principios de rendimiento.
 
-### Full event sourcing
+### Event sourcing completo
 
-Rejected for v1. Coste de complejidad y replay alto para conversaciones; puede aplicarse parcialmente al journal más adelante.
+Rechazado para v1. Coste de complejidad y replay alto para conversaciones; puede aplicarse parcialmente al journal más adelante.
 
-### WorkspaceService as domain entity
+### WorkspaceService como entidad de dominio
 
-Rejected. Los servicios son runtime/infraestructura; el dominio declara bindings.
+Rechazado. Los servicios son runtime/infraestructura; el dominio declara bindings.
 
-### Keep ROADMAP order (workspaces at 0.6)
+### Mantener el orden del ROADMAP (workspaces en 0.6)
 
-Rejected. Contradice ADR-0001 y acumula deuda de modelo de datos.
+Rechazado. Contradice ADR-0001 y acumula deuda de modelo de datos.
 
-## References
+## Referencias
 
 - [DOMAIN-MODEL.md](../DOMAIN-MODEL.md) — diseño completo
 - [ADR-0001](0001-workspace-first-architecture.md)
