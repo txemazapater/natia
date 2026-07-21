@@ -10,3 +10,11 @@ artifacts/
 __history/
 __recovery/
 *.~*
+
+# Delphi IDE output inside project folders (used by VCL shell skeleton)
+src/apps/**/Win32/
+src/apps/**/Win64/
+*.rsm
+
+# Generated resources in Delphi projects (keep VCS clean)
+src/apps/**/Delphi/*.res
