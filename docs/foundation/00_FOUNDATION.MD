@@ -1,8 +1,22 @@
-# THE NATIA MANIFESTO
+# FOUNDATION
 
-> *"Technology changes. The way humans think does not."*
+> *"Technology changes. Human thinking does not."*
 
-Version: 0.1 (Foundational Draft)
+**Status:** Draft  
+**Version:** 0.1  
+**Last updated:** 2026-07-22
+
+---
+
+# Purpose
+
+This document defines the philosophical foundations of NATIA.
+
+It does not describe technologies, programming languages, software components or implementation details.
+
+Its purpose is to establish the principles that guide every architectural, functional and technical decision within the project.
+
+Whenever a technical decision contradicts this document, the technical decision should be reconsidered.
 
 ---
 
@@ -12,7 +26,7 @@ Modern development environments are excellent at managing files.
 
 Some are good at managing projects.
 
-Many integrate artificial intelligence.
+Many integrate Artificial Intelligence.
 
 None of them truly manage the most valuable resource of all:
 
@@ -20,9 +34,9 @@ None of them truly manage the most valuable resource of all:
 
 A software project is not a collection of source files.
 
-It is a living system composed of ideas, intentions, decisions, experiments, failures, discoveries and knowledge.
+It is a living system composed of ideas, intentions, decisions, hypotheses, experiments, failures, discoveries and accumulated knowledge.
 
-Files are merely one of its many consequences.
+Source code is only one of its many artifacts.
 
 NATIA was born from a simple question:
 
@@ -44,6 +58,8 @@ A place where people, knowledge and intelligent capabilities collaborate around 
 
 Artificial Intelligence is only one of those capabilities.
 
+The architecture must always remain independent from any specific model, technology or vendor.
+
 ---
 
 # Our Mission
@@ -56,9 +72,11 @@ Recover context instantly.
 
 Connect ideas.
 
-Assist decisions.
+Assist decision making.
 
 Automate repetitive work.
+
+Capture experience.
 
 Never replace human creativity.
 
@@ -96,6 +114,8 @@ Projects begin with intentions.
 
 Files are merely artifacts generated along the journey.
 
+The system must always preserve the original intention behind every piece of work.
+
 ---
 
 ## 5. Knowledge belongs to the Workspace.
@@ -104,6 +124,8 @@ Models remember nothing.
 
 The Workspace remembers everything.
 
+Knowledge belongs to the project, never to a model.
+
 ---
 
 ## 6. Artificial Intelligence is a capability.
@@ -111,6 +133,8 @@ The Workspace remembers everything.
 Never the architecture.
 
 Models must always remain replaceable.
+
+The architecture must never depend on a specific AI provider.
 
 ---
 
@@ -124,17 +148,23 @@ Discarded ideas also teach.
 
 Nothing valuable should disappear.
 
+Experience is one of the project's most valuable assets.
+
 ---
 
 ## 8. Observe before acting.
 
 NATIA always seeks to understand the current state before proposing any action.
 
+Observation always precedes orchestration.
+
 ---
 
 ## 9. Every project is alive.
 
 Development never truly stops.
+
+Projects evolve continuously.
 
 NATIA never opens a project.
 
@@ -156,10 +186,36 @@ Never around products.
 
 ---
 
+# Guiding Principle
+
+The primary goal of NATIA is not to generate more code.
+
+Its primary goal is to improve the quality of human thinking throughout the software development lifecycle.
+
+Everything else is a consequence.
+
+---
+
+# Scope
+
+This document defines the philosophy of NATIA.
+
+It intentionally avoids implementation details.
+
+Architecture, components, runtime behavior and user interface are described in subsequent documents.
+
+---
+
 # Final Statement
 
 NATIA is not being built to automate software development.
 
-It is being built to amplify human thought.
+It is being built to augment human thought.
+
+To preserve knowledge.
+
+To reduce cognitive friction.
+
+To transform projects from collections of files into living knowledge systems.
 
 Everything else is a consequence.
