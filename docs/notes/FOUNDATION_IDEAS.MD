@@ -167,21 +167,17 @@ Should Project exist as:
 
 ---
 
-## The Desktop May Become NATIA Studio
+## The Desktop and NATIA Studio
 
-Desktop describes where the reference client runs.
+Desktop describes the architectural collaborative environment ([04_DESKTOP.MD](../foundation/04_DESKTOP.MD)).
 
-Studio describes what the user does there.
-
-The native application may eventually be named:
+Studio describes the reference product that implements it:
 
 > NATIA Studio
 
-This would position the product as an environment for investigation, design, experimentation and creation rather than merely a desktop client.
+Sprint 0 (`src/apps/studio/Delphi/`) is the visual embryo of NATIA Studio.
 
 The architectural document remains `04_DESKTOP.MD`.
-
-The product name is not yet decided.
 
 ---
 

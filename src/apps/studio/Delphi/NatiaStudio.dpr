@@ -1,4 +1,4 @@
-program NatiaDesktopClient;
+program NatiaStudio;
 
 uses
   Vcl.Forms,
@@ -18,7 +18,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.Title := 'NATIA';
+  Application.Title := 'NATIA Studio';
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

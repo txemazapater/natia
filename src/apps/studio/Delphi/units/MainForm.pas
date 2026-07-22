@@ -1,6 +1,6 @@
 ﻿unit MainForm;
 
-{ Sprint 0 — shell visual IDE. Sin integraciones ni lógica de negocio. }
+{ NATIA Studio — Sprint 0 visual embryo. Sin integraciones ni lógica de negocio. }
 
 interface
 
@@ -240,9 +240,9 @@ end;
 
 procedure TfrmMain.ApplyMockChrome;
 begin
-  Caption := 'NATIA — AI Workspace';
+  Caption := 'NATIA Studio';
   lblBrand.Caption := 'NATIA';
-  lblChromeTitle.Caption := 'Workspace · NATIA Core';
+  lblChromeTitle.Caption := 'Studio · Workspace NATIA Core';
   lblChromeTitle.Font.Color := TNatiaTheme.TextSecondary;
   edtGlobalSearch.TextHint := 'Buscar en workspace, NEMO, chats, herramientas…';
   edtGlobalSearch.Text := '';
@@ -646,9 +646,9 @@ end;
 procedure TfrmMain.miHelpAboutClick(Sender: TObject);
 begin
   ShowMessage(
-    'NATIA Desktop Client'#13#10 +
-    'Sprint 0 — mockup visual'#13#10 +
-    'IDE para Inteligencia Artificial'#13#10 +
+    'NATIA Studio'#13#10 +
+    'Cliente de referencia nativo · Sprint 0 (embrión visual)'#13#10 +
+    'Cognitive workspace para Inteligencia Artificial'#13#10 +
     'Sin integraciones reales.');
 end;
 

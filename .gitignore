@@ -11,7 +11,7 @@ __history/
 __recovery/
 *.~*
 
-# Delphi IDE output inside project folders (used by VCL shell skeleton)
+# Delphi IDE output inside project folders (NATIA Studio / VCL clients)
 src/apps/**/Win32/
 src/apps/**/Win64/
 *.rsm

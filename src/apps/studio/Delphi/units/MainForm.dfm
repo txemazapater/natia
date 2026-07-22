@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 0
   Top = 0
-  Caption = 'NATIA'
+  Caption = 'NATIA Studio'
   ClientHeight = 820
   ClientWidth = 1400
   Color = clBtnFace

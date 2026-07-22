@@ -20,7 +20,7 @@ Una Initiative (y su Workspace) debe saber en qué punto está el trabajo, qué 
 
 NATIA aspira a proporcionar:
 
-- un Desktop nativo de Windows, responsivo e Initiative-centric;
+- **NATIA Studio** — cliente de referencia nativo (Windows · Delphi · VCL), Initiative-centric;
 - arranque rápido y bajo consumo en reposo;
 - Initiatives con Workspace persistente (continuidad de conocimiento y decisiones);
 - Continuidad NEMO: procedencia, camino y experiencia, no solo hechos sueltos;
@@ -32,12 +32,14 @@ NATIA aspira a proporcionar:
 - datos propiedad del usuario y exportables;
 - arquitectura abierta, comprensible y extensible.
 
-Cliente de referencia: **Delphi y VCL**. Licencia **MIT**. Las herramientas propietarias no deben convertir la arquitectura en propietaria: el Core portable, protocolos, esquemas y código no visual deben permanecer accesibles y, cuando sea razonable, compatibles con Free Pascal.
+El concepto arquitectónico del entorno de interacción sigue siendo el **Desktop** ([04_DESKTOP.MD](docs/foundation/04_DESKTOP.MD)). **NATIA Studio** es el nombre del producto cliente que lo materializa.
+
+Licencia **MIT**. Las herramientas propietarias no deben convertir la arquitectura en propietaria: el Core portable, protocolos, esquemas y código no visual deben permanecer accesibles y, cuando sea razonable, compatibles con Free Pascal.
 
 ## Estado actual
 
 - **Fase 0.3** completada: [Core ejecutable en memoria](docs/PHASE-0.3-EXECUTABLE-CORE.md) (Delphi 11.3, DUnitX Win32/Win64).
-- **Sprint 0** del shell: mockup visual VCL en `src/apps/desktop/Delphi/` (sin integraciones reales).
+- **NATIA Studio** (Sprint 0): embrión visual VCL en `src/apps/studio/Delphi/` (sin integraciones reales).
 - **Foundation** vigente: [`docs/foundation/`](docs/foundation/).
 - **Reconciliación** Core ↔ foundation: [ADR-0004](docs/adr/0004-foundation-reconciliation-and-nemo.md).
 
@@ -47,6 +49,7 @@ Vocabulario vinculante:
 |---------|-------------------|
 | **Initiative** | Raíz del producto; cuerpo de trabajo intelectual |
 | **Workspace** | Estado vivo / memoria operativa (1:1 con Initiative) |
+| **NATIA Studio** | Cliente de referencia nativo (implementa el Desktop) |
 | **WorkspaceRuntime** | Instancia de ejecución (`RuntimeId`, readiness) |
 | **Cognitive Runtime** | Bucle Observe → … → Act (comportamiento, no agregado) |
 | **NEMO** | Característica nombrada: continuidad explicativa del conocimiento |
@@ -59,7 +62,7 @@ El Core 0.3 aún modela Workspace sin entidad `Initiative` en código. **Cuándo
 ```bat
 tools\build-and-test-win32.bat
 tools\build-and-test-win64.bat
-src\apps\desktop\Delphi\build-sprint0.bat
+src\apps\studio\Delphi\build-studio.bat
 ```
 
 Notas: [PHASE-0.3-IMPLEMENTATION-NOTES.md](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md).

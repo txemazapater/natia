@@ -54,24 +54,26 @@ NATIA debe proporcionar:
   → comportamiento de application (evolutivo), no monolito en domain
 ```
 
-## 1. Desktop shell
+## 1. Desktop y NATIA Studio
 
-El Desktop es el entorno colaborativo donde persona y NATIA avanzan una **Initiative** ([04_DESKTOP.MD](foundation/04_DESKTOP.MD)).
+El **Desktop** es el concepto arquitectónico del entorno colaborativo donde persona y NATIA avanzan una **Initiative** ([04_DESKTOP.MD](foundation/04_DESKTOP.MD)).
 
-Responsabilidades:
+**NATIA Studio** es el cliente de referencia nativo que materializa ese Desktop (Windows · Delphi · VCL · `src/apps/studio/Delphi/`). El Sprint 0 es su embrión visual.
+
+Responsabilidades del cliente:
 
 - arranque y apagado de la aplicación;
-- navegación Initiative-centric (objetivo de experiencia; el Sprint 0 es un mockup tipo IDE para validar layout);
-- superficies: Home, Chat, NEMO (vista de continuidad de conocimiento), Projects/Tools, etc.;
+- navegación Initiative-centric (objetivo de experiencia; Sprint 0 valida layout tipo IDE);
+- superficies: Home, Chat, NEMO (vista de continuidad de conocimiento), Tools, etc.;
 - presentación de streaming y diagnósticos;
 - aprobaciones del usuario;
 - estado de tareas y workers (cuando existan).
 
-El shell **no** ejecuta inferencia, indexación ni herramientas en el hilo de UI.
+Studio **no** ejecuta inferencia, indexación ni herramientas en el hilo de UI.
 
 ### Plataforma inicial
 
-Cliente de referencia: Windows, Delphi y VCL (`src/apps/desktop/Delphi/`). Compatibilidad multiplataforma primero en protocolos y Core, no en UI.
+Cliente de referencia: **NATIA Studio** (Windows, Delphi y VCL). Compatibilidad multiplataforma primero en protocolos y Core, no en UI.
 
 ## 2. Core
 
@@ -182,7 +184,7 @@ Primera línea: autoridad explícita e inspectable. No en Fase 0.3.
       application/
       contracts/
     apps/
-      desktop/Delphi/   # shell / Sprint 0 mockup
+      studio/Delphi/    # NATIA Studio — Sprint 0 embrión visual
     infrastructure/     # store, export real — después de 0.3
     providers/          # después
   tests/
@@ -194,7 +196,7 @@ Primera línea: autoridad explícita e inspectable. No en Fase 0.3.
 | Fase | Demostración |
 |------|----------------|
 | 0.3 | Core en memoria; dominio Workspace; tests de aceptación |
-| 0.4 | Shell nativo; Sprint 0 = mockup visual (hecho); integración Core pendiente |
+| 0.4 | NATIA Studio; Sprint 0 = embrión visual (hecho); integración Core pendiente |
 | TBD | Introducción de `Initiative` en el Core (fase a decidir) |
 | 0.5 | Store operacional + export |
 | 0.6+ | Provider, conversaciones reales, conectores, MCP |

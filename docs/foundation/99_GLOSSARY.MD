@@ -241,6 +241,14 @@ Multiple sessions contribute to the same Workspace.
 
 ---
 
+## Studio (NATIA Studio)
+
+The reference native client that implements the Desktop concept on Windows (Delphi / VCL).
+
+Desktop (`04_DESKTOP.MD`) describes the architectural experience. NATIA Studio is the product name of the shipping reference application. Sprint 0 is its visual embryo (`src/apps/studio/Delphi/`).
+
+---
+
 ## Workspace
 
 The living operational state of an Initiative.

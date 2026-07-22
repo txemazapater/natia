@@ -1,6 +1,6 @@
 unit Natia.Theme;
 
-{ Sprint 0 — tokens visuales compartidos. Sin lógica de negocio. }
+{ NATIA Studio — tokens visuales compartidos. Sin lógica de negocio. }
 
 interface
 

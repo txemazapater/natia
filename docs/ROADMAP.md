@@ -22,7 +22,7 @@ Vocabulario de producto (post–ADR-0004):
 | 0.2 | Revisión crítica y consolidación arquitectónica | Completada |
 | 0.3 | Core ejecutable en memoria | Completada |
 | — | Foundation + ADR-0004 (reconciliación documental) | Completada (2026-07-22) |
-| 0.4 | Shell nativo | **Parcial** — Sprint 0 mockup visual hecho; integración Core pendiente |
+| 0.4 | NATIA Studio (shell nativo) | **Parcial** — Sprint 0 embrión visual; integración Core pendiente |
 | TBD | Initiative en el Core | **Pendiente de decisión de fase** |
 | 0.5 | Persistencia operacional y exportación | Pendiente |
 | 0.6 | Primer proveedor de IA | Pendiente |
@@ -114,28 +114,31 @@ Un desarrollador puede leer foundation + ADR-0004 + DOMAIN-MODEL y saber qué es
 
 ---
 
-## Fase 0.4 — Shell nativo
+## Fase 0.4 — NATIA Studio (shell nativo)
 
 ### Objetivo
 
 Demostrar la experiencia de escritorio nativa sin contaminar el Core.
 
+**NATIA Studio** es el nombre del cliente de referencia (Windows · Delphi · VCL). El concepto arquitectónico del entorno sigue siendo el **Desktop** ([04_DESKTOP.MD](foundation/04_DESKTOP.MD)); Studio es el producto que lo implementa. El Sprint 0 es su **embrión visual**.
+
 ### Entregables
 
 | Entrega | Estado |
 |---------|--------|
-| Ejecutable nativo Windows (Delphi/VCL) | Sí (Sprint 0) |
+| Ejecutable nativo Windows (Delphi/VCL) — `NatiaStudio` | Sí (Sprint 0) |
 | Shell visual 5 zonas + módulos mock (Home, Chat, NEMO, …) | Sí (Sprint 0) |
 | Datos simulados; sin HTTP/IA/persistencia real | Sí |
+| Ruta de código `src/apps/studio/Delphi/` | Sí |
 | Consumo real del Core / fachada de dominio | Pendiente |
 | Ajustes de aplicación, logging, diagnósticos medidos | Pendiente |
 | Navegación Initiative-centric (más allá del mock IDE) | Pendiente |
 
 ### Criterios de salida (fase completa)
 
-Arranque rápido, cierre predecible, idle razonable; dominio testeable sin GUI; shell consume Core sin duplicar reglas.
+Arranque rápido, cierre predecible, idle razonable; dominio testeable sin GUI; Studio consume Core sin duplicar reglas.
 
-**Estado:** parcial (mockup de validación visual listo).
+**Estado:** parcial (embrión visual listo).
 
 ---
 
@@ -193,11 +196,11 @@ Configurar endpoint, elegir modelo, stream y cancelar sin congelar la UI.
 
 ### Objetivo
 
-Conversaciones del dominio usables a diario en el Desktop.
+Conversaciones del dominio usables a diario en NATIA Studio.
 
 ### Entregables
 
-CRUD en shell; historial perezoso; metadatos provider/model; Markdown; export; promoción a Knowledge (apoyo a NEMO).
+CRUD en Studio; historial perezoso; metadatos provider/model; Markdown; export; promoción a Knowledge (apoyo a NEMO).
 
 ### Criterios de salida
 

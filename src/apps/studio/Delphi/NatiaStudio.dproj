@@ -8,8 +8,8 @@
     <Platform Condition="'$(Platform)'==''">Win64</Platform>
     <TargetedPlatforms>3</TargetedPlatforms>
     <AppType>Application</AppType>
-    <MainSource>NatiaDesktopClient.dpr</MainSource>
-    <ProjectName>NatiaDesktopClient</ProjectName>
+    <MainSource>NatiaStudio.dpr</MainSource>
+    <ProjectName>NatiaStudio</ProjectName>
     <DCC_UsePackage>rtl;vcl;$(DCC_UsePackage)</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
@@ -51,13 +51,13 @@
     <DCC_F>false</DCC_F>
     <DCC_K>false</DCC_K>
     <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-    <SanitizedProjectName>NatiaDesktopClient</SanitizedProjectName>
+    <SanitizedProjectName>NatiaStudio</SanitizedProjectName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Base_Win32)'!=''">
     <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
     <BT_BuildType>Debug</BT_BuildType>
     <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-    <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=0.4.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=NATIA;ProductVersion=0.4.0.0;Comments=Sprint 0 visual mockup</VerInfo_Keys>
+    <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=0.4.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=NATIA Studio;ProductVersion=0.4.0.0;Comments=NATIA Studio — Sprint 0 visual embryo</VerInfo_Keys>
     <VerInfo_Locale>1033</VerInfo_Locale>
     <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
   </PropertyGroup>
@@ -65,7 +65,7 @@
     <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
     <BT_BuildType>Debug</BT_BuildType>
     <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-    <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=0.4.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=NATIA;ProductVersion=0.4.0.0;Comments=Sprint 0 visual mockup</VerInfo_Keys>
+    <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=0.4.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=NATIA Studio;ProductVersion=0.4.0.0;Comments=NATIA Studio — Sprint 0 visual embryo</VerInfo_Keys>
     <VerInfo_Locale>1033</VerInfo_Locale>
     <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
   </PropertyGroup>
@@ -139,7 +139,7 @@
     <BorlandProject>
       <Delphi.Personality>
         <Source>
-          <Source Name="MainSource">NatiaDesktopClient.dpr</Source>
+          <Source Name="MainSource">NatiaStudio.dpr</Source>
         </Source>
       </Delphi.Personality>
     </BorlandProject>
