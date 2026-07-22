@@ -1,103 +1,94 @@
 # NATIA
 
-**NATIA** es un workspace operativo de IA de escritorio nativo, experimental y de código abierto.
+**NATIA** es un entorno de escritorio nativo, experimental y de código abierto para trabajo intelectual con inteligencia artificial.
 
-NATIA parte de dos ideas simples:
+NATIA no es un chatbot ni un IDE clásico. Es un **cognitive workspace**: personas, conocimiento y capacidades inteligentes colaboran alrededor de un propósito común.
 
-> Un agente de IA debe comportarse como una aplicación de escritorio real.
+Parte de tres ideas:
 
-> El Workspace es el producto. La conversación es una de sus interfaces.
+> La **Initiative** es la unidad de trabajo. El **Workspace** es su memoria viva.
 
-La mayoría de los clientes de IA de escritorio actuales son aplicaciones web empaquetadas para el escritorio y centradas en conversaciones aisladas. NATIA toma el enfoque opuesto: partir del sistema operativo, construir una aplicación nativa rápida y fiable, y colocar modelos, agentes, herramientas, servicios y memoria del proyecto dentro de un Workspace persistente.
+> La conversación es una interfaz. La IA es una **capability**, no la arquitectura.
 
-Un Workspace de NATIA debe saber en qué punto está un proyecto, qué ha cambiado, qué capacidades requiere y cuál puede ser el siguiente paso más valioso. Los usuarios no deberían tener que reconstruir el contexto cada vez que regresan.
+> **NEMO** nombra la faceta que preserva *cómo hemos llegado aquí*, no un producto aparte.
+
+La mayoría de los clientes de IA de escritorio son aplicaciones web empaquetadas y centradas en chats aislados. NATIA parte del sistema operativo, construye una aplicación nativa rápida y sitúa modelos, agentes, herramientas y servicios como **Resources** reemplazables al servicio de Initiatives y Workspaces.
+
+Una Initiative (y su Workspace) debe saber en qué punto está el trabajo, qué ha cambiado, qué capacidades hacen falta y cuál puede ser el siguiente paso valioso. El usuario no debería reconstruir el contexto cada vez que regresa.
 
 ## Dirección del proyecto
 
 NATIA aspira a proporcionar:
 
-- una interfaz nativa de Windows, responsiva;
-- arranque rápido y bajo consumo de recursos en reposo;
-- Workspaces persistentes, conscientes del proyecto;
-- continuidad entre conversaciones, personas, modelos y el tiempo;
+- un Desktop nativo de Windows, responsivo e Initiative-centric;
+- arranque rápido y bajo consumo en reposo;
+- Initiatives con Workspace persistente (continuidad de conocimiento y decisiones);
+- Continuidad NEMO: procedencia, camino y experiencia, no solo hechos sueltos;
+- Capabilities orquestables y Resources intercambiables (Capability Graph);
 - ejecución multiproceso explícita y supervisión;
 - compatibilidad con APIs estilo OpenAI sin dependencia de un proveedor;
-- soporte para modelos locales, remotos y autoalojados;
-- herramientas conectadas, servidores MCP y servicios locales o remotos;
-- ejecución segura e inspectable bajo identidades y permisos explícitos;
-- conciencia del roadmap, las decisiones y el estado del proyecto;
-- un modelo de extensiones fuera de proceso;
+- modelos locales, remotos y autoalojados;
+- herramientas, MCP y servicios locales o remotos bajo autoridad explícita;
 - datos propiedad del usuario y exportables;
-- una arquitectura abierta que pueda entenderse, reutilizarse y extenderse.
+- arquitectura abierta, comprensible y extensible.
 
-Se espera que el primer cliente de referencia use **Delphi y VCL** para construir una excelente aplicación nativa de Windows. NATIA está licenciado bajo la **MIT License**. Las herramientas de desarrollo propietarias no deben convertirse en excusa para una arquitectura propietaria: el núcleo portable, los protocolos, los esquemas y los componentes no visuales deben permanecer accesibles y compatibles con Free Pascal cuando sea razonable.
+Cliente de referencia: **Delphi y VCL**. Licencia **MIT**. Las herramientas propietarias no deben convertir la arquitectura en propietaria: el Core portable, protocolos, esquemas y código no visual deben permanecer accesibles y, cuando sea razonable, compatibles con Free Pascal.
 
 ## Estado actual
 
-NATIA ha completado la **[Fase 0.3 — Core ejecutable en memoria](docs/PHASE-0.3-EXECUTABLE-CORE.md)**.
+- **Fase 0.3** completada: [Core ejecutable en memoria](docs/PHASE-0.3-EXECUTABLE-CORE.md) (Delphi 11.3, DUnitX Win32/Win64).
+- **Sprint 0** del shell: mockup visual VCL en `src/apps/desktop/Delphi/` (sin integraciones reales).
+- **Foundation** vigente: [`docs/foundation/`](docs/foundation/).
+- **Reconciliación** Core ↔ foundation: [ADR-0004](docs/adr/0004-foundation-reconciliation-and-nemo.md).
 
-El Core Object Pascal (Delphi 11.3) compila y se valida con DUnitX en Win32 y Win64, sin GUI, SQLite, red ni proveedores.
+Vocabulario vinculante:
 
-Existe un **mockup visual Sprint 0** del shell Delphi/VCL (`src/apps/desktop/Delphi/`) para validar identidad y layout. No implementa integraciones reales.
+| Término | Significado breve |
+|---------|-------------------|
+| **Initiative** | Raíz del producto; cuerpo de trabajo intelectual |
+| **Workspace** | Estado vivo / memoria operativa (1:1 con Initiative) |
+| **WorkspaceRuntime** | Instancia de ejecución (`RuntimeId`, readiness) |
+| **Cognitive Runtime** | Bucle Observe → … → Act (comportamiento, no agregado) |
+| **NEMO** | Característica nombrada: continuidad explicativa del conocimiento |
+| **Capability / Resource** | Qué se puede hacer / cómo se implementa |
 
-La foundation conceptual vigente vive en [`docs/foundation/`](docs/foundation/). La reconciliación con el Core está en [ADR-0004](docs/adr/0004-foundation-reconciliation-and-nemo.md): la **Initiative** es la raíz del producto; el **Workspace** es su memoria operativa; **NEMO** es una característica nombrada del Workspace, no una entidad separada.
+El Core 0.3 aún modela Workspace sin entidad `Initiative` en código. **Cuándo entra Initiative en el Core es una decisión de fase pendiente** (no bloquea este vocabulario documental).
 
-### Compilar y probar el Core
-
-Requisito: Delphi 11.3 (Studio 22.0).
+### Compilar y probar
 
 ```bat
 tools\build-and-test-win32.bat
 tools\build-and-test-win64.bat
-```
-
-Notas técnicas: [PHASE-0.3-IMPLEMENTATION-NOTES.md](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md).
-
-Shell visual (opcional):
-
-```bat
 src\apps\desktop\Delphi\build-sprint0.bat
 ```
 
+Notas: [PHASE-0.3-IMPLEMENTATION-NOTES.md](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md).
+
 ## Documentación
 
-- [Manifiesto de NATIA](MANIFESTO.md)
+- [Manifiesto](MANIFESTO.md)
 - [Foundation](docs/foundation/00_FOUNDATION.MD) · [Model](docs/foundation/01_MODEL.MD) · [Ontology](docs/foundation/02_ONTOLOGY.MD) · [Glossary](docs/foundation/99_GLOSSARY.MD)
-- [Visión](docs/VISION.md)
-- [Principios de ingeniería](docs/PRINCIPLES.md)
-- [Arquitectura](docs/ARCHITECTURE.md)
-- [Roadmap](docs/ROADMAP.md)
-- [Modelo de dominio del Core](docs/DOMAIN-MODEL.md)
-- [Revisión crítica del modelo](docs/DOMAIN-MODEL-REVIEW.md)
-- [Fase 0.3 — Core ejecutable](docs/PHASE-0.3-EXECUTABLE-CORE.md)
-- [Notas de implementación Fase 0.3](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md)
-- [Registros de decisiones de arquitectura](docs/adr/README.md)
-- [ADR-0001: Arquitectura workspace-first](docs/adr/0001-workspace-first-architecture.md)
-- [ADR-0002: Modelo de dominio (histórico, Superseded)](docs/adr/0002-workspace-domain-model.md)
-- [ADR-0003: Refinamiento del dominio (vigente para el Core)](docs/adr/0003-core-domain-refinement.md)
-- [ADR-0004: Reconciliación foundation y NEMO](docs/adr/0004-foundation-reconciliation-and-nemo.md)
+- [Visión](docs/VISION.md) · [Principios](docs/PRINCIPLES.md) · [Arquitectura](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md)
+- [Modelo de dominio](docs/DOMAIN-MODEL.md) · [Revisión crítica](docs/DOMAIN-MODEL-REVIEW.md)
+- [Fase 0.3](docs/PHASE-0.3-EXECUTABLE-CORE.md) · [Notas 0.3](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md)
+- [ADRs](docs/adr/README.md) · [ADR-0003 Core](docs/adr/0003-core-domain-refinement.md) · [ADR-0004 Reconciliación](docs/adr/0004-foundation-reconciliation-and-nemo.md)
 
 ## Principios fundamentales
 
-- El Workspace es el producto.
-- Preservar la continuidad del pensamiento.
-- Nativo primero.
-- Rápido por defecto.
+- La Initiative es la raíz del trabajo; el Workspace es su memoria.
+- Preservar la continuidad del pensamiento (NEMO).
+- Nativo primero; rápido por defecto.
 - La interfaz nunca debe esperar al modelo.
-- Preferir el aislamiento por procesos frente al fallo compartido.
-- Los proveedores son intercambiables.
+- Capabilities estables; Resources reemplazables.
+- Preferir aislamiento por procesos frente al fallo compartido.
 - Local-first, no solo local.
-- Las herramientas operan con autoridad explícita.
-- Las extensiones no deben poseer el núcleo.
-- Los datos del usuario permanecen exportables.
-- El rendimiento se mide desde el principio.
+- Autoridad explícita; las extensiones no poseen el núcleo.
+- Datos del usuario exportables; rendimiento medido desde el principio.
 
 ## Nombre
 
-NATIA comenzó como **Native Integrated Agent**.
-
-El nombre puede superar la expansión original a medida que el proyecto evolucione. NATIA es la identidad del producto; la arquitectura y los principios documentados definen lo que significa.
+NATIA comenzó como **Native Integrated Agent**. El nombre puede superar esa expansión; la foundation y los ADR definen el significado.
 
 ---
 
-> NATIA existe para preservar la continuidad del pensamiento entre personas, tiempo y proyectos.
+> NATIA existe para aumentar el pensamiento humano y preservar la continuidad del conocimiento entre personas, tiempo e Initiatives.

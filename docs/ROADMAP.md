@@ -4,16 +4,26 @@
 
 NATIA se desarrolla en pruebas arquitectónicas pequeñas. Cada fase deja el proyecto más claro, medible y fácil de extender.
 
-La primera prioridad ya no es «demostrar chat cuanto antes», sino **demostrar el lenguaje de dominio y un Core desacoplado**. Sin eso, providers y conversaciones congelarían un modelo conversation-first incompatible con [ADR-0001](adr/0001-workspace-first-architecture.md) y [ADR-0003](adr/0003-core-domain-refinement.md).
+Prioridad vigente: **lenguaje de dominio + Core desacoplado + foundation alineada**, no «demostrar chat cuanto antes». Un modelo conversation-first sería incompatible con [ADR-0001](adr/0001-workspace-first-architecture.md), [ADR-0003](adr/0003-core-domain-refinement.md) y [ADR-0004](adr/0004-foundation-reconciliation-and-nemo.md).
+
+Vocabulario de producto (post–ADR-0004):
+
+- **Initiative** — raíz del trabajo intelectual;
+- **Workspace** — memoria operativa 1:1;
+- **NEMO** — característica de continuidad explicativa;
+- **WorkspaceRuntime** vs **Cognitive Runtime** — no confundir;
+- **Capability / Resource** — qué vs cómo.
 
 ## Estado de las fases
 
 | Fase | Nombre | Estado |
 |------|--------|--------|
 | 0.1 | Modelo de dominio | Completada |
-| 0.2 | Revisión crítica y consolidación arquitectónica | Completada (docs) |
+| 0.2 | Revisión crítica y consolidación arquitectónica | Completada |
 | 0.3 | Core ejecutable en memoria | Completada |
-| 0.4 | Shell nativo | Pendiente |
+| — | Foundation + ADR-0004 (reconciliación documental) | Completada (2026-07-22) |
+| 0.4 | Shell nativo | **Parcial** — Sprint 0 mockup visual hecho; integración Core pendiente |
+| TBD | Initiative en el Core | **Pendiente de decisión de fase** |
 | 0.5 | Persistencia operacional y exportación | Pendiente |
 | 0.6 | Primer proveedor de IA | Pendiente |
 | 0.7 | Conversaciones reales en producto | Pendiente |
@@ -21,7 +31,8 @@ La primera prioridad ya no es «demostrar chat cuanto antes», sino **demostrar 
 | 0.9 | MCP y herramientas | Pendiente |
 | 1.0 | Primera versión pública | Pendiente |
 
-Detalle de la siguiente fase: [PHASE-0.3-EXECUTABLE-CORE.md](PHASE-0.3-EXECUTABLE-CORE.md).
+Detalle Core 0.3: [PHASE-0.3-EXECUTABLE-CORE.md](PHASE-0.3-EXECUTABLE-CORE.md).  
+Foundation: [`docs/foundation/`](foundation/00_FOUNDATION.MD).
 
 ---
 
@@ -35,14 +46,14 @@ Definir el lenguaje interno del producto antes de escribir código de UI o infra
 
 - visión, principios, manifiesto;
 - arquitectura inicial;
-- ADR-0001 (Workspace-first);
+- ADR-0001 (anti-conversation-first / Workspace como continuidad);
 - primer modelo de dominio y ADR-0002 (histórico).
 
 ### Criterios de salida
 
-Existe un vocabulario compartido: Workspace, Runtime, Knowledge, Conversation, recursos, eventos.
+Vocabulario compartido inicial: Workspace, Runtime, Knowledge, Conversation, recursos, eventos.
 
-**Estado:** completada.
+**Estado:** completada. *(El vocabulario se refinó después con foundation + ADR-0004.)*
 
 ---
 
@@ -55,15 +66,11 @@ Intentar romper el modelo, corregir decisiones prematuras y eliminar contradicci
 ### Entregables
 
 - [DOMAIN-MODEL-REVIEW.md](DOMAIN-MODEL-REVIEW.md);
-- [ADR-0003](adr/0003-core-domain-refinement.md) (Accepted; reemplaza operativamente ADR-0002);
-- DOMAIN-MODEL, ARCHITECTURE y ROADMAP alineados;
+- [ADR-0003](adr/0003-core-domain-refinement.md);
+- DOMAIN-MODEL, ARCHITECTURE y ROADMAP alineados al Core;
 - alcance formal de la Fase 0.3.
 
-### Criterios de salida
-
-> Dos desarrolladores distintos podrían implementar el Core en memoria y producir modelos compatibles sin una reunión para interpretar la arquitectura.
-
-**Estado:** completada con la aceptación de ADR-0003 y la documentación consolidada.
+**Estado:** completada.
 
 ---
 
@@ -71,30 +78,39 @@ Intentar romper el modelo, corregir decisiones prematuras y eliminar contradicci
 
 ### Objetivo
 
-Construir un Core ejecutable y verificable **completamente en memoria** que demuestre el lenguaje de dominio consolidado.
+Core ejecutable y verificable **en memoria** que demuestre el lenguaje de dominio consolidado (Workspace-centric en código).
 
 ### Entregables
 
 Ver [PHASE-0.3-EXECUTABLE-CORE.md](PHASE-0.3-EXECUTABLE-CORE.md).
 
-Resumen:
-
-- domain / application / contracts;
-- repositorios y conectores in-memory;
-- Workspace, Runtime (N, RuntimeId), bindings, Conversation, Knowledge (Fact/Decision/Scratch);
-- Fact Events + envelope; Session/Signal fuera del journal;
-- `IWorkspaceExporter` sin filesystem;
-- suite de pruebas de aceptación.
+Resumen: domain / application / contracts; Workspace, WorkspaceRuntime (N, RuntimeId), bindings, Conversation, Knowledge (Fact/Decision/Scratch); Fact Events; exporter in-memory; 21 tests Win32/Win64.
 
 ### Restricciones
 
-Sin GUI, SQLite, MCP, providers reales, Docker, Git, plugins, HTTP real.
+Sin GUI, SQLite, MCP, providers reales, Docker, Git, plugins, HTTP real. **Sin entidad Initiative** (aún).
+
+**Estado:** completada. Ver [PHASE-0.3-IMPLEMENTATION-NOTES.md](PHASE-0.3-IMPLEMENTATION-NOTES.md).
+
+---
+
+## Foundation y ADR-0004 — Reconciliación documental
+
+### Objetivo
+
+Alinear el Core y la documentación de producto con el modelo fundacional (Initiative, Cognitive Runtime, NEMO, Capability Graph) sin reescribir aún el código 0.3.
+
+### Entregables
+
+- `docs/foundation/` (00–07, 99);
+- [ADR-0004](adr/0004-foundation-reconciliation-and-nemo.md) Accepted;
+- propagación de vocabulario a README, DOMAIN-MODEL, ARCHITECTURE, ROADMAP.
 
 ### Criterios de salida
 
-Todos los tests de aceptación de la Fase 0.3 en verde; ningún test acoplado a infraestructura prohibida.
+Un desarrollador puede leer foundation + ADR-0004 + DOMAIN-MODEL y saber qué está en código y qué es deuda (Initiative).
 
-**Estado:** completada (Win32/Win64, 21 tests). Ver [PHASE-0.3-IMPLEMENTATION-NOTES.md](PHASE-0.3-IMPLEMENTATION-NOTES.md).
+**Estado:** completada a nivel documental (2026-07-22).
 
 ---
 
@@ -106,19 +122,34 @@ Demostrar la experiencia de escritorio nativa sin contaminar el Core.
 
 ### Entregables
 
-- ejecutable nativo Windows (Delphi/VCL);
-- ventana principal y navegación mínima;
-- almacenamiento de ajustes de aplicación (no del dominio del Workspace);
-- logging estructurado;
-- ciclo de vida de aplicación;
-- vista de diagnósticos;
-- mediciones de arranque y reposo.
+| Entrega | Estado |
+|---------|--------|
+| Ejecutable nativo Windows (Delphi/VCL) | Sí (Sprint 0) |
+| Shell visual 5 zonas + módulos mock (Home, Chat, NEMO, …) | Sí (Sprint 0) |
+| Datos simulados; sin HTTP/IA/persistencia real | Sí |
+| Consumo real del Core / fachada de dominio | Pendiente |
+| Ajustes de aplicación, logging, diagnósticos medidos | Pendiente |
+| Navegación Initiative-centric (más allá del mock IDE) | Pendiente |
 
-El shell consume el Core (o un fachada) sin reimplementar reglas de dominio.
+### Criterios de salida (fase completa)
 
-### Criterios de salida
+Arranque rápido, cierre predecible, idle razonable; dominio testeable sin GUI; shell consume Core sin duplicar reglas.
 
-Arranque rápido, cierre predecible, idle sin CPU innecesaria. El dominio sigue testeable sin GUI.
+**Estado:** parcial (mockup de validación visual listo).
+
+---
+
+## TBD — Initiative en el Core
+
+### Objetivo
+
+Introducir la entidad `Initiative` (1:1 con Workspace) en dominio, contratos, aplicación y tests, sin romper el perímetro mental de ADR-0003.
+
+### Notas
+
+- **No tiene número de fase fijo aún.** Se decidirá tras alinear expectativas de producto (¿antes del store 0.5?, ¿junto al shell real?, ¿después de persistencia?).
+- Criterio mínimo esperado: `InitiativeId`, repositorio o fábrica, creación Initiative→Workspace, partición estable, tests verdes, envelope de eventos preparado para `initiativeId` opcional.
+- NEMO **no** se convierte en entidad en esta fase: sigue siendo característica del Workspace.
 
 ---
 
@@ -130,17 +161,15 @@ Sustituir la memoria por la fuente operativa de verdad y demostrar exportación 
 
 ### Entregables
 
-- implementación del store operacional (candidato: SQLite);
+- store operacional (candidato: SQLite);
 - journal de Fact Events;
 - recuperación tras apagado anormal;
-- ubicación de datos configurable;
-- `IWorkspaceExporter` hacia JSON/Markdown/JSONL en disco;
-- backup/restore documentado;
-- **sin** dual-write permanente.
+- `IWorkspaceExporter` a disco;
+- backup/restore; **sin** dual-write permanente.
 
 ### Criterios de salida
 
-Un Workspace sobrevive al reinicio; export/import redondo sin pérdida de hechos esenciales; secretos nunca en el store en claro.
+Un Workspace (y, si ya existiera Initiative, su par) sobrevive al reinicio; export/import redondo; secretos nunca en claro.
 
 ---
 
@@ -148,24 +177,15 @@ Un Workspace sobrevive al reinicio; export/import redondo sin pérdida de hechos
 
 ### Objetivo
 
-Conectar NATIA a un endpoint compatible con OpenAI sin acoplar el Workspace al vendor.
+Conectar un Resource de modelo (API estilo OpenAI) sin acoplar el Workspace al vendor.
 
 ### Entregables
 
-- registro de Providers a nivel de aplicación;
-- referencia segura a API key (`SecretReference`);
-- prueba de conexión, listado de modelos;
-- chat básico + streaming + cancelación;
-- errores normalizados;
-- diagnósticos con redacción de secretos.
-
-### Objetivos iniciales de interoperabilidad
-
-Ollama, LM Studio, endpoints autoalojados; opcionalmente OpenAI.
+Registro de Providers; `SecretReference`; chat + streaming + cancelación; errores normalizados; diagnósticos con redacción.
 
 ### Criterios de salida
 
-Configurar endpoint, elegir modelo, enviar prompt, ver stream y cancelar sin congelar la UI.
+Configurar endpoint, elegir modelo, stream y cancelar sin congelar la UI.
 
 ---
 
@@ -173,20 +193,15 @@ Configurar endpoint, elegir modelo, enviar prompt, ver stream y cancelar sin con
 
 ### Objetivo
 
-Hacer útiles las conversaciones del dominio en el producto diario (UI + persistencia ya existentes).
+Conversaciones del dominio usables a diario en el Desktop.
 
 ### Entregables
 
-- creación/renombrado en shell;
-- historial de mensajes con carga perezosa;
-- metadatos provider/model por conversación;
-- renderizado Markdown;
-- copia y export de conversación;
-- promoción a Knowledge desde la UI.
+CRUD en shell; historial perezoso; metadatos provider/model; Markdown; export; promoción a Knowledge (apoyo a NEMO).
 
 ### Criterios de salida
 
-Conversaciones usables a diario, exportables, sin cuenta remota obligatoria. El journal **no** crece un Fact Event por mensaje.
+Usables sin cuenta remota obligatoria; journal **sin** un Fact Event por mensaje.
 
 ---
 
@@ -194,19 +209,11 @@ Conversaciones usables a diario, exportables, sin cuenta remota obligatoria. El 
 
 ### Objetivo
 
-Sustituir conectores in-memory por Adapters reales bajo activation perezosa.
-
-### Entregables
-
-- `FileLocation` real (ámbitos de carpeta);
-- `GenericEndpoint` / HTTP básico según necesidad;
-- `EnsureConnected` con fallos reales → Degraded/Failed;
-- ampliación controlada de kinds solo con evidencia;
-- auditoría mínima de conexiones (Session Events).
+Adapters reales bajo activation perezosa (`EnsureConnected`).
 
 ### Criterios de salida
 
-Abrir Workspace no arranca el mundo; conectar un recurso es explícito; fallos no tiran el proceso UI.
+Abrir Workspace no arranca el mundo; conectar es explícito; fallos no tiran el proceso UI.
 
 ---
 
@@ -214,16 +221,7 @@ Abrir Workspace no arranca el mundo; conectar un recurso es explícito; fallos n
 
 ### Objetivo
 
-Consumir ecosistemas de herramientas abiertos sin hacer de MCP la arquitectura interna.
-
-### Entregables
-
-- binding/configuración de servidor MCP;
-- transporte stdio;
-- supervisión de ciclo de vida;
-- descubrimiento de tools (catálogo de Connection, no bindings estáticos por tool);
-- permisos y aprobación;
-- una herramienta de referencia aislada.
+Consumir ecosistemas de herramientas abiertos sin hacer de MCP la arquitectura interna (MCP = Resource, no Capability Graph completo).
 
 ### Criterios de salida
 
@@ -235,17 +233,17 @@ Al menos un MCP externo usable sin comprometer el proceso principal.
 
 ### Objetivo
 
-Banco de trabajo de IA nativo estable para uso diario.
+Cognitive workspace nativo estable para uso diario.
 
 ### Cualidades requeridas
 
 - arranque medible;
-- Workspace-first usable;
+- Initiative + Workspace usables (Initiative en Core ya resuelta);
+- continuidad NEMO comprensible;
 - store + export;
 - provider local y remoto;
 - conversaciones y knowledge;
 - tools/MCP supervisados;
-- agentes controlados básicos (si la evidencia lo justifica antes);
 - documentación de seguridad, backup y migración;
 - instalador / portable.
 
@@ -253,7 +251,7 @@ Banco de trabajo de IA nativo estable para uso diario.
 
 ## Direcciones post-1.0
 
-Sujeto a evidencia: RAG local, terminal/Git profundos, workers remotos / SAPIENS, colaboración, sync, packs de Workspace, clientes alternativos (Lazarus), marketplace solo tras protocolo de extensión estable.
+Sujeto a evidencia: Cognitive Runtime más rico, Capability Graph dinámico, RAG local, terminal/Git, workers remotos / SAPIENS, colaboración, sync, clientes alternativos (Lazarus), marketplace tras protocolo de extensión estable.
 
 ## Funcionalidades deliberadamente aplazadas
 
