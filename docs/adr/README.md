@@ -15,9 +15,10 @@ Debe crearse un ADR cuando una decisión:
 
 | ADR | Título | Estado |
 |-----|--------|--------|
-| [0001](0001-workspace-first-architecture.md) | Arquitectura workspace-first | Accepted |
+| [0001](0001-workspace-first-architecture.md) | Arquitectura workspace-first | Accepted (parcialmente supersedido por 0004 en la raíz del producto) |
 | [0002](0002-workspace-domain-model.md) | Modelo de dominio del Workspace | Superseded por 0003 |
 | [0003](0003-core-domain-refinement.md) | Refinamiento del dominio y perímetro mínimo del Core | Accepted |
+| [0004](0004-foundation-reconciliation-and-nemo.md) | Reconciliación foundation ↔ Core y naturaleza de NEMO | Accepted |
 
 ## Nomenclatura
 

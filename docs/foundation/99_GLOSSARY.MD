@@ -126,6 +126,18 @@ The model defines the entities that exist inside the system.
 
 ---
 
+# N
+
+## NEMO
+
+Named characteristic of a Workspace (and therefore of its Initiative): the explanatory continuity of knowledge — not only *what we know*, but *how we got here*.
+
+NEMO is not an application, not a service, not a database, and not a root domain aggregate. Knowledge still belongs to the Workspace. NEMO names the memory/explanation facet and may appear as a Desktop surface over that knowledge.
+
+See [ADR-0004](../adr/0004-foundation-reconciliation-and-nemo.md).
+
+---
+
 # O
 
 ## Observation
@@ -207,9 +219,15 @@ Results generate new observations and enrich knowledge.
 
 ## Runtime
 
-The cognitive behaviour of NATIA.
+Ambiguous without a qualifier. Prefer:
 
-The Runtime continuously transforms observations into context, context into decisions and decisions into actions.
+### Cognitive Runtime
+
+The cognitive behaviour of NATIA: continuously transforming observations into context, context into decisions and decisions into actions. Described in [03_RUNTIME.MD](03_RUNTIME.MD). Not a persistable domain aggregate.
+
+### WorkspaceRuntime
+
+An execution instance of a Workspace (`RuntimeId`, readiness). Defined in [ADR-0003](../adr/0003-core-domain-refinement.md) and clarified in [ADR-0004](../adr/0004-foundation-reconciliation-and-nemo.md).
 
 ---
 

@@ -10,6 +10,7 @@ object frmMain: TfrmMain
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Menu = mmMain
   Position = poScreenCenter
   OnCreate = FormCreate
   OnResize = FormResize
@@ -22,10 +23,11 @@ object frmMain: TfrmMain
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 1396
     object lblBrand: TLabel
       Left = 16
       Top = 10
-      Width = 55
+      Width = 48
       Height = 21
       Caption = 'NATIA'
       Font.Charset = DEFAULT_CHARSET
@@ -38,14 +40,14 @@ object frmMain: TfrmMain
     object lblChromeTitle: TLabel
       Left = 80
       Top = 14
-      Width = 160
+      Width = 58
       Height = 15
       Caption = 'Workspace'
     end
     object lblConnection: TLabel
       Left = 1188
       Top = 14
-      Width = 70
+      Width = 63
       Height = 15
       Caption = 'Local Ready'
     end
@@ -68,7 +70,7 @@ object frmMain: TfrmMain
     object lblSync: TLabel
       Left = 1040
       Top = 42
-      Width = 70
+      Width = 25
       Height = 15
       Caption = 'Sync'
     end
@@ -92,6 +94,13 @@ object frmMain: TfrmMain
       Width = 64
       Height = 24
       Caption = 'Ejecutar'
+    end
+    object btnQuickSettings: TSpeedButton
+      Left = 1328
+      Top = 8
+      Width = 32
+      Height = 28
+      Caption = '...'
     end
     object edtGlobalSearch: TEdit
       Left = 280
@@ -125,13 +134,6 @@ object frmMain: TfrmMain
       Style = csDropDownList
       TabOrder = 3
     end
-    object btnQuickSettings: TSpeedButton
-      Left = 1328
-      Top = 8
-      Width = 32
-      Height = 28
-      Caption = '...'
-    end
   end
   object pnlBody: TPanel
     Left = 0
@@ -141,6 +143,29 @@ object frmMain: TfrmMain
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitWidth = 1396
+    ExplicitHeight = 719
+    object splNav: TSplitter
+      Left = 56
+      Top = 0
+      Width = 4
+      Height = 720
+      Color = clSilver
+      ParentColor = False
+    end
+    object splExplorer: TSplitter
+      Left = 300
+      Top = 0
+      Width = 4
+      Height = 720
+    end
+    object splInspector: TSplitter
+      Left = 1140
+      Top = 0
+      Width = 4
+      Height = 720
+      Align = alRight
+    end
     object pnlNav: TPanel
       Left = 0
       Top = 0
@@ -149,6 +174,10 @@ object frmMain: TfrmMain
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitHeight = 719
+      DesignSize = (
+        56
+        720)
       object btnNavToggle: TSpeedButton
         Left = 4
         Top = 6
@@ -165,7 +194,6 @@ object frmMain: TfrmMain
         OnClick = btnNavToggleClick
       end
       object btnNavHome: TSpeedButton
-        Tag = 0
         Left = 4
         Top = 40
         Width = 48
@@ -452,6 +480,7 @@ object frmMain: TfrmMain
         Width = 48
         Height = 36
         AllowAllUp = True
+        Anchors = [akLeft, akBottom]
         GroupIndex = 1
         Caption = 'Se'
         Flat = True
@@ -463,7 +492,6 @@ object frmMain: TfrmMain
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
-        Anchors = [akLeft, akBottom]
         OnClick = btnNavClick
       end
       object btnNavHelp: TSpeedButton
@@ -473,6 +501,7 @@ object frmMain: TfrmMain
         Width = 48
         Height = 36
         AllowAllUp = True
+        Anchors = [akLeft, akBottom]
         GroupIndex = 1
         Caption = '?'
         Flat = True
@@ -484,18 +513,8 @@ object frmMain: TfrmMain
         ParentFont = False
         ParentShowHint = False
         ShowHint = True
-        Anchors = [akLeft, akBottom]
         OnClick = btnNavClick
       end
-    end
-    object splNav: TSplitter
-      Left = 56
-      Top = 0
-      Width = 4
-      Height = 720
-      Align = alLeft
-      Color = clSilver
-      ParentColor = False
     end
     object pnlExplorer: TPanel
       Left = 60
@@ -505,10 +524,11 @@ object frmMain: TfrmMain
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitHeight = 719
       object lblExplorer: TLabel
         Left = 12
         Top = 10
-        Width = 60
+        Width = 43
         Height = 15
         Caption = 'Explorer'
       end
@@ -523,14 +543,8 @@ object frmMain: TfrmMain
         Indent = 19
         ReadOnly = True
         TabOrder = 0
+        ExplicitHeight = 687
       end
-    end
-    object splExplorer: TSplitter
-      Left = 300
-      Top = 0
-      Width = 4
-      Height = 720
-      Align = alLeft
     end
     object pnlCenter: TPanel
       Left = 304
@@ -540,6 +554,16 @@ object frmMain: TfrmMain
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitWidth = 832
+      ExplicitHeight = 719
+      object splConsole: TSplitter
+        Left = 0
+        Top = 540
+        Width = 836
+        Height = 4
+        Cursor = crVSplit
+        Align = alBottom
+      end
       object pnlWorkspaceChrome: TPanel
         Left = 0
         Top = 0
@@ -548,6 +572,7 @@ object frmMain: TfrmMain
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
+        ExplicitWidth = 832
         object pcWorkspaceTabs: TPageControl
           Left = 0
           Top = 0
@@ -559,6 +584,7 @@ object frmMain: TfrmMain
           TabHeight = 24
           TabOrder = 0
           OnChange = pcWorkspaceTabsChange
+          ExplicitWidth = 832
           object tsTabHome: TTabSheet
             Caption = 'Home'
           end
@@ -581,6 +607,8 @@ object frmMain: TfrmMain
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
+        ExplicitWidth = 832
+        ExplicitHeight = 511
         inline frameDashboard: TFrameDashboard
           Left = 0
           Top = 0
@@ -594,8 +622,18 @@ object frmMain: TfrmMain
           Font.Style = []
           ParentFont = False
           TabOrder = 0
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlHeader: TPanel
+            Width = 836
+            ExplicitWidth = 832
+          end
+          inherited scrollCards: TScrollBox
+            Width = 836
+            Height = 448
+            ExplicitWidth = 832
+            ExplicitHeight = 447
+          end
         end
         inline frameChat: TFrameChat
           Left = 0
@@ -611,8 +649,38 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 1
           Visible = False
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlChatLeft: TPanel
+            Height = 512
+            ExplicitHeight = 511
+            inherited lstConversations: TListBox
+              Top = -52
+              ExplicitTop = -52
+            end
+          end
+          inherited pnlChatMain: TPanel
+            Width = 616
+            Height = 512
+            ExplicitWidth = 612
+            ExplicitHeight = 511
+            inherited pnlChatHeader: TPanel
+              Width = 616
+              ExplicitWidth = 612
+            end
+            inherited memTranscript: TMemo
+              Width = 616
+              Height = 272
+              ExplicitWidth = 612
+              ExplicitHeight = 271
+            end
+            inherited pnlComposer: TPanel
+              Top = 344
+              Width = 616
+              ExplicitTop = 343
+              ExplicitWidth = 612
+            end
+          end
         end
         inline frameNemo: TFrameNemo
           Left = 0
@@ -628,8 +696,34 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 2
           Visible = False
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlNemoTree: TPanel
+            Height = 512
+            ExplicitHeight = 511
+            inherited treeNemo: TTreeView
+              Top = -24
+              ExplicitTop = -24
+            end
+          end
+          inherited pnlNemoDoc: TPanel
+            Width = 396
+            Height = 512
+            ExplicitWidth = 392
+            ExplicitHeight = 511
+            inherited memDoc: TMemo
+              Top = -28
+              Width = 396
+              ExplicitTop = -28
+              ExplicitWidth = 392
+            end
+          end
+          inherited pnlNemoMeta: TPanel
+            Left = 636
+            Height = 512
+            ExplicitLeft = 632
+            ExplicitHeight = 511
+          end
         end
         inline frameProject: TFrameProject
           Left = 0
@@ -645,8 +739,40 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 3
           Visible = False
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlProjectHeader: TPanel
+            Width = 836
+            ExplicitWidth = 832
+          end
+          inherited pcProject: TPageControl
+            Width = 836
+            Height = 448
+            ExplicitWidth = 832
+            ExplicitHeight = 447
+            inherited tsOverview: TTabSheet
+              ExplicitWidth = 828
+              ExplicitHeight = 418
+              inherited memOverview: TMemo
+                Width = 828
+                Height = 418
+                ExplicitWidth = 824
+                ExplicitHeight = 417
+              end
+            end
+            inherited tsDocs: TTabSheet
+              inherited memDocs: TMemo
+                Height = 506
+                ExplicitHeight = 506
+              end
+            end
+            inherited tsTerminal: TTabSheet
+              inherited memTerminal: TMemo
+                Height = 506
+                ExplicitHeight = 506
+              end
+            end
+          end
         end
         inline frameTools: TFrameTools
           Left = 0
@@ -662,8 +788,18 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 4
           Visible = False
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlHeader: TPanel
+            Width = 836
+            ExplicitWidth = 832
+          end
+          inherited scrollTools: TScrollBox
+            Width = 836
+            Height = 456
+            ExplicitWidth = 832
+            ExplicitHeight = 455
+          end
         end
         inline frameMarketplace: TFrameMarketplace
           Left = 0
@@ -679,8 +815,40 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 5
           Visible = False
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlHeader: TPanel
+            Width = 836
+            ExplicitWidth = 832
+          end
+          inherited pcMarket: TPageControl
+            Width = 836
+            Height = 456
+            ExplicitWidth = 832
+            ExplicitHeight = 455
+            inherited tsInstalled: TTabSheet
+              ExplicitWidth = 828
+              ExplicitHeight = 426
+              inherited lstInstalled: TListView
+                Width = 828
+                Height = 426
+                ExplicitWidth = 824
+                ExplicitHeight = 425
+              end
+            end
+            inherited tsAvailable: TTabSheet
+              inherited lstAvailable: TListView
+                Height = 514
+                ExplicitHeight = 514
+              end
+            end
+            inherited tsUpdates: TTabSheet
+              inherited lstUpdates: TListView
+                Height = 514
+                ExplicitHeight = 514
+              end
+            end
+          end
         end
         inline frameDevices: TFrameDevices
           Left = 0
@@ -696,8 +864,24 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 6
           Visible = False
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlHeader: TPanel
+            Width = 836
+            ExplicitWidth = 832
+          end
+          inherited lstDevices: TListView
+            Width = 556
+            Height = 456
+            ExplicitWidth = 556
+            ExplicitHeight = 456
+          end
+          inherited pnlDetail: TPanel
+            Left = 556
+            Height = 456
+            ExplicitLeft = 552
+            ExplicitHeight = 455
+          end
         end
         inline frameAutomations: TFrameAutomations
           Left = 0
@@ -713,17 +897,27 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 7
           Visible = False
-          ExplicitWidth = 836
-          ExplicitHeight = 512
+          ExplicitWidth = 832
+          ExplicitHeight = 511
+          inherited pnlHeader: TPanel
+            Width = 836
+            ExplicitWidth = 832
+          end
+          inherited pnlFlows: TPanel
+            Height = 456
+            ExplicitHeight = 455
+            inherited lstFlows: TListBox
+              Top = -52
+              ExplicitTop = -52
+            end
+          end
+          inherited pnlCanvas: TPanel
+            Width = 636
+            Height = 456
+            ExplicitWidth = 632
+            ExplicitHeight = 455
+          end
         end
-      end
-      object splConsole: TSplitter
-        Left = 0
-        Top = 540
-        Width = 836
-        Height = 4
-        Cursor = crVSplit
-        Align = alBottom
       end
       object pnlConsole: TPanel
         Left = 0
@@ -733,6 +927,8 @@ object frmMain: TfrmMain
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 2
+        ExplicitTop = 543
+        ExplicitWidth = 832
         object pcConsole: TPageControl
           Left = 0
           Top = 0
@@ -741,18 +937,19 @@ object frmMain: TfrmMain
           ActivePage = tsTerminal
           Align = alClient
           TabOrder = 0
+          ExplicitWidth = 832
           object tsTerminal: TTabSheet
             Caption = 'Terminal'
             object memTerminal: TMemo
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               Color = 2105376
               Font.Charset = DEFAULT_CHARSET
-              Font.Color = 12632256
+              Font.Color = clSilver
               Font.Height = -12
               Font.Name = 'Consolas'
               Font.Style = []
@@ -760,6 +957,7 @@ object frmMain: TfrmMain
               ReadOnly = True
               ScrollBars = ssBoth
               TabOrder = 0
+              ExplicitWidth = 824
             end
           end
           object tsPowerShell: TTabSheet
@@ -768,12 +966,12 @@ object frmMain: TfrmMain
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               Color = 2105376
               Font.Charset = DEFAULT_CHARSET
-              Font.Color = 12632256
+              Font.Color = clSilver
               Font.Height = -12
               Font.Name = 'Consolas'
               Font.Style = []
@@ -789,7 +987,7 @@ object frmMain: TfrmMain
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               ReadOnly = True
@@ -803,7 +1001,7 @@ object frmMain: TfrmMain
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               ReadOnly = True
@@ -817,7 +1015,7 @@ object frmMain: TfrmMain
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               ReadOnly = True
@@ -831,7 +1029,7 @@ object frmMain: TfrmMain
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               ReadOnly = True
@@ -845,7 +1043,7 @@ object frmMain: TfrmMain
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               ReadOnly = True
@@ -859,7 +1057,7 @@ object frmMain: TfrmMain
               Left = 0
               Top = 0
               Width = 828
-              Height = 148
+              Height = 146
               Align = alClient
               BorderStyle = bsNone
               ReadOnly = True
@@ -870,13 +1068,6 @@ object frmMain: TfrmMain
         end
       end
     end
-    object splInspector: TSplitter
-      Left = 1140
-      Top = 0
-      Width = 4
-      Height = 720
-      Align = alRight
-    end
     object pnlInspector: TPanel
       Left = 1144
       Top = 0
@@ -885,10 +1076,12 @@ object frmMain: TfrmMain
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 3
+      ExplicitLeft = 1140
+      ExplicitHeight = 719
       object lblInspector: TLabel
         Left = 12
         Top = 10
-        Width = 55
+        Width = 49
         Height = 15
         Caption = 'Inspector'
       end
@@ -901,18 +1094,20 @@ object frmMain: TfrmMain
         Align = alBottom
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 0
+        ExplicitHeight = 687
         object tsProps: TTabSheet
           Caption = 'Props'
           object memProps: TMemo
             Left = 0
             Top = 0
             Width = 248
-            Height = 660
+            Height = 658
             Align = alClient
             BorderStyle = bsNone
             ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 0
+            ExplicitHeight = 657
           end
         end
         object tsActivity: TTabSheet
@@ -921,7 +1116,7 @@ object frmMain: TfrmMain
             Left = 0
             Top = 0
             Width = 248
-            Height = 660
+            Height = 658
             Align = alClient
             BorderStyle = bsNone
             ItemHeight = 15
@@ -934,7 +1129,7 @@ object frmMain: TfrmMain
             Left = 0
             Top = 0
             Width = 248
-            Height = 660
+            Height = 658
             Align = alClient
             BorderStyle = bsNone
             ReadOnly = True
@@ -948,7 +1143,7 @@ object frmMain: TfrmMain
             Left = 0
             Top = 0
             Width = 248
-            Height = 660
+            Height = 658
             Align = alClient
             BorderStyle = bsNone
             ReadOnly = True
@@ -962,7 +1157,7 @@ object frmMain: TfrmMain
             Left = 0
             Top = 0
             Width = 248
-            Height = 660
+            Height = 658
             Align = alClient
             BorderStyle = bsNone
             ReadOnly = True
@@ -976,7 +1171,7 @@ object frmMain: TfrmMain
             Left = 0
             Top = 0
             Width = 248
-            Height = 660
+            Height = 658
             Align = alClient
             BorderStyle = bsNone
             ReadOnly = True
@@ -995,80 +1190,85 @@ object frmMain: TfrmMain
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 791
+    ExplicitWidth = 1396
+    DesignSize = (
+      1400
+      28)
     object lblStatusModel: TLabel
       Left = 12
       Top = 6
-      Width = 120
+      Width = 41
       Height = 15
       Caption = 'Modelo'
     end
     object lblStatusProvider: TLabel
       Left = 150
       Top = 6
-      Width = 100
+      Width = 54
       Height = 15
       Caption = 'Proveedor'
     end
     object lblStatusCPU: TLabel
       Left = 280
       Top = 6
-      Width = 50
+      Width = 23
       Height = 15
       Caption = 'CPU'
     end
     object lblStatusMem: TLabel
       Left = 350
       Top = 6
-      Width = 60
+      Width = 28
       Height = 15
       Caption = 'Mem'
     end
     object lblStatusGPU: TLabel
       Left = 430
       Top = 6
-      Width = 50
+      Width = 23
       Height = 15
       Caption = 'GPU'
     end
     object lblStatusConn: TLabel
       Left = 510
       Top = 6
-      Width = 80
+      Width = 51
       Height = 15
       Caption = 'Conexi'#243'n'
     end
     object lblStatusTasks: TLabel
       Left = 620
       Top = 6
-      Width = 60
+      Width = 32
       Height = 15
       Caption = 'Tareas'
     end
     object lblStatusAgents: TLabel
       Left = 700
       Top = 6
-      Width = 70
+      Width = 43
       Height = 15
       Caption = 'Agentes'
     end
     object lblStatusNemo: TLabel
       Left = 790
       Top = 6
-      Width = 70
+      Width = 35
       Height = 15
       Caption = 'NEMO'
     end
     object lblStatusNotify: TLabel
       Left = 880
       Top = 6
-      Width = 60
+      Width = 27
       Height = 15
       Caption = 'Notif'
     end
     object lblStatusTime: TLabel
-      Left = 1280
+      Left = 1288
       Top = 6
-      Width = 50
+      Width = 42
       Height = 15
       Alignment = taRightJustify
       Anchors = [akTop, akRight]
@@ -1077,7 +1277,7 @@ object frmMain: TfrmMain
     object lblStatusUser: TLabel
       Left = 1180
       Top = 6
-      Width = 70
+      Width = 40
       Height = 15
       Anchors = [akTop, akRight]
       Caption = 'Usuario'
@@ -1143,7 +1343,6 @@ object frmMain: TfrmMain
     end
   end
   object tmrClock: TTimer
-    Interval = 1000
     OnTimer = tmrClockTimer
     Left = 120
     Top = 16

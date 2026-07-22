@@ -1,7 +1,8 @@
 # ADR-0001: Arquitectura workspace-first
 
-- Estado: Aceptado
+- Estado: Aceptado (parcialmente supersedido por [ADR-0004](0004-foundation-reconciliation-and-nemo.md))
 - Fecha: 2026-07-20
+- Nota 2026-07-22: la tesis anti-conversation-first se mantiene. La **raíz del producto** pasa a ser la **Initiative**; el Workspace sigue siendo la memoria operativa 1:1 de esa Initiative. Ver ADR-0004.
 
 ## Contexto
 

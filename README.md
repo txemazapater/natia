@@ -38,7 +38,9 @@ NATIA ha completado la **[Fase 0.3 — Core ejecutable en memoria](docs/PHASE-0.
 
 El Core Object Pascal (Delphi 11.3) compila y se valida con DUnitX en Win32 y Win64, sin GUI, SQLite, red ni proveedores.
 
-La siguiente fase prevista es el **shell nativo** (Fase 0.4), aún no iniciada.
+Existe un **mockup visual Sprint 0** del shell Delphi/VCL (`src/apps/desktop/Delphi/`) para validar identidad y layout. No implementa integraciones reales.
+
+La foundation conceptual vigente vive en [`docs/foundation/`](docs/foundation/). La reconciliación con el Core está en [ADR-0004](docs/adr/0004-foundation-reconciliation-and-nemo.md): la **Initiative** es la raíz del producto; el **Workspace** es su memoria operativa; **NEMO** es una característica nombrada del Workspace, no una entidad separada.
 
 ### Compilar y probar el Core
 
@@ -51,9 +53,16 @@ tools\build-and-test-win64.bat
 
 Notas técnicas: [PHASE-0.3-IMPLEMENTATION-NOTES.md](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md).
 
+Shell visual (opcional):
+
+```bat
+src\apps\desktop\Delphi\build-sprint0.bat
+```
+
 ## Documentación
 
 - [Manifiesto de NATIA](MANIFESTO.md)
+- [Foundation](docs/foundation/00_FOUNDATION.MD) · [Model](docs/foundation/01_MODEL.MD) · [Ontology](docs/foundation/02_ONTOLOGY.MD) · [Glossary](docs/foundation/99_GLOSSARY.MD)
 - [Visión](docs/VISION.md)
 - [Principios de ingeniería](docs/PRINCIPLES.md)
 - [Arquitectura](docs/ARCHITECTURE.md)
@@ -65,7 +74,8 @@ Notas técnicas: [PHASE-0.3-IMPLEMENTATION-NOTES.md](docs/PHASE-0.3-IMPLEMENTATI
 - [Registros de decisiones de arquitectura](docs/adr/README.md)
 - [ADR-0001: Arquitectura workspace-first](docs/adr/0001-workspace-first-architecture.md)
 - [ADR-0002: Modelo de dominio (histórico, Superseded)](docs/adr/0002-workspace-domain-model.md)
-- [ADR-0003: Refinamiento del dominio (vigente)](docs/adr/0003-core-domain-refinement.md)
+- [ADR-0003: Refinamiento del dominio (vigente para el Core)](docs/adr/0003-core-domain-refinement.md)
+- [ADR-0004: Reconciliación foundation y NEMO](docs/adr/0004-foundation-reconciliation-and-nemo.md)
 
 ## Principios fundamentales
 

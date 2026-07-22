@@ -1,4 +1,4 @@
-unit MainForm;
+﻿unit MainForm;
 
 { Sprint 0 — shell visual IDE. Sin integraciones ni lógica de negocio. }
 

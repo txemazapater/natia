@@ -4,6 +4,7 @@
 - Fecha: 2026-07-20
 - Reemplaza parcialmente: [ADR-0002](0002-workspace-domain-model.md)
 - Origen: [DOMAIN-MODEL-REVIEW.md](../DOMAIN-MODEL-REVIEW.md)
+- Nota 2026-07-22: el término bare *Runtime* queda desambiguado por [ADR-0004](0004-foundation-reconciliation-and-nemo.md). Este ADR describe solo **WorkspaceRuntime** (instancia de ejecución). El **Cognitive Runtime** es el bucle fundacional, no este tipo.
 
 ## Contexto
 
