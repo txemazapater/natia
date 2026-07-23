@@ -4,8 +4,8 @@ Visual assets for NATIA / NATIA Studio.
 
 | Path | Purpose |
 |------|---------|
-| `fonts/ibm-plex/` | IBM Plex Sans & Mono (import pending) |
-| `icons/phosphor/` | Phosphor Icons curated SVGs (import pending) |
+| `fonts/ibm-plex/` | IBM Plex Sans & Mono |
+| `icons/phosphor/` | Phosphor Icons curated SVGs |
 | `images/` | General images |
 | `illustrations/` | Illustrations |
 | `logos/` | Brand marks |
