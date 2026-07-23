@@ -40,6 +40,7 @@ Licencia **MIT**. Las herramientas propietarias no deben convertir la arquitectu
 
 - **Fase 0.3** completada: [Core ejecutable en memoria](docs/PHASE-0.3-EXECUTABLE-CORE.md) (Delphi 11.3, DUnitX Win32/Win64).
 - **NATIA Studio** (Sprint 0): embrión visual VCL en `src/apps/studio/Delphi/` (sin integraciones reales).
+- **Assets visuales:** IBM Plex + Phosphor (estructura y licencias en `assets/`, `licenses/`; binarios aún no importados).
 - **Foundation** vigente: [`docs/foundation/`](docs/foundation/).
 - **Reconciliación** Core ↔ foundation: [ADR-0004](docs/adr/0004-foundation-reconciliation-and-nemo.md).
 
@@ -70,7 +71,10 @@ Notas: [PHASE-0.3-IMPLEMENTATION-NOTES.md](docs/PHASE-0.3-IMPLEMENTATION-NOTES.m
 ## Documentación
 
 - [Manifiesto](MANIFESTO.md)
+- [NOTICE](NOTICE.md) · [Third-party notices](THIRD_PARTY_NOTICES.md)
 - [Foundation](docs/foundation/00_FOUNDATION.MD) · [Model](docs/foundation/01_MODEL.MD) · [Ontology](docs/foundation/02_ONTOLOGY.MD) · [Glossary](docs/foundation/99_GLOSSARY.MD)
+- [Visual language](docs/design/visual-language.md) · [Typography](docs/design/typography.md) · [Iconography](docs/design/iconography.md)
+- [Third-party assets (legal)](docs/legal/third-party-assets.md)
 - [Visión](docs/VISION.md) · [Principios](docs/PRINCIPLES.md) · [Arquitectura](docs/ARCHITECTURE.md) · [Roadmap](docs/ROADMAP.md)
 - [Modelo de dominio](docs/DOMAIN-MODEL.md) · [Revisión crítica](docs/DOMAIN-MODEL-REVIEW.md)
 - [Fase 0.3](docs/PHASE-0.3-EXECUTABLE-CORE.md) · [Notas 0.3](docs/PHASE-0.3-IMPLEMENTATION-NOTES.md)

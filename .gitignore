@@ -23,5 +23,8 @@ src/apps/**/Win64/
 # Source graphics under src/apps/studio/common/ ARE versioned (SVG, PNG, ICO, …).
 src/apps/**/Delphi/*.res
 
-# Do not ignore studio shared assets
+# Do not ignore studio shared assets or top-level design assets
 !src/apps/studio/common/**
+!assets/**
+!licenses/**
+!metadata/**

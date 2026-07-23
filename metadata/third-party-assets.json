@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-07-23",
+  "assets": [
+    {
+      "id": "ibm-plex-sans",
+      "name": "IBM Plex Sans",
+      "type": "font",
+      "components": [
+        "UI labels",
+        "Headings",
+        "Body text",
+        "Menus and chrome"
+      ],
+      "license": "SIL Open Font License 1.1",
+      "licensePath": "licenses/fonts/ibm-plex/OFL-1.1.txt",
+      "artifactPath": "assets/fonts/ibm-plex/sans/",
+      "artifactsImported": false,
+      "source": {
+        "repository": "https://github.com/IBM/plex",
+        "homepage": "https://www.ibm.com/plex/",
+        "packageHint": "@ibm/plex-sans"
+      },
+      "notes": "Reserved Font Name: Plex. Load privately in-app; do not install globally."
+    },
+    {
+      "id": "ibm-plex-mono",
+      "name": "IBM Plex Mono",
+      "type": "font",
+      "components": [
+        "Source code",
+        "Logs",
+        "File paths",
+        "Commands",
+        "Identifiers",
+        "Technical readouts"
+      ],
+      "license": "SIL Open Font License 1.1",
+      "licensePath": "licenses/fonts/ibm-plex/OFL-1.1.txt",
+      "artifactPath": "assets/fonts/ibm-plex/mono/",
+      "artifactsImported": false,
+      "source": {
+        "repository": "https://github.com/IBM/plex",
+        "homepage": "https://www.ibm.com/plex/",
+        "packageHint": "@ibm/plex-mono"
+      },
+      "notes": "Reserved Font Name: Plex. Load privately in-app; do not install globally."
+    },
+    {
+      "id": "phosphor-icons",
+      "name": "Phosphor Icons",
+      "type": "icon-set",
+      "components": [
+        "regular: actions and navigation",
+        "duotone: agents, tools, memory, context, primary entities",
+        "fill: active/selected states",
+        "bold: alerts and critical actions"
+      ],
+      "license": "MIT",
+      "licensePath": "licenses/icons/phosphor/MIT.txt",
+      "artifactPath": "assets/icons/phosphor/",
+      "manifestPath": "assets/icons/phosphor/manifest.json",
+      "artifactsImported": false,
+      "source": {
+        "repository": "https://github.com/phosphor-icons/core",
+        "homepage": "https://phosphoricons.com/"
+      },
+      "notes": "Prefer SVG components over icon fonts. Avoid Thin/Light at small sizes."
+    }
+  ]
+}

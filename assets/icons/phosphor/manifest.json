@@ -1,0 +1,45 @@
+{
+  "id": "phosphor-icons",
+  "name": "Phosphor Icons",
+  "version": null,
+  "status": "structure-only",
+  "license": "MIT",
+  "licensePath": "licenses/icons/phosphor/MIT.txt",
+  "source": "https://github.com/phosphor-icons/core",
+  "preferredFormat": "svg",
+  "avoidIconFont": true,
+  "weights": {
+    "regular": {
+      "role": "Everyday actions and navigation",
+      "artifactPath": "assets/icons/phosphor/regular/",
+      "imported": false
+    },
+    "duotone": {
+      "role": "Agents, tools, memory (NEMO), context, primary entities",
+      "artifactPath": "assets/icons/phosphor/duotone/",
+      "imported": false
+    },
+    "fill": {
+      "role": "Active or selected states",
+      "artifactPath": "assets/icons/phosphor/fill/",
+      "imported": false
+    },
+    "bold": {
+      "role": "Alerts and critical actions",
+      "artifactPath": "assets/icons/phosphor/bold/",
+      "imported": false
+    },
+    "thin": {
+      "role": "Avoid at small sizes",
+      "imported": false,
+      "discouraged": true
+    },
+    "light": {
+      "role": "Avoid at small sizes",
+      "imported": false,
+      "discouraged": true
+    }
+  },
+  "icons": [],
+  "notes": "Populate icons[] with { id, name, weights[], path } entries as curated SVGs are added."
+}
