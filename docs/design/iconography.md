@@ -28,13 +28,13 @@
 
 ## Artifact status
 
-SVG collections are **not yet imported**. Import targets:
+SVG weight sets are imported:
 
 ```text
-assets/icons/phosphor/regular/
-assets/icons/phosphor/duotone/
-assets/icons/phosphor/fill/
-assets/icons/phosphor/bold/
+assets/icons/phosphor/regular/   (1512)
+assets/icons/phosphor/duotone/   (1512)
+assets/icons/phosphor/fill/      (1512)
+assets/icons/phosphor/bold/      (1512)
 ```
 
-Update `manifest.json` as icons are added.
+Update `manifest.json` if a curated product subset is tracked explicitly.

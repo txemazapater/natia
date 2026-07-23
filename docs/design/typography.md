@@ -29,9 +29,7 @@ Exact point sizes and line heights will be fixed when theme tokens land in `asse
 
 ## Artifact status
 
-Font binaries are **not yet imported**. Place files under:
+Font binaries are imported as TTF under:
 
-- `assets/fonts/ibm-plex/sans/`
-- `assets/fonts/ibm-plex/mono/`
-
-See placeholders in those directories.
+- `assets/fonts/ibm-plex/sans/` (16 files)
+- `assets/fonts/ibm-plex/mono/` (16 files)

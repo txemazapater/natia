@@ -11,16 +11,16 @@ Selected typefaces for the NATIA visual language.
 - **Upstream:** https://github.com/IBM/plex
 - **Reserved Font Name:** “Plex” (see OFL)
 
-## Artifact locations (not yet populated)
+## Artifact locations
 
-Place original font files here when incorporating the release:
+Font files are present:
 
 ```text
-assets/fonts/ibm-plex/sans/   ← IBM Plex Sans (OTF/TTF/WOFF2 as chosen)
-assets/fonts/ibm-plex/mono/   ← IBM Plex Mono (OTF/TTF/WOFF2 as chosen)
+assets/fonts/ibm-plex/sans/   ← IBM Plex Sans (TTF)
+assets/fonts/ibm-plex/mono/   ← IBM Plex Mono (TTF)
 ```
 
-Until then, each subdirectory contains a `PLACEHOLDER.md` marker only.
+Each folder also includes upstream `license.txt` (OFL). Canonical project copy: [`licenses/fonts/ibm-plex/OFL-1.1.txt`](../../../licenses/fonts/ibm-plex/OFL-1.1.txt).
 
 ## Application rules
 

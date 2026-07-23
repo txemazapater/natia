@@ -15,7 +15,9 @@
       "license": "SIL Open Font License 1.1",
       "licensePath": "licenses/fonts/ibm-plex/OFL-1.1.txt",
       "artifactPath": "assets/fonts/ibm-plex/sans/",
-      "artifactsImported": false,
+      "artifactsImported": true,
+      "artifactFormat": "ttf",
+      "artifactCount": 16,
       "source": {
         "repository": "https://github.com/IBM/plex",
         "homepage": "https://www.ibm.com/plex/",
@@ -38,7 +40,9 @@
       "license": "SIL Open Font License 1.1",
       "licensePath": "licenses/fonts/ibm-plex/OFL-1.1.txt",
       "artifactPath": "assets/fonts/ibm-plex/mono/",
-      "artifactsImported": false,
+      "artifactsImported": true,
+      "artifactFormat": "ttf",
+      "artifactCount": 16,
       "source": {
         "repository": "https://github.com/IBM/plex",
         "homepage": "https://www.ibm.com/plex/",
@@ -60,12 +64,19 @@
       "licensePath": "licenses/icons/phosphor/MIT.txt",
       "artifactPath": "assets/icons/phosphor/",
       "manifestPath": "assets/icons/phosphor/manifest.json",
-      "artifactsImported": false,
+      "artifactsImported": true,
+      "artifactFormat": "svg",
+      "artifactCounts": {
+        "regular": 1512,
+        "duotone": 1512,
+        "fill": 1512,
+        "bold": 1512
+      },
       "source": {
         "repository": "https://github.com/phosphor-icons/core",
         "homepage": "https://phosphoricons.com/"
       },
-      "notes": "Prefer SVG components over icon fonts. Avoid Thin/Light at small sizes."
+      "notes": "Prefer SVG components over icon fonts. Thin/Light not imported. Avoid Thin/Light at small sizes."
     }
   ]
 }

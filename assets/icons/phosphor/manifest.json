@@ -2,32 +2,38 @@
   "id": "phosphor-icons",
   "name": "Phosphor Icons",
   "version": null,
-  "status": "structure-only",
+  "status": "imported",
   "license": "MIT",
   "licensePath": "licenses/icons/phosphor/MIT.txt",
   "source": "https://github.com/phosphor-icons/core",
   "preferredFormat": "svg",
   "avoidIconFont": true,
+  "counts": {
+    "regular": 1512,
+    "duotone": 1512,
+    "fill": 1512,
+    "bold": 1512
+  },
   "weights": {
     "regular": {
       "role": "Everyday actions and navigation",
       "artifactPath": "assets/icons/phosphor/regular/",
-      "imported": false
+      "imported": true
     },
     "duotone": {
       "role": "Agents, tools, memory (NEMO), context, primary entities",
       "artifactPath": "assets/icons/phosphor/duotone/",
-      "imported": false
+      "imported": true
     },
     "fill": {
       "role": "Active or selected states",
       "artifactPath": "assets/icons/phosphor/fill/",
-      "imported": false
+      "imported": true
     },
     "bold": {
       "role": "Alerts and critical actions",
       "artifactPath": "assets/icons/phosphor/bold/",
-      "imported": false
+      "imported": true
     },
     "thin": {
       "role": "Avoid at small sizes",
@@ -41,5 +47,5 @@
     }
   },
   "icons": [],
-  "notes": "Populate icons[] with { id, name, weights[], path } entries as curated SVGs are added."
+  "notes": "Full SVG weight sets imported. Prefer consuming curated subsets in the client; optional icons[] entries can list product-critical glyphs."
 }

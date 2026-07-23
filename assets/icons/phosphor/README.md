@@ -16,20 +16,20 @@ Primary icon system for NATIA Studio.
 | **Bold** | Alerts and critical actions only |
 | **Thin / Light** | Avoid at small sizes |
 
-## Artifact locations (not yet populated)
+## Artifact locations
 
-Place selected SVG sets under this tree when incorporating upstream assets, for example:
+Full SVG sets (curated for Studio consumption; prefer subsetting in the client if needed):
 
 ```text
 assets/icons/phosphor/
-├── regular/     ← PLACEHOLDER until imported
-├── duotone/
-├── fill/
-├── bold/
+├── regular/     ← everyday actions / navigation
+├── duotone/     ← agents, tools, memory, context, entities
+├── fill/        ← active / selected
+├── bold/        ← alerts / critical
 ├── README.md
 └── manifest.json
 ```
 
-Do **not** commit the entire Phosphor catalogue unless product needs justify it. Prefer a curated subset tracked in `manifest.json`.
+Thin / Light weights are intentionally not imported (discouraged at small sizes).
 
 See also: [`docs/design/iconography.md`](../../../docs/design/iconography.md).

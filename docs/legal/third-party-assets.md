@@ -20,7 +20,7 @@ Full license texts: [`licenses/`](../../licenses/).
 - **License:** SIL Open Font License 1.1
 - **Copy:** [`licenses/fonts/ibm-plex/OFL-1.1.txt`](../../licenses/fonts/ibm-plex/OFL-1.1.txt)
 - **Source:** https://github.com/IBM/plex
-- **Artifacts (planned):** `assets/fonts/ibm-plex/sans/`, `assets/fonts/ibm-plex/mono/`
+- **Artifacts:** `assets/fonts/ibm-plex/sans/`, `assets/fonts/ibm-plex/mono/` (TTF imported)
 - **Notes:** Reserved Font Name “Plex”. Fonts must be loaded privately in-app; not installed globally.
 
 ### Phosphor Icons
@@ -28,8 +28,8 @@ Full license texts: [`licenses/`](../../licenses/).
 - **License:** MIT
 - **Copy:** [`licenses/icons/phosphor/MIT.txt`](../../licenses/icons/phosphor/MIT.txt)
 - **Source:** https://github.com/phosphor-icons/core
-- **Artifacts (planned):** `assets/icons/phosphor/` (curated SVG subsets)
-- **Notes:** Prefer SVG components over icon fonts.
+- **Artifacts:** `assets/icons/phosphor/{regular,duotone,fill,bold}/` (SVG imported; ~1512 per weight)
+- **Notes:** Prefer SVG components over icon fonts. Thin/Light not imported.
 
 ## NATIA license
 
