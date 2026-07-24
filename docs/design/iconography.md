@@ -38,3 +38,5 @@ assets/icons/phosphor/bold/      (1512)
 ```
 
 Update `manifest.json` if a curated product subset is tracked explicitly.
+
+Runtime resolution uses the **Visual Asset Registry (VAR 0.1)** — logical ids such as `phosphor://robot/duotone`, index `assets/icons/phosphor/index.json`. See [visual-asset-registry.md](visual-asset-registry.md).

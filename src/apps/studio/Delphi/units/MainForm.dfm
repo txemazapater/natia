@@ -13,6 +13,7 @@ object frmMain: TfrmMain
   Menu = mmMain
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnResize = FormResize
   TextHeight = 15
   object pnlChrome: TPanel
@@ -917,6 +918,23 @@ object frmMain: TfrmMain
             ExplicitWidth = 632
             ExplicitHeight = 455
           end
+        end
+        inline frameVisualAssets: TFrameVisualAssets
+          Left = 0
+          Top = 0
+          Width = 836
+          Height = 512
+          Align = alClient
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 8
+          Visible = False
+          ExplicitWidth = 832
+          ExplicitHeight = 511
         end
       end
       object pnlConsole: TPanel

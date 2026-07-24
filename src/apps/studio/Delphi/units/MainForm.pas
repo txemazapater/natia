@@ -9,7 +9,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls,
   Vcl.Menus, Vcl.Buttons,
   FrameDashboard, FrameChat, FrameNemo, FrameProject, FrameTools,
-  FrameMarketplace, FrameDevices, FrameAutomations;
+  FrameMarketplace, FrameDevices, FrameAutomations, FrameVisualAssets;
 
 type
   TNavModule = (
@@ -90,6 +90,7 @@ type
     frameMarketplace: TFrameMarketplace;
     frameDevices: TFrameDevices;
     frameAutomations: TFrameAutomations;
+    frameVisualAssets: TFrameVisualAssets;
     splConsole: TSplitter;
     pnlConsole: TPanel;
     pcConsole: TPageControl;
@@ -140,6 +141,7 @@ type
     lblStatusUser: TLabel;
     tmrClock: TTimer;
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure btnNavClick(Sender: TObject);
     procedure btnNavToggleClick(Sender: TObject);
@@ -159,11 +161,14 @@ type
     procedure ApplyMockConsole;
     procedure ApplyMockInspector;
     procedure ApplyMockStatus;
+    procedure ApplyNavIcons;
+    procedure AssignNavIcon(ABtn: TSpeedButton; const AAssetId: string);
     procedure ShowModule(AModule: TNavModule);
     procedure FillExplorer(AModule: TNavModule);
     procedure SelectNavButton(AModule: TNavModule);
     procedure HideAllFrames;
     function ModuleFromTag(ATag: Integer): TNavModule;
+    function CurrentDpi: Integer;
   public
   end;
 
@@ -175,17 +180,37 @@ implementation
 {$R *.dfm}
 
 uses
-  Natia.Theme;
+  Natia.Theme,
+  Natia.Visual.Bootstrap,
+  Natia.Visual.Logging,
+  Natia.Visual.Types,
+  Natia.Visual.Registry;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   FNavExpanded := True;
   FCurrentModule := nmHome;
+
+  VisualLogSetHandler(
+    procedure(ALevel: TVisualLogLevel; const AMessage: string)
+    begin
+      if (memLogs <> nil) and not (csDestroying in ComponentState) then
+        memLogs.Lines.Add(FormatDateTime('[hh:nn:ss] ', Now) + AMessage);
+    end);
+
+  try
+    InitVisualAssets;
+  except
+    on E: Exception do
+      memLogs.Lines.Add('[VAR] init error: ' + E.Message);
+  end;
+
   ApplyTheme;
   ApplyMockChrome;
   ApplyMockConsole;
   ApplyMockInspector;
   ApplyMockStatus;
+  ApplyNavIcons;
   frameDashboard.ApplyMockData;
   frameChat.ApplyMockData;
   frameNemo.ApplyMockData;
@@ -194,14 +219,58 @@ begin
   frameMarketplace.ApplyMockData;
   frameDevices.ApplyMockData;
   frameAutomations.ApplyMockData;
+  frameVisualAssets.ApplyDemo;
   ShowModule(nmHome);
   tmrClock.Enabled := True;
   tmrClockTimer(nil);
 end;
 
+procedure TfrmMain.FormDestroy(Sender: TObject);
+begin
+  VisualLogSetHandler(nil);
+  ShutdownVisualAssets;
+end;
+
 procedure TfrmMain.FormResize(Sender: TObject);
 begin
   { Layout uses Align/Splitters — reserved for future docking. }
+end;
+
+function TfrmMain.CurrentDpi: Integer;
+begin
+  Result := Screen.PixelsPerInch;
+  if Result < 1 then
+    Result := 96;
+end;
+
+procedure TfrmMain.AssignNavIcon(ABtn: TSpeedButton; const AAssetId: string);
+var
+  Resolved: TResolvedVisualAsset;
+begin
+  if VisualAssets = nil then
+    Exit;
+  Resolved := VisualAssets.ResolveIcon(AAssetId, 20, CurrentDpi);
+  try
+    ABtn.Glyph.Assign(Resolved.Bitmap);
+    ABtn.NumGlyphs := 1;
+    ABtn.Caption := '';
+    ABtn.Layout := blGlyphTop;
+  finally
+    Resolved.Free;
+  end;
+end;
+
+procedure TfrmMain.ApplyNavIcons;
+begin
+  { Migrated nav glyphs via VAR (logical ids, not SVG paths). }
+  AssignNavIcon(btnNavHome, 'phosphor://house/regular');
+  AssignNavIcon(btnNavProjects, 'phosphor://folder-open/duotone');
+  AssignNavIcon(btnNavAgents, 'phosphor://robot/duotone');
+  AssignNavIcon(btnNavNemo, 'phosphor://brain/duotone');
+  AssignNavIcon(btnNavTools, 'phosphor://wrench/regular');
+  AssignNavIcon(btnNavSettings, 'phosphor://gear/regular');
+  AssignNavIcon(btnNavHelp, 'phosphor://magnifying-glass/regular');
+  btnNavHelp.Hint := 'Visual Asset Registry';
 end;
 
 procedure TfrmMain.ApplyTheme;
@@ -277,13 +346,13 @@ begin
   btnSave.Caption := 'Guardar';
   btnRun.Caption := 'Ejecutar';
 
-  btnNavHome.Hint := 'Home';
+  btnNavHome.Hint := 'Inicio';
   btnNavWorkspace.Hint := 'Workspace';
   btnNavChats.Hint := 'Chats';
-  btnNavNemo.Hint := 'NEMO';
-  btnNavProjects.Hint := 'Projects';
-  btnNavAgents.Hint := 'Agents';
-  btnNavTools.Hint := 'Tools';
+  btnNavNemo.Hint := 'Memoria (NEMO)';
+  btnNavProjects.Hint := 'Iniciativas';
+  btnNavAgents.Hint := 'Agentes';
+  btnNavTools.Hint := 'Herramientas';
   btnNavExtensions.Hint := 'Extensions';
   btnNavTasks.Hint := 'Tasks';
   btnNavNotifications.Hint := 'Notifications';
@@ -291,8 +360,8 @@ begin
   btnNavDevices.Hint := 'Device Manager';
   btnNavRemote.Hint := 'Remote Systems';
   btnNavAutomations.Hint := 'Automations';
-  btnNavSettings.Hint := 'Settings';
-  btnNavHelp.Hint := 'Help';
+  btnNavSettings.Hint := 'Ajustes';
+  btnNavHelp.Hint := 'Visual Asset Registry';
   btnNavToggle.Hint := 'Colapsar barra lateral';
   ShowHint := True;
 end;
@@ -387,6 +456,7 @@ begin
   frameMarketplace.Visible := False;
   frameDevices.Visible := False;
   frameAutomations.Visible := False;
+  frameVisualAssets.Visible := False;
 end;
 
 procedure TfrmMain.ShowModule(AModule: TNavModule);
@@ -441,7 +511,13 @@ begin
         frameAutomations.Visible := True;
         frameAutomations.BringToFront;
       end;
-    nmAgents, nmTasks, nmNotifications, nmSettings, nmHelp:
+    nmHelp:
+      begin
+        frameVisualAssets.Visible := True;
+        frameVisualAssets.BringToFront;
+        lblExplorer.Caption := 'Explorer · Visual Asset Registry';
+      end;
+    nmAgents, nmTasks, nmNotifications, nmSettings:
       begin
         frameDashboard.Visible := True;
         frameDashboard.BringToFront;
@@ -451,7 +527,6 @@ begin
           nmTasks: lblExplorer.Caption := 'Explorer · Tasks';
           nmNotifications: lblExplorer.Caption := 'Explorer · Notifications';
           nmSettings: lblExplorer.Caption := 'Explorer · Settings';
-          nmHelp: lblExplorer.Caption := 'Explorer · Help';
         end;
       end;
   end;
@@ -547,6 +622,14 @@ begin
           treeExplorer.Items.AddChild(Root, 'Architect');
           treeExplorer.Items.AddChild(Root, 'Coder');
           treeExplorer.Items.AddChild(Root, 'Reviewer');
+        end;
+      nmHelp:
+        begin
+          lblExplorer.Caption := 'Explorer · Visual Asset Registry';
+          Root := treeExplorer.Items.Add(nil, 'VAR 0.1');
+          treeExplorer.Items.AddChild(Root, 'phosphor://');
+          treeExplorer.Items.AddChild(Root, 'Galería demo');
+          treeExplorer.Items.AddChild(Root, 'Caché / fallback');
         end;
     else
       begin
@@ -649,6 +732,7 @@ begin
     'NATIA Studio'#13#10 +
     'Cliente de referencia nativo · Sprint 0 (embrión visual)'#13#10 +
     'Cognitive workspace para Inteligencia Artificial'#13#10 +
+    'VAR 0.1: iconos Phosphor vía Visual Asset Registry'#13#10 +
     'Sin integraciones reales.');
 end;
 

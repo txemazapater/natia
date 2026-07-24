@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "defaultSize": 24,
+  "defaultWeight": "duotone",
+  "icons": [
+    "robot",
+    "brain",
+    "database",
+    "terminal",
+    "folder",
+    "gear",
+    "warning",
+    "play",
+    "stop",
+    "magnifying-glass"
+  ]
+}
